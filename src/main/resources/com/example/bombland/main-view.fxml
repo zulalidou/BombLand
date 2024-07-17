@@ -8,5 +8,5 @@
     <Label text="BombLand"/>
     <Button text="PLAY"/>
     <Button text="INSTRUCTIONS"/>
-    <Button text="EXIT"/>
+    <Button text="EXIT" onAction="#closeApp"/>
 </VBox>
