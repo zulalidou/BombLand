@@ -6,7 +6,7 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.MainController">
     <Label text="BombLand"/>
-    <Button text="PLAY"/>
+    <Button text="PLAY" onAction="#openPlayPage"/>
     <Button text="INSTRUCTIONS" onAction="#openInstructionsPage"/>
     <Button text="EXIT" onAction="#closeApp"/>
 </VBox>
