@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Button?>
 
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.MainController">
-    <Label text="BombLand"/>
+    <Label fx:id="appNameLbl" text="BombLand"/>
     <Button text="PLAY" onAction="#openPlayPage"/>
     <Button text="INSTRUCTIONS" onAction="#openInstructionsPage"/>
     <Button text="EXIT" onAction="#closeApp"/>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import java.net.URL?>
+
+<?import javafx.scene.image.ImageView?>
+
+
+<!--<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController">-->
+<VBox fx:id="pageContainer" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController">
+    <stylesheets>
+        <URL value="@../CSS/play.css"/>
+    </stylesheets>
+
+    <Label fx:id="titlePageLbl" id="aaa" text="THIS IS THE PLAY PAGE"/>
+    <Button text="Back btn" onAction="#goToMainMenu"/>
+    <Label fx:id="timeElapsedLbl" text="0 seconds"/>
+
+<!--    <VBox>-->
+<!--        <VBox>-->
+<!--            <ImageView/>-->
+<!--            <Label/>-->
+<!--            <Button/>-->
+<!--            <Button/>-->
+<!--        </VBox>-->
+<!--    </VBox>-->
+
+<!--    <Button text="LUFFY" id="asdf"/>-->
+<!--    <Button text="straw-hat" id="qwer"/>-->
+</VBox>

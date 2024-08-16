@@ -1,0 +1,15 @@
+.button {
+    -fx-background-size: 150%;
+    -fx-background-position: center center;
+}
+
+#aaa {
+    -fx-background-color: red;
+}
+
+/*
+#asdf {
+    display: none;
+    -fx-background-color: coral;
+}
+*/
