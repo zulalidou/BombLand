@@ -3,10 +3,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
+<?import java.net.URL?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.MainController">
-    <Label fx:id="appNameLbl" text="BombLand"/>
-    <Button text="PLAY" onAction="#openPlayPage"/>
-    <Button text="INSTRUCTIONS" onAction="#openInstructionsPage"/>
-    <Button text="EXIT" onAction="#closeApp"/>
+<VBox fx:id="mainMenuPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.MainController">
+    <stylesheets>
+        <URL value="@../CSS/main-view.css"/>
+    </stylesheets>
+
+    <VBox id="mainMenuOptionsContainer" spacing="20">
+        <Label text="BOMBLAND"/>
+        <Button text="PLAY" onAction="#openPlayPage"/>
+        <Button text="INSTRUCTIONS" onAction="#openInstructionsPage"/>
+        <Button text="EXIT" onAction="#closeApp"/>
+    </VBox>
 </VBox>

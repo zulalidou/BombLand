@@ -1,23 +1,17 @@
 package com.example.bombland;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        System.out.println("Initial stage: " + stage);
-
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("FXML/main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 500);
-        stage.setTitle("BombLand!");
+        stage.setTitle("BOMBLAND");
         stage.setScene(scene);
         stage.show();
     }

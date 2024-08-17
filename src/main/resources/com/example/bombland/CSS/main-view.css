@@ -1,0 +1,20 @@
+#mainMenuPage {
+    -fx-alignment: center;
+}
+
+#mainMenuOptionsContainer {
+    -fx-pref-width: 600px;
+    -fx-alignment: center;
+}
+
+.label {
+    -fx-font-size: 100px;
+}
+
+.button {
+    -fx-font-size: 30px;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+}
