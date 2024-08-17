@@ -12,6 +12,8 @@ public class Tile {
     int surroundingBombs;
     Button tileBtn;
 
+    boolean isFlagged;
+
     enum TileValue {
         UNKNOWN,
         EMPTY,
@@ -27,5 +29,6 @@ public class Tile {
         row = col = -1;
         surroundingBombs = 0;
         tileBtn = tb;
+        isFlagged = false;
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -104,25 +105,47 @@ public class PlayController {
                 tileBtn.setOnAction(actionEvent -> {
                     Tile tileObj = gridObjects.get(new Pair<Integer, Integer>(finalRow, finalCol));
 
-                    if (!gameStarted) {
-                        startTime = System.currentTimeMillis();
-                        startTimer();
+                    if (!tileObj.isFlagged) {
+                        if (!gameStarted) {
+                            startTime = System.currentTimeMillis();
+                            startTimer();
 
-                        System.out.println("FIRST CLICK REGISTERED");
-                        gameStarted = true;
+                            System.out.println("FIRST CLICK REGISTERED");
+                            gameStarted = true;
 
-//                    value = TileValue.EMPTY;
+        //                    value = TileValue.EMPTY;
 
-                        tileObj.value = Tile.TileValue.EMPTY;
-                        gridObjects.put(new Pair<Integer, Integer>(finalRow, finalCol), tileObj);
+                            tileObj.value = Tile.TileValue.EMPTY;
+                            gridObjects.put(new Pair<Integer, Integer>(finalRow, finalCol), tileObj);
 
-                        setupGrid(tileObj);
+                            setupGrid(tileObj);
+                        }
+
+                        try {
+                            handleTileClick(tileObj);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
+                });
 
-                    try {
-                        handleTileClick(tileObj);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                tileBtn.setOnMouseClicked(event -> {
+                    if (event.getButton() == MouseButton.SECONDARY) {
+                        System.out.println("RIGHT CLICK DETECTED!!");
+                        System.out.println("row = " + finalRow + ", col = " + finalCol);
+
+                        Tile tileObj = gridObjects.get(new Pair<Integer, Integer>(finalRow, finalCol));
+
+                        if (tileObj.isCovered) {
+                            if (tileObj.isFlagged) {
+                                tileObj.isFlagged = false;
+                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\");");
+                            }
+                            else {
+                                tileObj.isFlagged = true;
+                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\"), url(\"/com/example/bombland/images/red-flag.png\");");
+                            }
+                        }
                     }
                 });
 
