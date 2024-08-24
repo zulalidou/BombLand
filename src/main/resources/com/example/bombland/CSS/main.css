@@ -5,6 +5,7 @@
 #mainMenuOptionsContainer {
     -fx-pref-width: 600px;
     -fx-alignment: center;
+    -fx-background-color: green;
 }
 
 .label {

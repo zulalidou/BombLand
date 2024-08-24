@@ -1,0 +1,41 @@
+#instructionsContainer {
+    -fx-padding: 10px;
+    -fx-pref-width: 600px;
+    -fx-pref-height: 500px;
+}
+
+
+.button {
+    -fx-font-size: 15px;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+}
+
+#instructionsContainer_middleChild {
+    -fx-alignment: center;
+}
+
+#instructionsPage_title {
+    -fx-font-size: 40px;
+    -fx-wrap-text: true;
+    -fx-font-weight: bold;
+}
+
+
+.label {
+    -fx-font-size: 20px;
+    -fx-wrap-text: true;
+}
+
+#section1_titleLbl {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+}
+
+
+.instructions-img-text {
+    -fx-text-alignment: center;
+}
+

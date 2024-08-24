@@ -7,7 +7,7 @@
 
 <VBox fx:id="mainMenuPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.MainController">
     <stylesheets>
-        <URL value="@../CSS/main-view.css"/>
+        <URL value="@../CSS/main.css"/>
     </stylesheets>
 
     <VBox id="mainMenuOptionsContainer" spacing="20">
