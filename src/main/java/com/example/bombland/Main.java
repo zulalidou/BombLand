@@ -12,6 +12,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("FXML/main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 500);
         stage.setTitle("BOMBLAND");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
