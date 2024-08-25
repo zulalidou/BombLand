@@ -47,7 +47,7 @@ public class PlayController {
     VBox pageContainer;
 
     @FXML
-    Label totalBombsLbl, flagsLeftLbl, timeElapsedLbl;
+    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl;
 
     @FXML
     HBox gridContainer;
@@ -56,6 +56,8 @@ public class PlayController {
 
     static long startTime;
     static long gameDuration;
+
+    static int flagsSet;
 
     private static ScheduledExecutorService  taskScheduler;
 
@@ -69,6 +71,7 @@ public class PlayController {
         tilesEliminated = new HashMap<>();
         bombCoordinates = new ArrayList<>();
         tilesUncovered = 0;
+        flagsSet = 0;
 
         startTime = 0;
         gameDuration = 0;
@@ -140,11 +143,15 @@ public class PlayController {
                             if (tileObj.isFlagged) {
                                 tileObj.isFlagged = false;
                                 tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\");");
+                                flagsSet -= 1;
                             }
                             else {
                                 tileObj.isFlagged = true;
                                 tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\"), url(\"/com/example/bombland/images/red-flag.png\"); -fx-background-size: 150%, 60%; -fx-background-repeat: no-repeat, no-repeat;");
+                                flagsSet += 1;
                             }
+
+                            flagsLeftLbl.setText((bombs - flagsSet) + " flags left");
                         }
                     }
                 });
@@ -199,6 +206,8 @@ public class PlayController {
         gameDuration = 0;
         timeElapsedLbl.setText("0 seconds");
         taskScheduler = Executors.newScheduledThreadPool(1);
+        flagsSet = 0;
+        flagsLeftLbl.setText("10 flags left");
         System.out.println("~~~~~tilesUncovered: " + tilesUncovered);
     }
 
@@ -411,6 +420,11 @@ public class PlayController {
     }
 
     void uncoverTile(Tile tile) {
+        if (tile.isFlagged) {
+            flagsSet--;
+            flagsLeftLbl.setText((bombs - flagsSet) + " flags left");
+        }
+
         if (tile.value == Tile.TileValue.EMPTY) {
             tile.backgroundFile = ((tile.backgroundFile == "darkgreen.png") ? "tan.png" : "blanchedalmond.png");
             tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\");");
