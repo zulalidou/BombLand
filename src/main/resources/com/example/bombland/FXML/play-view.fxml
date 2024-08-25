@@ -4,29 +4,32 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
 <?import java.net.URL?>
-
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
 
-
-<!--<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController">-->
 <VBox fx:id="pageContainer" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController">
     <stylesheets>
         <URL value="@../CSS/play.css"/>
     </stylesheets>
 
-    <Label fx:id="titlePageLbl" id="aaa" text="THIS IS THE PLAY PAGE"/>
-    <Button text="Back btn" onAction="#goToMainMenu"/>
-    <Label fx:id="timeElapsedLbl" text="0 seconds"/>
+    <HBox fx:id="aaa">
+        <Button id="backBtn" onAction="#goToMainMenu">
+            <graphic>
+                <ImageView fitWidth="20" preserveRatio="true">
+                    <image>
+                        <Image url="/com/example/bombland/images/back-button.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
 
-<!--    <VBox>-->
-<!--        <VBox>-->
-<!--            <ImageView/>-->
-<!--            <Label/>-->
-<!--            <Button/>-->
-<!--            <Button/>-->
-<!--        </VBox>-->
-<!--    </VBox>-->
+        <Label fx:id="totalBombsLbl" text="10 Bombs" HBox.hgrow="ALWAYS"/>
 
-<!--    <Button text="LUFFY" id="asdf"/>-->
-<!--    <Button text="straw-hat" id="qwer"/>-->
+        <Label fx:id="timeElapsedLbl" text="0 seconds"/>
+
+        <Label fx:id="flagsLeftLbl" text="10 flags left" HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <HBox fx:id="gridContainer" alignment="CENTER"/>
 </VBox>

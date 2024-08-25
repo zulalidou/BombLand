@@ -47,10 +47,10 @@ public class PlayController {
     VBox pageContainer;
 
     @FXML
-    Label titlePageLbl;
+    Label totalBombsLbl, flagsLeftLbl, timeElapsedLbl;
 
     @FXML
-    Label timeElapsedLbl;
+    HBox gridContainer;
 
     static int tilesUncovered;
 
@@ -80,7 +80,7 @@ public class PlayController {
     private void goToMainMenu(ActionEvent event) throws IOException {
         endTimer();
 
-        ScreenController screenController = new ScreenController(titlePageLbl.getScene());
+        ScreenController screenController = new ScreenController(pageContainer.getScene());
         screenController.removeScreen("play");
 
         screenController.addScreen("main", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/main-view.fxml")));
@@ -97,8 +97,8 @@ public class PlayController {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
                 tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + (evenTile ? "lightgreen.png" : "darkgreen.png") + "\");");
-                tileBtn.setPrefHeight(50);
-                tileBtn.setPrefWidth(50);
+                tileBtn.setPrefHeight(100);
+                tileBtn.setPrefWidth(80);
 
                 int finalRow = row;
                 int finalCol = col;
@@ -143,7 +143,7 @@ public class PlayController {
                             }
                             else {
                                 tileObj.isFlagged = true;
-                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\"), url(\"/com/example/bombland/images/red-flag.png\");");
+                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\"), url(\"/com/example/bombland/images/red-flag.png\"); -fx-background-size: 150%, 60%; -fx-background-repeat: no-repeat, no-repeat;");
                             }
                         }
                     }
@@ -180,10 +180,19 @@ public class PlayController {
         }
         */
 
+
         grid.setGridLinesVisible(true);
         System.out.println("\n\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:");
         System.out.println(grid.isGridLinesVisible());
-        pageContainer.getChildren().add(grid);
+//        pageContainer.getChildren().add(grid);
+        gridContainer.getChildren().add(grid);
+
+        HBox.setHgrow(gridContainer, Priority.ALWAYS);
+//        grid.setStyle("-fx-pref-width: 500px");
+
+
+
+
 
         tilesUncovered = 0;
         startTime = 0;
@@ -412,7 +421,7 @@ public class PlayController {
         }
         else { // bomb tile
             tile.backgroundFile = "red.png";
-            tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/red.png\"), url(\"/com/example/bombland/images/bomb.png\");");
+            tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/red.png\"), url(\"/com/example/bombland/images/bomb.png\"); -fx-background-size: 150%, 80%; -fx-background-repeat: no-repeat, no-repeat;");
         }
 
         tile.isCovered = false;
@@ -449,7 +458,7 @@ public class PlayController {
                 break;
         }
 
-        tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\"), url(\"/com/example/bombland/images/" + numberFile + "\");");
+        tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\"), url(\"/com/example/bombland/images/" + numberFile + "\"); -fx-background-size: 150%, 80%;");
     }
 
     void gameOver() {
@@ -517,7 +526,8 @@ public class PlayController {
         System.out.println("clearGrid() called");
         gameStarted = false;
         grid.getChildren().clear();
-        pageContainer.getChildren().remove(3);
+//        pageContainer.getChildren().remove(1);
+        gridContainer.getChildren().remove(0);
         gridObjects = new HashMap<>();
         tilesEliminated = new HashMap<>();
         bombCoordinates = new ArrayList<>();

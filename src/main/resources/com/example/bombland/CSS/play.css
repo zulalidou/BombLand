@@ -1,15 +1,32 @@
+#pageContainer {
+}
+
+
+
+#backBtn {
+    -fx-font-size: 15px;
+}
+
+#backBtn:hover {
+    -fx-cursor: hand;
+}
+
 .button {
     -fx-background-size: 150%;
     -fx-background-position: center center;
 }
 
-#aaa {
-    -fx-background-color: red;
+
+#totalBombsLbl,
+#flagsLeftLbl,
+#timeElapsedLbl {
+    -fx-pref-width: 260px;
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-background-color: #92FFB7;
 }
 
-/*
-#asdf {
-    display: none;
-    -fx-background-color: coral;
+
+#gridContainer {
 }
-*/
