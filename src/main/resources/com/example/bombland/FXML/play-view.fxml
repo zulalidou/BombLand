@@ -7,29 +7,50 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 
-<VBox fx:id="pageContainer" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController">
+<VBox fx:id="pageContainer" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController" alignment="CENTER">
     <stylesheets>
         <URL value="@../CSS/play.css"/>
     </stylesheets>
 
-    <HBox fx:id="aaa">
-        <Button id="backBtn" onAction="#goToMainMenu">
-            <graphic>
-                <ImageView fitWidth="20" preserveRatio="true">
+    <StackPane>
+        <VBox fx:id="stackpane_child1">
+            <HBox>
+                <Button id="backBtn" onAction="#goToMainMenu">
+                    <graphic>
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="/com/example/bombland/images/back-button.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Label fx:id="totalBombsLbl" text="10 Bombs" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="timeElapsedLbl" text="0 seconds"/>
+                <Label fx:id="flagsLeftLbl" text="10 flags left" HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <HBox fx:id="gridContainer"></HBox>
+        </VBox>
+
+        <VBox fx:id="gameLostPopup" managed="false" visible="false">
+            <Label fx:id="gameLostPopup_title"/>
+            <VBox alignment="CENTER">
+                <ImageView fitWidth="85" fitHeight="85"  preserveRatio="true">
                     <image>
-                        <Image url="/com/example/bombland/images/back-button.png"/>
+                        <Image url="/com/example/bombland/images/timer.png"/>
                     </image>
                 </ImageView>
-            </graphic>
-        </Button>
+            </VBox>
 
-        <Label fx:id="totalBombsLbl" text="10 Bombs" HBox.hgrow="ALWAYS"/>
+            <Label fx:id="gameLostPopup_timeTaken" text="placeholder"/>
 
-        <Label fx:id="timeElapsedLbl" text="0 seconds"/>
-
-        <Label fx:id="flagsLeftLbl" text="10 flags left" HBox.hgrow="ALWAYS"/>
-    </HBox>
-
-    <HBox fx:id="gridContainer" alignment="CENTER"/>
+            <HBox fx:id="gameLostPopup_buttonsContainer" alignment="CENTER">
+                <Button id="tryAgainBtn" text="Try Again" onAction="#tryAgain"/>
+                <Button id="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
+            </HBox>
+        </VBox>
+    </StackPane>
 </VBox>

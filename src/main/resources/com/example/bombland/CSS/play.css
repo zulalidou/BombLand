@@ -28,5 +28,75 @@
 }
 
 
-#gridContainer {
+
+
+
+
+
+#gameLostPopup {
+    -fx-background-color: white;
+    -fx-background-radius: 15px;
+}
+
+#gameLostPopup_title {
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
+    -fx-pref-width: 250px;
+    -fx-alignment: center;
+}
+
+
+#gameLostPopup_timeTaken {
+    -fx-font-size: 20px;
+    -fx-pref-width: 250px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#tryAgainBtn {
+    -fx-background-color: #9AFE9A;
+    -fx-font-size: 15px;
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+}
+
+#tryAgainBtn:hover {
+    -fx-cursor: hand;
+    -fx-border-color: red;
+}
+
+
+#mainMenuBtn {
+    -fx-background-color: #FF7C7C;
+    -fx-font-size: 15px;
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+}
+
+#mainMenuBtn:hover {
+    -fx-cursor: hand;
+    -fx-border-color: red;
 }
