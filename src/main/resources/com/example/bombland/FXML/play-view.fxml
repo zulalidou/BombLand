@@ -36,7 +36,7 @@
         </VBox>
 
         <VBox fx:id="gameLostPopup" managed="false" visible="false">
-            <Label fx:id="gameLostPopup_title"/>
+            <Label id="gameLostPopup_title" text="GAME OVER"/>
             <VBox alignment="CENTER">
                 <ImageView fitWidth="85" fitHeight="85"  preserveRatio="true">
                     <image>
@@ -48,8 +48,26 @@
             <Label fx:id="gameLostPopup_timeTaken" text="placeholder"/>
 
             <HBox fx:id="gameLostPopup_buttonsContainer" alignment="CENTER">
-                <Button id="tryAgainBtn" text="Try Again" onAction="#tryAgain"/>
-                <Button id="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
+                <Button styleClass="playAgainBtn" text="Play Again" onAction="#playAgain"/>
+                <Button styleClass="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
+            </HBox>
+        </VBox>
+
+        <VBox fx:id="gameWonPopup" managed="false" visible="false">
+            <Label id="gameWonPopup_title" text="CONGRATS"/>
+            <VBox alignment="CENTER">
+                <ImageView fitWidth="85" fitHeight="85"  preserveRatio="true">
+                    <image>
+                        <Image url="/com/example/bombland/images/timer.png"/>
+                    </image>
+                </ImageView>
+            </VBox>
+
+            <Label fx:id="gameWonPopup_timeTaken" text="placeholder"/>
+
+            <HBox fx:id="gameWonPopup_buttonsContainer" alignment="CENTER">
+                <Button styleClass="playAgainBtn" text="Play Again" onAction="#playAgain"/>
+                <Button styleClass="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
             </HBox>
         </VBox>
     </StackPane>

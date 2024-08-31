@@ -1,8 +1,3 @@
-#pageContainer {
-}
-
-
-
 #backBtn {
     -fx-font-size: 15px;
 }
@@ -28,25 +23,20 @@
 }
 
 
-
-
-
-
-
-#gameLostPopup {
+#gameLostPopup, #gameWonPopup {
     -fx-background-color: white;
     -fx-background-radius: 15px;
 }
 
-#gameLostPopup_title {
+
+#gameLostPopup_title, #gameWonPopup_title {
     -fx-font-weight: bold;
     -fx-font-size: 25px;
     -fx-pref-width: 250px;
     -fx-alignment: center;
 }
 
-
-#gameLostPopup_timeTaken {
+#gameLostPopup_timeTaken, #gameWonPopup_timeTaken {
     -fx-font-size: 20px;
     -fx-pref-width: 250px;
     -fx-alignment: center;
@@ -54,49 +44,26 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#tryAgainBtn {
+.playAgainBtn {
     -fx-background-color: #9AFE9A;
     -fx-font-size: 15px;
     -fx-border-color: transparent;
     -fx-border-width: 2px;
 }
 
-#tryAgainBtn:hover {
+.playAgainBtn:hover {
     -fx-cursor: hand;
     -fx-border-color: red;
 }
 
-
-#mainMenuBtn {
+.mainMenuBtn {
     -fx-background-color: #FF7C7C;
     -fx-font-size: 15px;
     -fx-border-color: transparent;
     -fx-border-width: 2px;
 }
 
-#mainMenuBtn:hover {
+.mainMenuBtn:hover {
     -fx-cursor: hand;
     -fx-border-color: red;
 }

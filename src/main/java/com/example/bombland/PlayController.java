@@ -1,96 +1,60 @@
 package com.example.bombland;
 
 import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Pair;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public class PlayController {
-    static boolean gameStarted;
-    static int bombs;
+    static boolean gameStarted, gameLost;
+    static int bombs, tilesUncovered, flagsSet, rows, cols;
+
     static GridPane grid;
     static HashMap<Pair<Integer, Integer>, Tile> gridObjects;
-
-    static int rows;
-    static int cols;
     static HashMap<Integer, HashSet<Integer>> tilesEliminated;
     static ArrayList<Pair<Integer, Integer>> bombCoordinates;
 
-    @FXML
-    VBox pageContainer;
-
-    @FXML
-    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl;
-
-    @FXML
-    HBox gridContainer;
-
-    static int tilesUncovered;
-
-    static long startTime;
-    static long gameDuration;
-
-    static int flagsSet;
+    static long startTime, gameDuration;
 
     private static ScheduledExecutorService  taskScheduler;
 
     @FXML
-    Label abc;
-
-    static boolean gameLost;
+    VBox pageContainer, stackpane_child1, gameLostPopup, gameWonPopup;
 
     @FXML
-    VBox stackpane_child1, gameLostPopup;
+    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken;
 
     @FXML
-    Label gameLostPopup_title, gameLostPopup_timeTaken;
+    HBox gridContainer, gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer;
 
-    @FXML
-    HBox gameLostPopup_buttonsContainer;
 
     public PlayController() {
-        gameStarted = false;
+        gameStarted = gameLost = false;
+
         bombs = 10;
-        grid = new GridPane();
-        gridObjects = new HashMap<>();
-        rows = 8;
-        cols = 10;
-        tilesEliminated = new HashMap<>();
-        bombCoordinates = new ArrayList<>();
         tilesUncovered = 0;
         flagsSet = 0;
+        rows = 8;
+        cols = 10;
 
-        startTime = 0;
-        gameDuration = 0;
+        grid = new GridPane();
+        gridObjects = new HashMap<>();
+        tilesEliminated = new HashMap<>();
+        bombCoordinates = new ArrayList<>();
+
+        startTime = gameDuration = 0;
         taskScheduler = Executors.newScheduledThreadPool(1);
-        gameLost = false;
     }
 
 
@@ -108,7 +72,6 @@ public class PlayController {
     @FXML
     public void initialize() throws FileNotFoundException {
         boolean evenTile = true;
-
 
         // Creates a grid of 8 rows and 10 columns
         for (int row = 0; row < rows; row++) {
@@ -206,7 +169,6 @@ public class PlayController {
         grid.setGridLinesVisible(true);
         System.out.println("\n\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:");
         System.out.println(grid.isGridLinesVisible());
-//        pageContainer.getChildren().add(grid);
         gridContainer.getChildren().add(grid);
 
         HBox.setHgrow(gridContainer, Priority.ALWAYS);
@@ -386,6 +348,7 @@ public class PlayController {
                     System.out.println("\n\nGAME WON!!");
                     System.out.println("tilesUncovered: " + tilesUncovered);
 
+                    gameLost = false;
                     endTimer();
                     gameWon();
                 }
@@ -398,6 +361,7 @@ public class PlayController {
                     System.out.println("\n\nGAME WON!!");
                     System.out.println("tilesUncovered: " + tilesUncovered);
 
+                    gameLost = false;
                     endTimer();
                     gameWon();
                 }
@@ -508,19 +472,45 @@ public class PlayController {
         gameLostPopup.setMaxWidth(250);
         gameLostPopup.setMaxHeight(250);
 
-        gameLostPopup_title.setText(gameLost ? "GAME OVER" : "CONGRATULATIONS");
         gameLostPopup_timeTaken.setText(gameDuration + " seconds");
 
         VBox.setVgrow(gameLostPopup_buttonsContainer, Priority.ALWAYS);
         gameLostPopup_buttonsContainer.setSpacing(25);
     }
 
+    void gameWon() {
+        stackpane_child1.setEffect(new GaussianBlur()); // blurs gameplay page
+        stackpane_child1.setMouseTransparent(true); // makes items in gameplay page "unclickable"
 
+        gameWonPopup.setManaged(true);
+        gameWonPopup.setVisible(true);
+        gameWonPopup.setMaxWidth(250);
+        gameWonPopup.setMaxHeight(250);
+
+        gameWonPopup_timeTaken.setText(gameDuration + " seconds");
+
+        VBox.setVgrow(gameWonPopup_buttonsContainer, Priority.ALWAYS);
+        gameWonPopup_buttonsContainer.setSpacing(25);
+    }
 
     @FXML
-    void tryAgain() {
-        gameLostPopup.setManaged(false);
-        gameLostPopup.setVisible(false);
+    void playAgain() {
+        System.out.println("\n\nqqqqqq");
+        System.out.println("playAgain()");
+
+        if (gameLost) {
+            System.out.println("== lost");
+
+            gameLostPopup.setManaged(false);
+            gameLostPopup.setVisible(false);
+        }
+        else {
+            System.out.println("== won");
+
+            gameWonPopup.setManaged(false);
+            gameWonPopup.setVisible(false);
+        }
+
         stackpane_child1.setEffect(null);
         stackpane_child1.setMouseTransparent(false); // makes items in gameplay page "clickable"
 
@@ -532,68 +522,13 @@ public class PlayController {
         }
     }
 
-
-
     public void clearGrid() throws FileNotFoundException {
         System.out.println("clearGrid() called");
         gameStarted = false;
         grid.getChildren().clear();
-//        pageContainer.getChildren().remove(1);
         gridContainer.getChildren().remove(0);
         gridObjects = new HashMap<>();
         tilesEliminated = new HashMap<>();
         bombCoordinates = new ArrayList<>();
-    }
-
-    void gameWon() {
-        pageContainer.setEffect(new GaussianBlur());
-        Stage primaryStage = (Stage) pageContainer.getScene().getWindow();
-
-        VBox popupModal = new VBox();
-        Label titleLbl = new Label("~~~ CONGRATS! ~~~");
-        ImageView timerImg = new ImageView("file:src/main/resources/com/example/bombland/Images/timer.png");
-        Label timeTakenLbl = new Label(gameDuration + " seconds");
-        Button newGameBtn = new Button("New Game");
-        Button mainMenuBtn = new Button("Main Menu");
-        popupModal.getChildren().addAll(titleLbl, timerImg, timeTakenLbl, newGameBtn, mainMenuBtn);
-
-        Stage stage = new Stage(StageStyle.TRANSPARENT);
-        stage.initOwner(primaryStage);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(new Scene(popupModal));
-
-
-        newGameBtn.setOnAction(event -> {
-            System.out.println("NEW GAME called");
-            stage.hide();
-            pageContainer.setEffect(null);
-
-            try {
-                clearGrid();
-                initialize();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        mainMenuBtn.setOnAction(event -> {
-            System.out.println("MAIN MENU called");
-            stage.hide();
-            pageContainer.setEffect(null);
-
-            ScreenController screenController = new ScreenController(grid.getScene());
-
-            try {
-                screenController.addScreen("main", FXMLLoader.load(getClass().getResource( "/com/example/bombland/FXML/main-view.fxml" )));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            screenController.activate("main");
-        });
-
-        stage.show();
-
-        System.out.println("Time passed = " + gameDuration);
     }
 }
