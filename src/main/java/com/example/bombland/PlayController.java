@@ -40,21 +40,9 @@ public class PlayController {
 
 
     public PlayController() {
-        gameStarted = gameLost = false;
-
         bombs = 10;
-        tilesUncovered = 0;
-        flagsSet = 0;
         rows = 8;
         cols = 10;
-
-        grid = new GridPane();
-        gridObjects = new HashMap<>();
-        tilesEliminated = new HashMap<>();
-        bombCoordinates = new ArrayList<>();
-
-        startTime = gameDuration = 0;
-        taskScheduler = Executors.newScheduledThreadPool(1);
     }
 
 
@@ -69,11 +57,28 @@ public class PlayController {
         screenController.activate("main");
     }
 
+
     @FXML
     public void initialize() throws FileNotFoundException {
+        gameStarted = gameLost = false;
+        tilesUncovered = flagsSet = 0;
+
+        grid = new GridPane();
+        gridObjects = new HashMap<>();
+        tilesEliminated = new HashMap<>();
+        bombCoordinates = new ArrayList<>();
+
+        startTime = gameDuration = 0;
+
+        taskScheduler = Executors.newScheduledThreadPool(1);
+
+        timeElapsedLbl.setText("0 seconds");
+        flagsLeftLbl.setText("10 flags left");
+
+
         boolean evenTile = true;
 
-        // Creates a grid of 8 rows and 10 columns
+        // Creates a grid of X rows and Y columns
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
@@ -81,23 +86,22 @@ public class PlayController {
                 tileBtn.setPrefHeight(100);
                 tileBtn.setPrefWidth(80);
 
-                int finalRow = row;
-                int finalCol = col;
+                int tileRow = row;
+                int tileCol = col;
+
+                // Handles left clicks on the tiles
                 tileBtn.setOnAction(actionEvent -> {
-                    Tile tileObj = gridObjects.get(new Pair<Integer, Integer>(finalRow, finalCol));
+                    Tile tileObj = gridObjects.get(new Pair<>(tileRow, tileCol));
 
                     if (!tileObj.isFlagged) {
                         if (!gameStarted) {
                             startTime = System.currentTimeMillis();
                             startTimer();
 
-                            System.out.println("FIRST CLICK REGISTERED");
                             gameStarted = true;
 
-        //                    value = TileValue.EMPTY;
-
                             tileObj.value = Tile.TileValue.EMPTY;
-                            gridObjects.put(new Pair<Integer, Integer>(finalRow, finalCol), tileObj);
+                            gridObjects.put(new Pair<>(tileRow, tileCol), tileObj);
 
                             setupGrid(tileObj);
                         }
@@ -110,12 +114,10 @@ public class PlayController {
                     }
                 });
 
+                // Handles right clicks on the tiles
                 tileBtn.setOnMouseClicked(event -> {
                     if (event.getButton() == MouseButton.SECONDARY) {
-                        System.out.println("RIGHT CLICK DETECTED!!");
-                        System.out.println("row = " + finalRow + ", col = " + finalCol);
-
-                        Tile tileObj = gridObjects.get(new Pair<Integer, Integer>(finalRow, finalCol));
+                        Tile tileObj = gridObjects.get(new Pair<>(tileRow, tileCol));
 
                         if (tileObj.isCovered) {
                             if (tileObj.isFlagged) {
@@ -135,9 +137,7 @@ public class PlayController {
                 });
 
 
-
                 Tile tileObj = new Tile(tileBtn);
-//                tileObj.imageView = tileSquare;
                 tileObj.row = row;
                 tileObj.col = col;
                 tileObj.backgroundFile = (evenTile ? "lightgreen.png" : "darkgreen.png");
@@ -151,47 +151,14 @@ public class PlayController {
             evenTile = !evenTile;
         }
 
-
-        /*
-        grid.getColumnConstraints().add(new ColumnConstraints((50)));
-        grid.getColumnConstraints().add(new ColumnConstraints((50)));
-
-        for (int j = 0; j < 4; j++) {
-            grid.getColumnConstraints().add(new ColumnConstraints((100)));
-        }
-
-        for (int j = 0; j < 4; j++) {
-            grid.getRowConstraints().add(new RowConstraints((100)));
-        }
-        */
-
-
-        grid.setGridLinesVisible(true);
-        System.out.println("\n\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:");
-        System.out.println(grid.isGridLinesVisible());
         gridContainer.getChildren().add(grid);
-
+        grid.setGridLinesVisible(true);
         HBox.setHgrow(gridContainer, Priority.ALWAYS);
-//        grid.setStyle("-fx-pref-width: 500px");
-
-
-
-
-
-        tilesUncovered = 0;
-        startTime = 0;
-        gameDuration = 0;
-        timeElapsedLbl.setText("0 seconds");
-        taskScheduler = Executors.newScheduledThreadPool(1);
-        flagsSet = 0;
-        flagsLeftLbl.setText("10 flags left");
-        System.out.println("~~~~~tilesUncovered: " + tilesUncovered);
     }
 
 
     void startTimer() {
         Runnable timerTask = () -> {
-            System.out.println("TIMER FUNC CALLED");
             gameDuration = (System.currentTimeMillis() - startTime) / 1000;
 
             // Update the UI on the JavaFX Application Thread
@@ -204,20 +171,17 @@ public class PlayController {
         taskScheduler.scheduleAtFixedRate(timerTask, 0, 1, TimeUnit.SECONDS);
     }
 
+
     static void endTimer() {
         gameDuration = (System.currentTimeMillis() - startTime) / 1000;
 
         if (taskScheduler != null) {
             taskScheduler.shutdownNow();
-            System.out.println("TASK-SCHEDULER SHUTDOWN CALLED!");
         }
     }
 
-    void setupGrid(Tile tileObj) {
-        System.out.println("======================================");
-        System.out.println("setupGrid()");
-        System.out.println("coord: " + tileObj.row + ", " + tileObj.col);
 
+    void setupGrid(Tile tileObj) {
         eliminateSurroundingTiles(tileObj);
         setupBombTiles();
         setupNumberTiles(tileObj);
@@ -242,7 +206,7 @@ public class PlayController {
                 }
 
                 if (tilesEliminated.get(i) == null) {
-                    tilesEliminated.put(i, new HashSet<Integer>());
+                    tilesEliminated.put(i, new HashSet<>());
                 }
 
                 HashSet<Integer> values = tilesEliminated.get(i);
@@ -264,9 +228,9 @@ public class PlayController {
             // Checks if it's safe to place a bomb on the coordinates generated
             if (tilesEliminated.get(newRow) == null || !(tilesEliminated.get(newRow).contains(newCol))) {
                 // Set tile value to bomb
-                Tile newBombTile = gridObjects.get(new Pair<Integer, Integer>(newRow, newCol));
+                Tile newBombTile = gridObjects.get(new Pair<>(newRow, newCol));
                 newBombTile.value = Tile.TileValue.BOMB;
-                gridObjects.put(new Pair<Integer, Integer>(newRow, newCol), newBombTile);
+                gridObjects.put(new Pair<>(newRow, newCol), newBombTile);
 
                 HashSet values;
                 if (tilesEliminated.get(newRow) == null) {
@@ -281,15 +245,15 @@ public class PlayController {
 
                 bombsAssigned++;
                 bombCoordinates.add(new Pair<>(newRow, newCol));
-                System.out.println("bomb " + bombsAssigned + ": " + newRow + ", " + newCol);
             }
         }
     }
 
+
     void setupNumberTiles(Tile tileObj) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (gridObjects.get(new Pair<Integer, Integer>(i, j)).value == Tile.TileValue.UNKNOWN) {
+                if (gridObjects.get(new Pair<>(i, j)).value == Tile.TileValue.UNKNOWN) {
                     int kCount = 0;
                     int surroundingBombs = 0;
 
@@ -305,21 +269,20 @@ public class PlayController {
                                 continue;
                             }
 
-                            if (gridObjects.get(new Pair<Integer, Integer>(k, l)).value == Tile.TileValue.BOMB) {
+                            if (gridObjects.get(new Pair<>(k, l)).value == Tile.TileValue.BOMB) {
                                 surroundingBombs++;
                             }
                         }
                     }
 
-                    // Shouldn't I save it back into the hashmap now that I modified the object?
-                    gridObjects.get(new Pair<Integer, Integer>(i, j)).surroundingBombs = surroundingBombs;
+                    gridObjects.get(new Pair<>(i, j)).surroundingBombs = surroundingBombs;
 
                     if (surroundingBombs > 0) {
-                        gridObjects.get(new Pair<Integer, Integer>(i, j)).value = Tile.TileValue.NUMBER;
-                        gridObjects.get(new Pair<Integer, Integer>(i, j)).surroundingBombs = surroundingBombs;
+                        gridObjects.get(new Pair<>(i, j)).value = Tile.TileValue.NUMBER;
+                        gridObjects.get(new Pair<>(i, j)).surroundingBombs = surroundingBombs;
                     }
                     else {
-                        gridObjects.get(new Pair<Integer, Integer>(i, j)).value = Tile.TileValue.EMPTY;
+                        gridObjects.get(new Pair<>(i, j)).value = Tile.TileValue.EMPTY;
                     }
                 }
             }
@@ -330,8 +293,8 @@ public class PlayController {
     void setupEmptyTiles() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (gridObjects.get(new Pair<Integer, Integer>(i, j)).value == Tile.TileValue.UNKNOWN) {
-                    gridObjects.get(new Pair<Integer, Integer>(i, j)).value = Tile.TileValue.EMPTY;
+                if (gridObjects.get(new Pair<>(i, j)).value == Tile.TileValue.UNKNOWN) {
+                    gridObjects.get(new Pair<>(i, j)).value = Tile.TileValue.EMPTY;
                 }
             }
         }
@@ -343,11 +306,7 @@ public class PlayController {
             if (tileObj.value == Tile.TileValue.EMPTY) {
                 traverse(tileObj.row, tileObj.col);
 
-                System.out.println("\ntilesUncovered = " + tilesUncovered);
                 if (tilesUncovered + bombs == rows * cols) {
-                    System.out.println("\n\nGAME WON!!");
-                    System.out.println("tilesUncovered: " + tilesUncovered);
-
                     gameLost = false;
                     endTimer();
                     gameWon();
@@ -356,18 +315,13 @@ public class PlayController {
             else if (tileObj.value == Tile.TileValue.NUMBER) {
                 uncoverTile(tileObj);
 
-                System.out.println("\ntilesUncovered = " + tilesUncovered);
                 if (tilesUncovered + bombs == rows * cols) {
-                    System.out.println("\n\nGAME WON!!");
-                    System.out.println("tilesUncovered: " + tilesUncovered);
-
                     gameLost = false;
                     endTimer();
                     gameWon();
                 }
             }
             else { // tile contains a bomb
-                // END GAME
                 gameLost = true;
                 endTimer();
                 gameLost();
@@ -376,18 +330,14 @@ public class PlayController {
     }
 
 
-
     void traverse(int row, int col) {
-//        System.out.println("(" + row + ", " + col + ")" + "===============");
-
         if (row >= 0 && row < rows && col >= 0 && col < cols) {
-            Tile currentTile = gridObjects.get(new Pair<Integer, Integer>(row, col));
+            Tile currentTile = gridObjects.get(new Pair<>(row, col));
 
             if (currentTile.isCovered && (currentTile.value == Tile.TileValue.EMPTY || currentTile.value == Tile.TileValue.NUMBER)) {
                 uncoverTile(currentTile);
 
                 if (currentTile.surroundingBombs > 0) {
-//                    displayNumberIcon(currentTile);
                     return;
                 }
 
@@ -398,6 +348,7 @@ public class PlayController {
             }
         }
     }
+
 
     void uncoverTile(Tile tile) {
         if (tile.isFlagged && !gameLost) {
@@ -421,6 +372,7 @@ public class PlayController {
         tile.isCovered = false;
         tilesUncovered++;
     }
+
 
     void displayNumberIcon(Tile tile) {
         StringBuilder numberFile = new StringBuilder();
@@ -455,11 +407,12 @@ public class PlayController {
         tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\"), url(\"/com/example/bombland/images/" + numberFile + "\"); -fx-background-size: 150%, 80%;");
     }
 
+
     void gameLost() {
         // Uncover all bomb tiles
         for (int i = 0; i < bombCoordinates.size(); i++) {
             Pair<Integer, Integer> coords = bombCoordinates.get(i);
-            Tile tile = gridObjects.get(new Pair<Integer, Integer>(coords.getKey(), coords.getValue()));
+            Tile tile = gridObjects.get(new Pair<>(coords.getKey(), coords.getValue()));
             uncoverTile(tile);
             tilesUncovered++;
         }
@@ -478,6 +431,7 @@ public class PlayController {
         gameLostPopup_buttonsContainer.setSpacing(25);
     }
 
+
     void gameWon() {
         stackpane_child1.setEffect(new GaussianBlur()); // blurs gameplay page
         stackpane_child1.setMouseTransparent(true); // makes items in gameplay page "unclickable"
@@ -493,20 +447,14 @@ public class PlayController {
         gameWonPopup_buttonsContainer.setSpacing(25);
     }
 
+
     @FXML
     void playAgain() {
-        System.out.println("\n\nqqqqqq");
-        System.out.println("playAgain()");
-
         if (gameLost) {
-            System.out.println("== lost");
-
             gameLostPopup.setManaged(false);
             gameLostPopup.setVisible(false);
         }
         else {
-            System.out.println("== won");
-
             gameWonPopup.setManaged(false);
             gameWonPopup.setVisible(false);
         }
@@ -522,13 +470,9 @@ public class PlayController {
         }
     }
 
+
     public void clearGrid() throws FileNotFoundException {
-        System.out.println("clearGrid() called");
-        gameStarted = false;
         grid.getChildren().clear();
         gridContainer.getChildren().remove(0);
-        gridObjects = new HashMap<>();
-        tilesEliminated = new HashMap<>();
-        bombCoordinates = new ArrayList<>();
     }
 }

@@ -3,16 +3,11 @@ package com.example.bombland;
 import javafx.scene.control.*;
 
 public class Tile {
-    boolean isCovered;
+    boolean isCovered, isFlagged;
     TileValue value;
-//    ImageView imageView;
     String backgroundFile;
-    int row;
-    int col;
-    int surroundingBombs;
+    int row, col, surroundingBombs;
     Button tileBtn;
-
-    boolean isFlagged;
 
     enum TileValue {
         UNKNOWN,
@@ -23,12 +18,11 @@ public class Tile {
 
     Tile(Button tb) {
         isCovered = true;
+        isFlagged = false;
         value = TileValue.UNKNOWN;
-//        imageView = img;
         backgroundFile = "";
         row = col = -1;
         surroundingBombs = 0;
         tileBtn = tb;
-        isFlagged = false;
     }
 }
