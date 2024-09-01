@@ -24,7 +24,15 @@
     <VBox fx:id="instructionsContainer" spacing="20">
         <HBox>
             <HBox fx:id="instructionsContainer_leftChild">
-                <Button text="Back" onAction="#goToMainMenu"/>
+                <Button onAction="#goToMainMenu">
+                    <graphic>
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="/com/example/bombland/images/back-button.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </HBox>
 
             <HBox fx:id="instructionsContainer_middleChild">
