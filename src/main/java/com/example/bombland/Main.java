@@ -3,6 +3,7 @@ package com.example.bombland;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -13,6 +14,10 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 800, 500);
         stage.setTitle("BOMBLAND");
         stage.setResizable(false);
+
+        Image icon = new Image(getClass().getResourceAsStream("/com/example/bombland/images/bombsmall.png"));
+        stage.getIcons().add(icon);
+
         stage.setScene(scene);
         stage.show();
     }
