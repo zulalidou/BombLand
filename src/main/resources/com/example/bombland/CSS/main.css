@@ -5,11 +5,12 @@
 #mainMenuOptionsContainer {
     -fx-pref-width: 600px;
     -fx-alignment: center;
-    -fx-background-color: green;
+    -fx-background-color: coral;
+    -fx-padding: 20px;
 }
 
 .label {
-    -fx-font-size: 100px;
+    -fx-font-size: 75px;
 }
 
 .button {
