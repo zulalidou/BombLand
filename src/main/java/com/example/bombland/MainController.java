@@ -18,10 +18,10 @@ public class MainController {
     }
 
     @FXML
-    private void openPlayPage(ActionEvent event) throws IOException {
+    private void openModeSelectionPage(ActionEvent event) throws IOException {
         ScreenController screenController = new ScreenController(mainMenuPage.getScene());
-        screenController.addScreen("play", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/play-view.fxml")));
-        screenController.activate("play");
+        screenController.addScreen("mode-selection", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/mode-selection-view.fxml")));
+        screenController.activate("mode-selection");
     }
 
     @FXML

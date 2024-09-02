@@ -19,7 +19,7 @@ import javafx.scene.media.AudioClip;
 
 public class PlayController {
     static boolean gameStarted, gameLost;
-    static int bombs, tilesUncovered, flagsSet, rows, cols;
+    static int rows, cols, bombs, tilesUncovered, flagsSet;
 
     static GridPane grid;
     static HashMap<Pair<Integer, Integer>, Tile> gridObjects;
@@ -40,10 +40,22 @@ public class PlayController {
     HBox gridContainer, gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer;
 
 
-    public PlayController() {
-        bombs = 10;
-        rows = 8;
-        cols = 10;
+    static void setMode(String mode) {
+        if (Objects.equals(mode, "EASY")) {
+            rows = 9;
+            cols = 9;
+            bombs = 10;
+        }
+        else if (Objects.equals(mode, "MEDIUM")) {
+            rows = 16;
+            cols = 16;
+            bombs = 40;
+        }
+        else {
+            rows = 30;
+            cols = 16;
+            bombs = 99;
+        }
     }
 
 
@@ -74,7 +86,8 @@ public class PlayController {
         taskScheduler = Executors.newScheduledThreadPool(1);
 
         timeElapsedLbl.setText("0 seconds");
-        flagsLeftLbl.setText("10 flags left");
+        totalBombsLbl.setText(bombs + " bombs");
+        flagsLeftLbl.setText(bombs + " flags left");
 
 
         boolean evenTile = true;

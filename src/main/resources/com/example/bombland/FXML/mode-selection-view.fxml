@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="modeSelectionPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.ModeSelectionController">
+    <Button text="BACK" onAction="#goToMainMenu"/>
+    <VBox>
+        <Label text="Select difficulty below:"/>
+        <Button text="EASY (9 x 9)" onAction="#openEasyMode"/>
+        <Button text="MEDIUM (16 x 16)" onAction="#openMediumMode"/>
+        <Button text="HARD (30 x 16)" onAction="#openHardMode"/>
+    </VBox>
+
+</VBox>

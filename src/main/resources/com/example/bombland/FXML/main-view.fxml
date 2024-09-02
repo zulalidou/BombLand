@@ -12,7 +12,7 @@
 
     <VBox id="mainMenuOptionsContainer" spacing="20">
         <Label text="BOMBLAND"/>
-        <Button text="PLAY" onAction="#openPlayPage"/>
+        <Button text="PLAY" onAction="#openModeSelectionPage"/>
         <Button text="INSTRUCTIONS" onAction="#openInstructionsPage"/>
         <Button text="EXIT" onAction="#closeApp"/>
     </VBox>

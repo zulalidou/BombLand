@@ -2,7 +2,6 @@ package com.example.bombland;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-
 import java.util.HashMap;
 
 public class ScreenController {

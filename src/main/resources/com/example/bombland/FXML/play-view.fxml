@@ -27,9 +27,9 @@
                     </graphic>
                 </Button>
 
-                <Label fx:id="totalBombsLbl" text="10 Bombs" HBox.hgrow="ALWAYS"/>
-                <Label fx:id="timeElapsedLbl" text="0 seconds"/>
-                <Label fx:id="flagsLeftLbl" text="10 flags left" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="totalBombsLbl" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="timeElapsedLbl"/>
+                <Label fx:id="flagsLeftLbl" HBox.hgrow="ALWAYS"/>
             </HBox>
 
             <HBox fx:id="gridContainer"></HBox>
