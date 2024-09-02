@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <VBox fx:id="modeSelectionPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.ModeSelectionController">
-    <Button text="BACK" onAction="#goToMainMenu"/>
-    <VBox>
-        <Label text="Select difficulty below:"/>
-        <Button text="EASY (9 x 9)" onAction="#openEasyMode"/>
-        <Button text="MEDIUM (16 x 16)" onAction="#openMediumMode"/>
-        <Button text="HARD (30 x 16)" onAction="#openHardMode"/>
-    </VBox>
+    <stylesheets>
+        <URL value="@../CSS/mode-selection.css"/>
+    </stylesheets>
 
+    <Button id="backBtn" onAction="#goToMainMenu">
+        <graphic>
+            <ImageView fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="/com/example/bombland/images/back-button.png"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <VBox fx:id="modeSelectionOptions_outerContainer">
+        <VBox id="modeSelectionOptions_innerContainer" spacing="20">
+            <Label text="Select difficulty below"/>
+            <Button text="EASY (9 x 9)" onAction="#openEasyMode"/>
+            <Button text="MEDIUM (16 x 16)" onAction="#openMediumMode"/>
+            <Button text="HARD (30 x 16)" onAction="#openHardMode"/>
+        </VBox>
+    </VBox>
 </VBox>

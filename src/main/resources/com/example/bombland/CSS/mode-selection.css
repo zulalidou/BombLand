@@ -1,0 +1,35 @@
+#modeSelectionPage {
+    -fx-padding: 10px;
+}
+
+
+#backBtn {
+    -fx-font-size: 15px;
+}
+
+
+#modeSelectionOptions_outerContainer {
+    -fx-alignment: center;
+    -fx-pref-height: 400px;
+}
+
+#modeSelectionOptions_innerContainer {
+    -fx-pref-width: 600px;
+    -fx-alignment: center;
+    -fx-background-color: coral;
+
+    -fx-padding: 20px;
+}
+
+.label {
+    -fx-font-size: 50px;
+}
+
+.button {
+    -fx-font-size: 25px;
+    -fx-margin-bottom: 25px;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+}
