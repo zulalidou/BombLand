@@ -303,6 +303,9 @@ public class PlayController {
 
     void handleTileClick(Tile tileObj) throws IOException {
         if (tileObj.isCovered) {
+            AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/tile_click.wav").toExternalForm());
+            clip.play();
+
             if (tileObj.value == Tile.TileValue.EMPTY) {
                 traverse(tileObj.row, tileObj.col);
 
@@ -409,7 +412,7 @@ public class PlayController {
 
 
     void gameLost() {
-        AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/game_lost.mp3").toExternalForm());
+        AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/game_lost.wav").toExternalForm());
         clip.play();
 
         // Uncover all bomb tiles
@@ -436,7 +439,7 @@ public class PlayController {
 
 
     void gameWon() {
-        AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/game_won.mp3").toExternalForm());
+        AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/game_won.wav").toExternalForm());
         clip.play();
 
         stackpane_child1.setEffect(new GaussianBlur()); // blurs gameplay page
