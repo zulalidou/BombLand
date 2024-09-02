@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javafx.scene.media.AudioClip;
 
 public class PlayController {
     static boolean gameStarted, gameLost;
@@ -135,7 +136,6 @@ public class PlayController {
                         }
                     }
                 });
-
 
                 Tile tileObj = new Tile(tileBtn);
                 tileObj.row = row;
@@ -409,6 +409,9 @@ public class PlayController {
 
 
     void gameLost() {
+        AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/game_lost.mp3").toExternalForm());
+        clip.play();
+
         // Uncover all bomb tiles
         for (int i = 0; i < bombCoordinates.size(); i++) {
             Pair<Integer, Integer> coords = bombCoordinates.get(i);
@@ -433,6 +436,9 @@ public class PlayController {
 
 
     void gameWon() {
+        AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/game_won.mp3").toExternalForm());
+        clip.play();
+
         stackpane_child1.setEffect(new GaussianBlur()); // blurs gameplay page
         stackpane_child1.setMouseTransparent(true); // makes items in gameplay page "unclickable"
 
