@@ -20,9 +20,7 @@
                 <Button id="backBtn" onAction="#goToMainMenu">
                     <graphic>
                         <ImageView fitWidth="20" preserveRatio="true">
-                            <image>
-                                <Image url="/com/example/bombland/images/back-button.png"/>
-                            </image>
+                            <Image url="/com/example/bombland/images/back-button.png"/>
                         </ImageView>
                     </graphic>
                 </Button>
@@ -32,16 +30,14 @@
                 <Label fx:id="flagsLeftLbl" HBox.hgrow="ALWAYS"/>
             </HBox>
 
-            <HBox fx:id="gridContainer"></HBox>
+            <VBox fx:id="gridContainer"/>
         </VBox>
 
         <VBox fx:id="gameLostPopup" managed="false" visible="false">
             <Label id="gameLostPopup_title" text="GAME OVER"/>
             <VBox alignment="CENTER">
-                <ImageView fitWidth="85" fitHeight="85"  preserveRatio="true">
-                    <image>
-                        <Image url="/com/example/bombland/images/timer.png"/>
-                    </image>
+                <ImageView fitWidth="85" fitHeight="85" preserveRatio="true">
+                    <Image url="/com/example/bombland/images/timer.png"/>
                 </ImageView>
             </VBox>
 
@@ -56,10 +52,8 @@
         <VBox fx:id="gameWonPopup" managed="false" visible="false">
             <Label id="gameWonPopup_title" text="CONGRATS"/>
             <VBox alignment="CENTER">
-                <ImageView fitWidth="85" fitHeight="85"  preserveRatio="true">
-                    <image>
-                        <Image url="/com/example/bombland/images/timer.png"/>
-                    </image>
+                <ImageView fitWidth="85" fitHeight="85" preserveRatio="true">
+                    <Image url="/com/example/bombland/images/timer.png"/>
                 </ImageView>
             </VBox>
 

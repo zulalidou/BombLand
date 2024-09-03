@@ -24,7 +24,7 @@
     <VBox fx:id="modeSelectionOptions_outerContainer">
         <VBox id="modeSelectionOptions_innerContainer" spacing="20">
             <Label text="Select difficulty below"/>
-            <Button text="EASY (9 x 9)" onAction="#openEasyMode"/>
+            <Button text="EASY (8 x 8)" onAction="#openEasyMode"/>
             <Button text="MEDIUM (16 x 16)" onAction="#openMediumMode"/>
             <Button text="HARD (30 x 16)" onAction="#openHardMode"/>
         </VBox>

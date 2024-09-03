@@ -31,19 +31,18 @@ public class PlayController {
     private static ScheduledExecutorService  taskScheduler;
 
     @FXML
-    VBox pageContainer, stackpane_child1, gameLostPopup, gameWonPopup;
+    VBox pageContainer, stackpane_child1, gridContainer, gameLostPopup, gameWonPopup;
 
     @FXML
     Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken;
 
     @FXML
-    HBox gridContainer, gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer;
-
+    HBox gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer;
 
     static void setMode(String mode) {
         if (Objects.equals(mode, "EASY")) {
-            rows = 9;
-            cols = 9;
+            rows = 8;
+            cols = 8;
             bombs = 10;
         }
         else if (Objects.equals(mode, "MEDIUM")) {
@@ -52,8 +51,8 @@ public class PlayController {
             bombs = 40;
         }
         else {
-            rows = 30;
-            cols = 16;
+            rows = 16;
+            cols = 30;
             bombs = 99;
         }
     }
@@ -97,8 +96,8 @@ public class PlayController {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
                 tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + (evenTile ? "lightgreen.png" : "darkgreen.png") + "\");");
-                tileBtn.setPrefHeight(100);
-                tileBtn.setPrefWidth(80);
+                tileBtn.setPrefHeight((double) 500 /rows);
+                tileBtn.setPrefWidth((double) 800 /cols);
 
                 int tileRow = row;
                 int tileCol = col;
@@ -141,7 +140,7 @@ public class PlayController {
                             }
                             else {
                                 tileObj.isFlagged = true;
-                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\"), url(\"/com/example/bombland/images/red-flag.png\"); -fx-background-size: 150%, 60%; -fx-background-repeat: no-repeat, no-repeat;");
+                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\"), url(\"/com/example/bombland/images/red-flag.png\"); -fx-background-size: 200%, 50%;");
                                 flagsSet += 1;
                             }
 
@@ -166,7 +165,6 @@ public class PlayController {
 
         gridContainer.getChildren().add(grid);
         grid.setGridLinesVisible(true);
-        HBox.setHgrow(gridContainer, Priority.ALWAYS);
     }
 
 
@@ -382,7 +380,7 @@ public class PlayController {
         }
         else { // bomb tile
             tile.backgroundFile = "red.png";
-            tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/red.png\"), url(\"/com/example/bombland/images/bomb.png\"); -fx-background-size: 150%, 80%; -fx-background-repeat: no-repeat, no-repeat;");
+            tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/red.png\"), url(\"/com/example/bombland/images/bomb.png\"); -fx-background-size: 200%, 60%;");
         }
 
         tile.isCovered = false;
@@ -420,7 +418,7 @@ public class PlayController {
                 break;
         }
 
-        tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\"), url(\"/com/example/bombland/images/" + numberFile + "\"); -fx-background-size: 150%, 80%;");
+        tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\"), url(\"/com/example/bombland/images/" + numberFile + "\"); -fx-background-size: 200%, 60%;");
     }
 
 
