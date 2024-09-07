@@ -130,12 +130,12 @@ public class PlayController {
                 // Handles right clicks on the tiles
                 tileBtn.setOnMouseClicked(event -> {
                     if (event.getButton() == MouseButton.SECONDARY) {
-                        AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/flag_flap.wav").toExternalForm());
-                        clip.play();
-
                         Tile tileObj = gridObjects.get(new Pair<>(tileRow, tileCol));
 
                         if (tileObj.isCovered) {
+                            AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/flag_flap.wav").toExternalForm());
+                            clip.play();
+
                             if (tileObj.isFlagged) {
                                 tileObj.isFlagged = false;
                                 tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\");");
