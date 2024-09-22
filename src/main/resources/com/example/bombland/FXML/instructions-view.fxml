@@ -27,9 +27,7 @@
                 <Button onAction="#goToMainMenu">
                     <graphic>
                         <ImageView fitWidth="20" preserveRatio="true">
-                            <image>
-                                <Image url="/com/example/bombland/images/back-button.png"/>
-                            </image>
+                            <Image url="/com/example/bombland/images/back-button.png"/>
                         </ImageView>
                     </graphic>
                 </Button>

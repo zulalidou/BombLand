@@ -1,0 +1,47 @@
+#highScoresPage {
+    -fx-padding: 10px;
+    -fx-pref-width: 600px;
+    -fx-background-color: pink;
+}
+
+
+.button {
+    -fx-font-size: 15px;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+}
+
+
+#highScoresContainer_leftChild {
+    -fx-background-color: green;
+}
+
+#highScoresContainer_middleChild {
+    -fx-alignment: center;
+    -fx-background-color: yellow;
+}
+
+#highScoresPage_title {
+    -fx-font-size: 40px;
+    -fx-wrap-text: true;
+    -fx-font-weight: bold;
+}
+
+#highScoresContainer_rightChild {
+    -fx-background-color: red;
+}
+
+
+
+#highScoresContainer_bottom {
+    -fx-background-color: purple;
+}
+
+
+#qwe {
+    -fx-background-color: purple;
+    -fx-pref-width: 150px;
+}
+

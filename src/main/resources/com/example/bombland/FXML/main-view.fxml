@@ -12,8 +12,9 @@
 
     <VBox id="mainMenuOptionsContainer" spacing="20">
         <Label text="BOMBLAND"/>
-        <Button text="PLAY" onAction="#openModeSelectionPage"/>
-        <Button text="INSTRUCTIONS" onAction="#openInstructionsPage"/>
-        <Button text="EXIT" onAction="#closeApp"/>
+        <Button text="Play" onAction="#openModeSelectionPage"/>
+        <Button text="Instructions" onAction="#openInstructionsPage"/>
+        <Button text="High Scores" onAction="#openHighScoresPage"/>
+        <Button text="Exit" onAction="#closeApp"/>
     </VBox>
 </VBox>

@@ -32,6 +32,13 @@ public class MainController {
     }
 
     @FXML
+    private void openHighScoresPage(ActionEvent event) throws IOException {
+        ScreenController screenController = new ScreenController(mainMenuPage.getScene());
+        screenController.addScreen("highscores", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/high-scores-view.fxml")));
+        screenController.activate("highscores");
+    }
+
+    @FXML
     private void closeApp() {
         Platform.exit();
     }
