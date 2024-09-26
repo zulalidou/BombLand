@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class HighScoresController {
+    private final MongoDBConnection mongoDBConnection = new MongoDBConnection();
+
     @FXML
     VBox highScoresPage, easyHighScoresContainer, mediumHighScoresContainer, hardHighScoresContainer;
 
@@ -37,6 +39,9 @@ public class HighScoresController {
 //        VBox.setVgrow(easyHighScoresContainer, Priority.ALWAYS);
 //        VBox.setVgrow(mediumHighScoresContainer, Priority.ALWAYS);
 //        VBox.setVgrow(hardHighScoresContainer, Priority.ALWAYS);
+
+
+        mongoDBConnection.connect("mongodb+srv://bomblandAdmin:iIbydSYKZ6EVn2Cy@cluster0.ilt6y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "HighScores");
     }
 
     @FXML
