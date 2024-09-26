@@ -12,10 +12,6 @@ public class MongoDBConnection {
         mongoClient = MongoClients.create(connectionString);
         System.out.println(mongoClient);
         database = mongoClient.getDatabase(dbName);
-        System.out.println("database:");
-        System.out.println(database.getCollection("Easy").countDocuments());
-        System.out.println(database.getCollection("Medium").countDocuments());
-        System.out.println(database.getCollection("Hard").countDocuments());
     }
 
     public MongoDatabase getDatabase() {
