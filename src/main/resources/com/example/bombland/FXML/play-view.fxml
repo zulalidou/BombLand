@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.control.TextField?>
 <VBox fx:id="pageContainer" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController" alignment="CENTER">
     <stylesheets>
         <URL value="@../CSS/play.css"/>
@@ -60,6 +61,28 @@
             <Label fx:id="gameWonPopup_timeTaken" text="placeholder"/>
 
             <HBox fx:id="gameWonPopup_buttonsContainer" alignment="CENTER">
+                <Button styleClass="playAgainBtn" text="Play Again" onAction="#playAgain"/>
+                <Button styleClass="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
+            </HBox>
+        </VBox>
+
+        <VBox fx:id="newRecordPopup" managed="false" visible="false">
+            <Label id="newRecordPopup_title" text="NEW RECORD"/>
+            <VBox alignment="CENTER">
+                <ImageView fitWidth="85" fitHeight="85" preserveRatio="true">
+                    <Image url="/com/example/bombland/images/timer.png"/>
+                </ImageView>
+            </VBox>
+
+            <Label fx:id="newRecordPopup_text" text="Congratulations! You just set a new record! Please enter your name below:"/>
+
+            <HBox>
+                <TextField fx:id="playerName_textField"/>
+                <Label fx:id="newRecordPopup_timeTaken" text="placeholder"/>
+            </HBox>
+
+
+            <HBox fx:id="newRecordPopup_buttonsContainer" alignment="CENTER">
                 <Button styleClass="playAgainBtn" text="Play Again" onAction="#playAgain"/>
                 <Button styleClass="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
             </HBox>

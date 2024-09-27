@@ -31,13 +31,13 @@ public class PlayController {
     private static ScheduledExecutorService  taskScheduler;
 
     @FXML
-    VBox pageContainer, stackpane_child1, gridContainer, gameLostPopup, gameWonPopup;
+    VBox pageContainer, stackpane_child1, gridContainer, gameLostPopup, gameWonPopup, newRecordPopup;
 
     @FXML
-    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken;
+    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken, newRecordPopup_timeTaken;
 
     @FXML
-    HBox gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer;
+    HBox gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer, newRecordPopup_buttonsContainer;
 
     static void setMode(String mode) {
         if (Objects.equals(mode, "EASY")) {
