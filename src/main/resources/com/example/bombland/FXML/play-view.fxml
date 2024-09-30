@@ -74,17 +74,19 @@
                 </ImageView>
             </VBox>
 
-            <Label fx:id="newRecordPopup_text" text="Congratulations! You just set a new record! Please enter your name below:"/>
+            <Label fx:id="newRecordPopup_text" text="Congrats! Please enter your name below:"/>
 
-            <HBox>
+            <Label fx:id="newRecordPopup_timeTaken"/>
+
+            <HBox id="playerInfo_hbox">
                 <TextField fx:id="playerName_textField"/>
-                <Label fx:id="playerName_error" text="Please enter your name" visible="false"/>
-                <Label fx:id="newRecordPopup_timeTaken" text="placeholder"/>
             </HBox>
+
+            <Label fx:id="playerName_error" text="Please enter your name" visible="false"/>
 
 
             <HBox fx:id="newRecordPopup_buttonsContainer" alignment="CENTER">
-                <Button text="Save" onAction="#saveNewRecord"/>
+                <Button styleClass="playAgainBtn" text="Save" onAction="#saveNewRecord"/>
             </HBox>
         </VBox>
     </StackPane>

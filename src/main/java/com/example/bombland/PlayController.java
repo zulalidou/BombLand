@@ -501,6 +501,7 @@ public class PlayController {
             playerName_error.setVisible(true); // display error
         }
         else {
+            playerName_error.setVisible(false);
             newRecordPopup.setManaged(false);
             newRecordPopup.setVisible(false);
             displayGameWonPopup();
@@ -509,10 +510,11 @@ public class PlayController {
                 @Override
                 protected Void call() {
                     JSONObject newScoreInfo = new JSONObject();
-                    newScoreInfo.put("name", playerName_textField.getText().strip());
-                    newScoreInfo.put("score", gameDuration);
                     newScoreInfo.put("time", System.currentTimeMillis());
                     newScoreInfo.put("id", UUID.randomUUID().toString());
+                    newScoreInfo.put("score", gameDuration);
+                    newScoreInfo.put("name", playerName_textField.getText().strip());
+                    playerName_textField.setText("");
 
 
                     // 1. Add newScoreInfo to highScores list

@@ -27,10 +27,11 @@
 #gameLostPopup, #gameWonPopup, #newRecordPopup {
     -fx-background-color: white;
     -fx-background-radius: 15px;
+    -fx-alignment: center;
 }
 
 
-#gameLostPopup_title, #gameWonPopup_title {
+#gameLostPopup_title, #gameWonPopup_title, #newRecordPopup_title {
     -fx-font-weight: bold;
     -fx-font-size: 25px;
     -fx-pref-width: 250px;
@@ -44,8 +45,34 @@
     -fx-font-weight: bold;
 }
 
+
+#newRecordPopup_text {
+    -fx-wrap-text: true;
+    -fx-font-weight: bold;
+
+    -fx-font-size: 12px;
+    -fx-text-alignment: center;
+}
+
+
+
+
+#playerInfo_hbox {
+    -fx-alignment: center;
+}
+
+
+#newRecordPopup_timeTaken {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+
+
+
 #playerName_error {
     -fx-text-fill: red;
+    -fx-text-alignment: center;
 }
 
 
