@@ -11,8 +11,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.bson.Document;
 import org.json.JSONObject;
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Main extends Application {
     @Override
@@ -29,10 +30,13 @@ public class Main extends Application {
         stage.show();
 
 
-        Task<Void> fetchHighScoresTask = new Task<Void>() {
+        Task<Void> fetchHighScoresTask = new Task<>() {
             @Override
             protected Void call() {
                 getHighScores();
+                sortHighScores(APP_CACHE.getEasyHighScores());
+                sortHighScores(APP_CACHE.getMediumHighScores());
+                sortHighScores(APP_CACHE.getHardHighScores());
                 return null;
             }
         };
@@ -50,43 +54,61 @@ public class Main extends Application {
         launch();
     }
 
-
     public void getHighScores() {
         MongoDBConnection mongoDBConnection = new MongoDBConnection();
         mongoDBConnection.connect("mongodb+srv://bomblandAdmin:iIbydSYKZ6EVn2Cy@cluster0.ilt6y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "HighScores");
 
         MongoDatabase database = mongoDBConnection.getDatabase();
-        MongoCollection<Document> easyHighScores = database.getCollection("Easy");
-        MongoCollection<Document> mediumHighScores = database.getCollection("Medium");
-        MongoCollection<Document> hardHighScores = database.getCollection("Hard");
+        MongoCollection<Document> easyHighScores_Table = database.getCollection("EASY");
+        MongoCollection<Document> mediumHighScores_Table = database.getCollection("MEDIUM");
+        MongoCollection<Document> hardHighScores_Table = database.getCollection("HARD");
 
-        if (easyHighScores.countDocuments() > 0) {
-            MongoCursor<Document> cursor = easyHighScores.find().iterator();
+        if (easyHighScores_Table.countDocuments() > 0) {
+            MongoCursor<Document> cursor = easyHighScores_Table.find().iterator();
+            ArrayList<JSONObject> easyHighScores_cache = APP_CACHE.getEasyHighScores();
 
             while (cursor.hasNext()) {
                 JSONObject scoreObj = new JSONObject(cursor.next().toJson());
-                APP_CACHE.saveEasyHighScore(scoreObj.getInt("score"), scoreObj.getString("name"));
+                easyHighScores_cache.add(scoreObj);
             }
         }
 
-        if (mediumHighScores.countDocuments() > 0) {
-            MongoCursor<Document> cursor = mediumHighScores.find().iterator();
+        if (mediumHighScores_Table.countDocuments() > 0) {
+            MongoCursor<Document> cursor = mediumHighScores_Table.find().iterator();
+            ArrayList<JSONObject> mediumHighScores_cache = APP_CACHE.getMediumHighScores();
 
             while (cursor.hasNext()) {
                 JSONObject scoreObj = new JSONObject(cursor.next().toJson());
-                APP_CACHE.saveMediumHighScore(scoreObj.getInt("score"), scoreObj.getString("name"));
+                mediumHighScores_cache.add(scoreObj);
             }
         }
 
-        if (hardHighScores.countDocuments() > 0) {
-            MongoCursor<Document> cursor = hardHighScores.find().iterator();
+        if (hardHighScores_Table.countDocuments() > 0) {
+            MongoCursor<Document> cursor = hardHighScores_Table.find().iterator();
+            ArrayList<JSONObject> hardHighScores_cache = APP_CACHE.getHardHighScores();
 
             while (cursor.hasNext()) {
                 JSONObject scoreObj = new JSONObject(cursor.next().toJson());
-                APP_CACHE.saveHardHighScore(scoreObj.getInt("score"), scoreObj.getString("name"));
+                hardHighScores_cache.add(scoreObj);
             }
         }
 
         mongoDBConnection.close();
+    }
+
+    public void sortHighScores(ArrayList<JSONObject> highScores) {
+        highScores.sort(new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject a, JSONObject b) {
+                return Long.compare(a.getLong("time"), b.getLong("time"));
+            }
+        });
+
+        highScores.sort(new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject a, JSONObject b) {
+                return Long.compare(a.getLong("score"), b.getLong("score"));
+            }
+        });
     }
 }

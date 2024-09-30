@@ -70,7 +70,7 @@
             <Label id="newRecordPopup_title" text="NEW RECORD"/>
             <VBox alignment="CENTER">
                 <ImageView fitWidth="85" fitHeight="85" preserveRatio="true">
-                    <Image url="/com/example/bombland/images/timer.png"/>
+                    <Image url="/com/example/bombland/images/trophy.png"/>
                 </ImageView>
             </VBox>
 
@@ -78,13 +78,13 @@
 
             <HBox>
                 <TextField fx:id="playerName_textField"/>
+                <Label fx:id="playerName_error" text="Please enter your name" visible="false"/>
                 <Label fx:id="newRecordPopup_timeTaken" text="placeholder"/>
             </HBox>
 
 
             <HBox fx:id="newRecordPopup_buttonsContainer" alignment="CENTER">
-                <Button styleClass="playAgainBtn" text="Play Again" onAction="#playAgain"/>
-                <Button styleClass="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
+                <Button text="Save" onAction="#saveNewRecord"/>
             </HBox>
         </VBox>
     </StackPane>

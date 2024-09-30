@@ -24,7 +24,7 @@
 }
 
 
-#gameLostPopup, #gameWonPopup {
+#gameLostPopup, #gameWonPopup, #newRecordPopup {
     -fx-background-color: white;
     -fx-background-radius: 15px;
 }
@@ -43,6 +43,11 @@
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
+
+#playerName_error {
+    -fx-text-fill: red;
+}
+
 
 
 .playAgainBtn {

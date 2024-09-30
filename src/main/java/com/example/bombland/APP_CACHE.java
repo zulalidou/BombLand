@@ -1,37 +1,35 @@
 package com.example.bombland;
 
-import java.util.TreeMap;
+import org.json.JSONObject;
+import java.util.ArrayList;
 
-// 1. The keys in the maps are the players' scores
-// 2. The values in the maps are the players' names
-// 3. TreeMaps are used because they automatically sort their entries based on the keys
 public class APP_CACHE {
-    private static final TreeMap<Integer, String> EASY_HIGH_SCORES = new TreeMap<>();
-    private static final TreeMap<Integer, String> MEDIUM_HIGH_SCORES = new TreeMap<>();
-    private static final TreeMap<Integer, String> HARD_HIGH_SCORES = new TreeMap<>();
+    private static final ArrayList<JSONObject> EASY_HIGH_SCORES = new ArrayList<>();
+    private static final ArrayList<JSONObject> MEDIUM_HIGH_SCORES = new ArrayList<>();
+    private static final ArrayList<JSONObject> HARD_HIGH_SCORES = new ArrayList<>();
 
 
-    static TreeMap<Integer, String> getEasyHighScores() {
+    static ArrayList<JSONObject> getEasyHighScores() {
         return EASY_HIGH_SCORES;
     }
 
-    static void saveEasyHighScore(Integer score, String name) {
-        EASY_HIGH_SCORES.put(score, name);
-    }
-
-    static TreeMap<Integer, String> getMediumHighScores() {
+    static ArrayList<JSONObject> getMediumHighScores() {
         return MEDIUM_HIGH_SCORES;
     }
 
-    static void saveMediumHighScore(Integer score, String name) {
-        MEDIUM_HIGH_SCORES.put(score, name);
-    }
-
-    static TreeMap<Integer, String> getHardHighScores() {
+    static ArrayList<JSONObject> getHardHighScores() {
         return HARD_HIGH_SCORES;
     }
 
-    static void saveHardHighScore(Integer score, String name) {
-        HARD_HIGH_SCORES.put(score, name);
+    static ArrayList<JSONObject> getHighScores(String gameMode) {
+        if (gameMode.equals("EASY")) {
+            return EASY_HIGH_SCORES;
+        }
+        else if (gameMode.equals("MEDIUM")) {
+            return MEDIUM_HIGH_SCORES;
+        }
+        else {
+            return HARD_HIGH_SCORES;
+        }
     }
 }

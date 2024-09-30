@@ -1,10 +1,14 @@
 package com.example.bombland;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
@@ -16,10 +20,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javafx.scene.media.AudioClip;
+import org.bson.Document;
+import org.json.JSONObject;
+import java.util.UUID;
 
 public class PlayController {
     static boolean gameStarted, gameLost;
     static int rows, cols, bombs, tilesUncovered, flagsSet;
+    static String gameMode;
 
     static GridPane grid;
     static HashMap<Pair<Integer, Integer>, Tile> gridObjects;
@@ -34,26 +42,32 @@ public class PlayController {
     VBox pageContainer, stackpane_child1, gridContainer, gameLostPopup, gameWonPopup, newRecordPopup;
 
     @FXML
-    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken, newRecordPopup_timeTaken;
+    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken, newRecordPopup_timeTaken, playerName_error;
 
     @FXML
     HBox gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer, newRecordPopup_buttonsContainer;
+
+    @FXML
+    TextField playerName_textField;
 
     static void setMode(String mode) {
         if (Objects.equals(mode, "EASY")) {
             rows = 8;
             cols = 8;
             bombs = 10;
+            gameMode = "EASY";
         }
         else if (Objects.equals(mode, "MEDIUM")) {
             rows = 16;
             cols = 16;
             bombs = 40;
+            gameMode = "MEDIUM";
         }
         else {
             rows = 16;
             cols = 30;
             bombs = 99;
+            gameMode = "HARD";
         }
     }
 
@@ -459,6 +473,117 @@ public class PlayController {
         stackpane_child1.setEffect(new GaussianBlur()); // blurs gameplay page
         stackpane_child1.setMouseTransparent(true); // makes items in gameplay page "unclickable"
 
+        ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(gameMode);
+
+        if (highScores.size() < 10 || gameDuration < highScores.get(highScores.size() - 1).getLong("score"))
+            displayRecordSetPopup(highScores);
+         else
+             displayGameWonPopup();
+    }
+
+
+    void displayRecordSetPopup(ArrayList<JSONObject> highScores) {
+        newRecordPopup.setManaged(true);
+        newRecordPopup.setVisible(true);
+        newRecordPopup.setMaxWidth(250);
+        newRecordPopup.setMaxHeight(250);
+
+        newRecordPopup_timeTaken.setText(gameDuration + " seconds");
+
+        VBox.setVgrow(newRecordPopup_buttonsContainer, Priority.ALWAYS);
+        newRecordPopup_buttonsContainer.setSpacing(25);
+    }
+
+
+    @FXML
+    void saveNewRecord() {
+        if (playerName_textField.getText().isBlank()) {
+            // display error
+            playerName_error.setVisible(true);
+        }
+        else {
+            newRecordPopup.setManaged(false);
+            newRecordPopup.setVisible(false);
+            displayGameWonPopup();
+
+
+            Task<Void> saveHighScoreTask = new Task<>() {
+                @Override
+                protected Void call() {
+                    JSONObject newScoreInfo = new JSONObject();
+                    newScoreInfo.put("name", playerName_textField.getText().strip());
+                    newScoreInfo.put("score", gameDuration);
+                    newScoreInfo.put("time", System.currentTimeMillis());
+                    newScoreInfo.put("id", UUID.randomUUID().toString());
+
+
+                    // 1. Add newScoreInfo to highScores list
+                    ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(gameMode);
+                    highScores.add(newScoreInfo);
+
+
+                    // 2. Save newScoreInfo to MongoDB
+                    MongoDBConnection mongoDBConnection = new MongoDBConnection();
+                    mongoDBConnection.connect("mongodb+srv://bomblandAdmin:iIbydSYKZ6EVn2Cy@cluster0.ilt6y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "HighScores");
+
+                    try {
+                        MongoDatabase database = mongoDBConnection.getDatabase();
+                        MongoCollection<Document> highScores_Table = database.getCollection(gameMode);
+                        Document newScoreDocument = Document.parse(newScoreInfo.toString());
+                        highScores_Table.insertOne(newScoreDocument);
+                    } catch (Exception e) {
+                        System.out.println("An error occurred while trying to save the new score to MongoDB.");
+                        e.printStackTrace();
+                    }
+
+
+                    // 3. Sort highScores list
+                    highScores.sort(new Comparator<JSONObject>() {
+                        @Override
+                        public int compare(JSONObject a, JSONObject b) {
+                            return Long.compare(a.getLong("score"), b.getLong("score"));
+                        }
+                    });
+
+
+                    // 4. If highScores.size() > 10:
+                    //      - Delete last item in highScores
+                    //      - Also remove that last item from MongoDB
+                    if (highScores.size() > 10) {
+                        String id = highScores.get(highScores.size() - 1).getString("id");
+                        highScores.remove(highScores.size() - 1);
+
+                        try {
+                            MongoDatabase database = mongoDBConnection.getDatabase();
+                            MongoCollection<Document> highScores_Table = database.getCollection(gameMode);
+
+                            Document filter = new Document("id", id);
+
+                            long deletedCount = highScores_Table.deleteOne(filter).getDeletedCount();
+
+                            if (deletedCount > 0) {
+                                System.out.println("The high score was deleted successfully!");
+                            } else {
+                                System.out.println("The high score was NOT deleted.");
+                            }
+                        } catch (Exception e) {
+                            System.out.println("An error occurred while trying to delete the high score from MongoDB.");
+                            e.printStackTrace();
+                        }
+                    }
+
+                    mongoDBConnection.close();
+
+                    return null;
+                }
+            };
+
+            new Thread(saveHighScoreTask).start();
+        }
+    }
+
+
+    void displayGameWonPopup() {
         gameWonPopup.setManaged(true);
         gameWonPopup.setVisible(true);
         gameWonPopup.setMaxWidth(250);
