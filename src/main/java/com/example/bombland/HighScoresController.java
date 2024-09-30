@@ -1,8 +1,5 @@
 package com.example.bombland;
 
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -11,13 +8,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
-import org.bson.Document;
+import java.util.ArrayList;
 import org.json.JSONObject;
 
 public class HighScoresController {
-    private final MongoDBConnection mongoDBConnection = new MongoDBConnection();
-    private MongoDatabase database;
-
     @FXML
     VBox highScoresPage, easyHighScoresContainer, mediumHighScoresContainer, hardHighScoresContainer;
 
@@ -56,61 +50,36 @@ public class HighScoresController {
     }
 
     private void displayHighScores() {
-        mongoDBConnection.connect("mongodb+srv://bomblandAdmin:iIbydSYKZ6EVn2Cy@cluster0.ilt6y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "HighScores");
-        database = mongoDBConnection.getDatabase();
+        ArrayList<JSONObject> easyHighScores = APP_CACHE.getEasyHighScores();
+        ArrayList<JSONObject> mediumHighScores = APP_CACHE.getMediumHighScores();
+        ArrayList<JSONObject> hardHighScores = APP_CACHE.getHardHighScores();
 
-        MongoCollection<Document> easyTable = database.getCollection("Easy");
-        MongoCollection<Document> mediumTable = database.getCollection("Medium");
-        MongoCollection<Document> hardTable = database.getCollection("Hard");
-
-        System.out.println(easyTable.countDocuments());
-        System.out.println(mediumTable.countDocuments());
-        System.out.println(hardTable.countDocuments());
-
-
-        if (easyTable.countDocuments() > 0) {
+        if (!easyHighScores.isEmpty()) {
             easyHighScores_container.getChildren().clear();
 
-            MongoCursor<Document> cursor = easyTable.find().iterator();
-
-            while (cursor.hasNext()) {
-                JSONObject scoreObj = new JSONObject(cursor.next().toJson());
-
-                Label scoreBox = new Label(scoreObj.getString("name") + ", " + scoreObj.getString("score"));
+            for (JSONObject score : easyHighScores) {
+                Label scoreBox = new Label(score.getString("name") + ", " + score.getLong("score"));
                 easyHighScores_container.getChildren().add(scoreBox);
             }
         }
 
-
-        if (mediumTable.countDocuments() > 0) {
+        if (!mediumHighScores.isEmpty()) {
             mediumHighScores_container.getChildren().clear();
 
-            MongoCursor<Document> cursor = mediumTable.find().iterator();
-
-            while (cursor.hasNext()) {
-                JSONObject scoreObj = new JSONObject(cursor.next().toJson());
-
-                Label scoreBox = new Label(scoreObj.getString("name") + ", " + scoreObj.getString("score"));
+            for (JSONObject score : mediumHighScores) {
+                Label scoreBox = new Label(score.getString("name") + ", " + score.getLong("score"));
                 mediumHighScores_container.getChildren().add(scoreBox);
             }
         }
 
-
-        if (hardTable.countDocuments() > 0) {
+        if (!hardHighScores.isEmpty()) {
             hardHighScores_container.getChildren().clear();
 
-            MongoCursor<Document> cursor = hardTable.find().iterator();
-
-            while (cursor.hasNext()) {
-                JSONObject scoreObj = new JSONObject(cursor.next().toJson());
-
-                Label scoreBox = new Label(scoreObj.getString("name") + ", " + scoreObj.getString("score"));
+            for (JSONObject score : hardHighScores) {
+                Label scoreBox = new Label(score.getString("name") + ", " + score.getLong("score"));
                 hardHighScores_container.getChildren().add(scoreBox);
             }
         }
-
-
-        mongoDBConnection.close();
     }
 
     @FXML

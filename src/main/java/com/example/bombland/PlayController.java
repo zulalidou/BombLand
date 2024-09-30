@@ -476,13 +476,13 @@ public class PlayController {
         ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(gameMode);
 
         if (highScores.size() < 10 || gameDuration < highScores.get(highScores.size() - 1).getLong("score"))
-            displayRecordSetPopup(highScores);
+            displayRecordSetPopup();
          else
              displayGameWonPopup();
     }
 
 
-    void displayRecordSetPopup(ArrayList<JSONObject> highScores) {
+    void displayRecordSetPopup() {
         newRecordPopup.setManaged(true);
         newRecordPopup.setVisible(true);
         newRecordPopup.setMaxWidth(250);
@@ -498,14 +498,12 @@ public class PlayController {
     @FXML
     void saveNewRecord() {
         if (playerName_textField.getText().isBlank()) {
-            // display error
-            playerName_error.setVisible(true);
+            playerName_error.setVisible(true); // display error
         }
         else {
             newRecordPopup.setManaged(false);
             newRecordPopup.setVisible(false);
             displayGameWonPopup();
-
 
             Task<Void> saveHighScoreTask = new Task<>() {
                 @Override
