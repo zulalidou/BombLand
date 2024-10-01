@@ -38,7 +38,7 @@
 
     <HBox fx:id="highScoresContainer_bottom">
         <VBox fx:id="easyHighScoresContainer">
-            <Label text="Easy"/>
+            <Label styleClass="highScores_title" text="Easy"/>
             <ScrollPane fx:id="easyHighScores_scrollPane">
                 <VBox fx:id="easyHighScores_container">
                     <ImageView fitWidth="90" fitHeight="60" preserveRatio="true">
@@ -51,7 +51,7 @@
         </VBox>
 
         <VBox fx:id="mediumHighScoresContainer">
-            <Label text="Medium"/>
+            <Label styleClass="highScores_title" text="Medium"/>
             <ScrollPane fx:id="mediumHighScores_scrollPane">
                 <VBox fx:id="mediumHighScores_container">
                     <ImageView fitWidth="90" fitHeight="60" preserveRatio="true">
@@ -64,7 +64,7 @@
         </VBox>
 
         <VBox fx:id="hardHighScoresContainer">
-            <Label text="Hard"/>
+            <Label styleClass="highScores_title" text="Hard"/>
             <ScrollPane fx:id="hardHighScores_scrollPane">
                 <VBox fx:id="hardHighScores_container">
                     <ImageView fitWidth="90" fitHeight="60" preserveRatio="true">

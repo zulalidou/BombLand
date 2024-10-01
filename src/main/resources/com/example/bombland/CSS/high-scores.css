@@ -1,7 +1,6 @@
 #highScoresPage {
     -fx-padding: 10px;
     -fx-pref-width: 600px;
-    -fx-background-color: pink;
 }
 
 
@@ -15,12 +14,12 @@
 
 
 #highScoresContainer_leftChild {
-    -fx-background-color: green;
+    /*-fx-background-color: green;*/
 }
 
 #highScoresContainer_middleChild {
     -fx-alignment: center;
-    -fx-background-color: yellow;
+    /*-fx-background-color: yellow;*/
 }
 
 #highScoresPage_title {
@@ -30,18 +29,45 @@
 }
 
 #highScoresContainer_rightChild {
-    -fx-background-color: red;
+    /*-fx-background-color: red;*/
 }
 
 
 
-#highScoresContainer_bottom {
-    -fx-background-color: purple;
+
+
+
+#easyHighScoresContainer, #mediumHighScoresContainer, #hardHighScoresContainer {
+    -fx-alignment: center;
 }
 
 
-#qwe {
-    -fx-background-color: purple;
-    -fx-pref-width: 150px;
+
+.highScores_title {
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
 }
+
+
+#easyHighScores_container, #mediumHighScores_container, #hardHighScores_container {
+    -fx-alignment: center;
+    /*-fx-background-color: coral;*/
+    -fx-width: 100%;
+    -fx-spacing: 6px;
+}
+
+
+.highScoreLabel {
+    -fx-font-size: 15px;
+    -fx-background-color: pink;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+    -fx-spacing: 10px;
+
+    -fx-padding: 3px;
+    /* -fx-pref-width: 150px;  there should be a max-width, in case the player enters a really long name */
+    -fx-text-alignment: center;
+}
+
+
 

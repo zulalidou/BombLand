@@ -46,6 +46,16 @@ public class HighScoresController {
 //        VBox.setVgrow(hardHighScoresContainer, Priority.ALWAYS);
 
 
+        easyHighScores_scrollPane.setFitToWidth(true);
+        easyHighScores_scrollPane.setFitToHeight(true);
+
+        mediumHighScores_scrollPane.setFitToWidth(true);
+        mediumHighScores_scrollPane.setFitToHeight(true);
+
+        hardHighScores_scrollPane.setFitToWidth(true);
+        hardHighScores_scrollPane.setFitToHeight(true);
+
+
         displayHighScores();
     }
 
@@ -59,6 +69,7 @@ public class HighScoresController {
 
             for (JSONObject score : easyHighScores) {
                 Label scoreBox = new Label(score.getString("name") + ", " + score.getLong("score"));
+                scoreBox.getStyleClass().add("highScoreLabel");
                 easyHighScores_container.getChildren().add(scoreBox);
             }
         }
@@ -68,6 +79,7 @@ public class HighScoresController {
 
             for (JSONObject score : mediumHighScores) {
                 Label scoreBox = new Label(score.getString("name") + ", " + score.getLong("score"));
+                scoreBox.getStyleClass().add("highScoreLabel");
                 mediumHighScores_container.getChildren().add(scoreBox);
             }
         }
@@ -77,6 +89,7 @@ public class HighScoresController {
 
             for (JSONObject score : hardHighScores) {
                 Label scoreBox = new Label(score.getString("name") + ", " + score.getLong("score"));
+                scoreBox.getStyleClass().add("highScoreLabel");
                 hardHighScores_container.getChildren().add(scoreBox);
             }
         }
