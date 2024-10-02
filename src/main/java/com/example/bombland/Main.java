@@ -3,11 +3,16 @@ package com.example.bombland;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.bson.Document;
 import org.json.JSONObject;
@@ -17,19 +22,28 @@ import java.util.Comparator;
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("FXML/main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 500);
-        stage.setTitle("BOMBLAND");
-        stage.setResizable(false);
+    public void start(Stage stage) {
+        fetchHighScores();
 
         Image icon = new Image(getClass().getResourceAsStream("/com/example/bombland/images/bombsmall.png"));
         stage.getIcons().add(icon);
+        stage.setTitle("BOMBLAND");
+        stage.setResizable(false);
 
-        stage.setScene(scene);
-        stage.show();
+        showSplashScreen(stage);
+    }
 
+    @Override
+    public void stop() {
+        // Closing the entire app doesn't kill all threads, so I'm explicitly having the executor service kill all tasks I queued in the background
+        PlayController.endTimer();
+    }
 
+    public static void main(String[] args) {
+        launch();
+    }
+
+    public void fetchHighScores() {
         Task<Void> fetchHighScoresTask = new Task<>() {
             @Override
             protected Void call() {
@@ -42,16 +56,6 @@ public class Main extends Application {
         };
 
         new Thread(fetchHighScoresTask).start();
-    }
-
-    @Override
-    public void stop() {
-        // Closing the entire app doesn't kill all threads, so I'm explicitly having the executor service kill all tasks I queued in the background
-        PlayController.endTimer();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
     public void getHighScores() {
@@ -110,5 +114,56 @@ public class Main extends Application {
                 return Long.compare(a.getLong("score"), b.getLong("score"));
             }
         });
+    }
+
+    public void showSplashScreen(Stage stage) {
+        Text textBeforeO = new Text("B");
+        textBeforeO.setStyle("-fx-font-size: 50px; -fx-font-weight: bold;");
+
+        Image image = new Image(getClass().getResourceAsStream("/com/example/bombland/images/bombsmall.png"));
+        ImageView imageView = new ImageView(image);
+
+        Text textAfterO = new Text("MBLAND");
+        textAfterO.setStyle("-fx-font-size: 50px; -fx-font-weight: bold;");
+
+        HBox logoContainer = new HBox(textBeforeO, imageView, textAfterO);
+        logoContainer.setAlignment(javafx.geometry.Pos.CENTER);
+
+        VBox splashScreen = new VBox(logoContainer);
+        splashScreen.setAlignment(javafx.geometry.Pos.CENTER);
+
+        Scene splashScene = new Scene(splashScreen, 800, 500);
+        stage.setScene(splashScene);
+        stage.show();
+
+        AnimationTimer timer = new AnimationTimer() {
+            int i = 0;
+
+            @Override
+            public void handle(long now) {
+                splashScreen.setStyle("-fx-background-color: rgb(" + i + ", 0, 0);");
+                i++;
+
+                if (i >= 255) {
+                    stop(); // Stop the AnimationTimer
+
+                    try {
+                        showMainMenu(stage);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        };
+
+        timer.start();
+    }
+    
+    public void showMainMenu(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("FXML/main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 800, 500);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }
