@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -118,13 +119,20 @@ public class Main extends Application {
 
     public void showSplashScreen(Stage stage) {
         Text textBeforeO = new Text("B");
-        textBeforeO.setStyle("-fx-font-size: 50px; -fx-font-weight: bold;");
+        textBeforeO.styleProperty().bind(
+                // Sets the font size to be 9% of the app window's width
+                Bindings.format("-fx-font-size: %.2fpx; -fx-font-weight: bold;", stage.widthProperty().multiply(0.09))
+        );
 
-        Image image = new Image(getClass().getResourceAsStream("/com/example/bombland/images/bombsmall.png"));
+        Image image = new Image(getClass().getResourceAsStream("/com/example/bombland/images/bomb.png"));
         ImageView imageView = new ImageView(image);
 
         Text textAfterO = new Text("MBLAND");
-        textAfterO.setStyle("-fx-font-size: 50px; -fx-font-weight: bold;");
+        textAfterO.styleProperty().bind(
+                // Sets the font size to be 9% of the app window's width
+                Bindings.format("-fx-font-size: %.2fpx; -fx-font-weight: bold;", stage.widthProperty().multiply(0.09))
+        );
+
 
         HBox logoContainer = new HBox(textBeforeO, imageView, textAfterO);
         logoContainer.setAlignment(javafx.geometry.Pos.CENTER);
@@ -132,7 +140,7 @@ public class Main extends Application {
         VBox splashScreen = new VBox(logoContainer);
         splashScreen.setAlignment(javafx.geometry.Pos.CENTER);
 
-        Scene splashScene = new Scene(splashScreen, 800, 500);
+        Scene splashScene = new Scene(splashScreen, 1024, 768);
         stage.setScene(splashScene);
         stage.show();
 
@@ -161,7 +169,7 @@ public class Main extends Application {
     
     public void showMainMenu(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("FXML/main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
 
         stage.setScene(scene);
         stage.show();
