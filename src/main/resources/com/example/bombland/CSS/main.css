@@ -2,21 +2,22 @@
     -fx-alignment: center;
 }
 
+
 #mainMenuOptionsContainer {
-    -fx-pref-width: 600px;
     -fx-alignment: center;
-    -fx-background-color: coral;
-    -fx-padding: 20px;
+    -fx-background-color: red;
 }
 
-.label {
-    -fx-font-size: 75px;
+#logoContainer {
+    -fx-alignment: center;
 }
 
 .button {
-    -fx-font-size: 30px;
+    -fx-background-color: black;
+    -fx-text-fill: white;
 }
 
 .button:hover {
     -fx-cursor: hand;
+    -fx-text-fill: red;
 }
