@@ -1,59 +1,81 @@
 package com.example.bombland;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import org.json.JSONObject;
 
 public class HighScoresController {
     @FXML
-    VBox highScoresPage, easyHighScoresContainer, mediumHighScoresContainer, hardHighScoresContainer;
+    VBox highScoresPage, easyHighScores_column, mediumHighScores_column, hardHighScores_column, easyHighScores_scoreContainer, mediumHighScores_scoreContainer, hardHighScores_scoreContainer;
 
     @FXML
     HBox highScoresContainer_bottom, highScoresContainer_leftChild, highScoresContainer_middleChild, highScoresContainer_rightChild;
 
     @FXML
-    ScrollPane easyHighScores_scrollPane, mediumHighScores_scrollPane, hardHighScores_scrollPane;
+    Label highScoresPage_title, easyHighScore_title, mediumHighScore_title, hardHighScore_title;
 
     @FXML
-    VBox easyHighScores_container, mediumHighScores_container, hardHighScores_container;
-
+    Button backBtn;
 
     @FXML
     public void initialize() {
-        HBox.setHgrow(highScoresContainer_leftChild, Priority.ALWAYS);
-        HBox.setHgrow(highScoresContainer_middleChild, Priority.ALWAYS);
-        HBox.setHgrow(highScoresContainer_rightChild, Priority.ALWAYS);
+        highScoresPage.styleProperty().bind(
+                Bindings.format("-fx-padding: %.2fpx;", Main.mainStage.widthProperty().multiply(0.02))
+        );
 
-        HBox.setHgrow(easyHighScoresContainer, Priority.ALWAYS);
-        HBox.setHgrow(mediumHighScoresContainer, Priority.ALWAYS);
-        HBox.setHgrow(hardHighScoresContainer, Priority.ALWAYS);
+
+        backBtn.styleProperty().bind(
+                Bindings.format("-fx-background-radius: %.2fpx;", Main.mainStage.widthProperty().multiply(0.05))
+        );
+
+        highScoresContainer_leftChild.styleProperty().bind(
+                Bindings.format("-fx-pref-width: %.2fpx;", Main.mainStage.widthProperty().multiply(0.33))
+        );
+
+        highScoresContainer_middleChild.styleProperty().bind(
+                Bindings.format("-fx-pref-width: %.2fpx", Main.mainStage.widthProperty().multiply(0.34))
+        );
+
+        highScoresPage_title.styleProperty().bind(
+                Bindings.format("-fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.04))
+        );
+
+        highScoresContainer_rightChild.styleProperty().bind(
+                Bindings.format("-fx-pref-width: %.2fpx;", Main.mainStage.widthProperty().multiply(0.33))
+        );
+
+
+        easyHighScore_title.styleProperty().bind(
+                Bindings.format("-fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.03))
+        );
+
+        mediumHighScore_title.styleProperty().bind(
+                Bindings.format("-fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.03))
+        );
+
+        hardHighScore_title.styleProperty().bind(
+                Bindings.format("-fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.03))
+        );
 
 
         VBox.setVgrow(highScoresContainer_bottom, Priority.ALWAYS);
-        VBox.setVgrow(easyHighScores_scrollPane, Priority.ALWAYS);
-        VBox.setVgrow(mediumHighScores_scrollPane, Priority.ALWAYS);
-        VBox.setVgrow(hardHighScores_scrollPane, Priority.ALWAYS);
 
-//        VBox.setVgrow(easyHighScoresContainer, Priority.ALWAYS);
-//        VBox.setVgrow(mediumHighScoresContainer, Priority.ALWAYS);
-//        VBox.setVgrow(hardHighScoresContainer, Priority.ALWAYS);
+        HBox.setHgrow(easyHighScores_column, Priority.ALWAYS);
+        HBox.setHgrow(mediumHighScores_column, Priority.ALWAYS);
+        HBox.setHgrow(hardHighScores_column, Priority.ALWAYS);
 
-
-        easyHighScores_scrollPane.setFitToWidth(true);
-        easyHighScores_scrollPane.setFitToHeight(true);
-
-        mediumHighScores_scrollPane.setFitToWidth(true);
-        mediumHighScores_scrollPane.setFitToHeight(true);
-
-        hardHighScores_scrollPane.setFitToWidth(true);
-        hardHighScores_scrollPane.setFitToHeight(true);
+        VBox.setVgrow(easyHighScores_scoreContainer, Priority.ALWAYS);
+        VBox.setVgrow(mediumHighScores_scoreContainer, Priority.ALWAYS);
+        VBox.setVgrow(hardHighScores_scoreContainer, Priority.ALWAYS);
 
 
         displayHighScores();
@@ -65,32 +87,47 @@ public class HighScoresController {
         ArrayList<JSONObject> hardHighScores = APP_CACHE.getHardHighScores();
 
         if (!easyHighScores.isEmpty()) {
-            easyHighScores_container.getChildren().clear();
+            easyHighScores_scoreContainer.getChildren().clear();
 
             for (JSONObject score : easyHighScores) {
                 Label scoreBox = new Label(score.getString("name") + ", " + score.getLong("score"));
                 scoreBox.getStyleClass().add("highScoreLabel");
-                easyHighScores_container.getChildren().add(scoreBox);
+
+                scoreBox.styleProperty().bind(
+                        Bindings.format("-fx-font-size: %.2fpx; -fx-background-radius: %.2fpx; -fx-spacing: %.2fpx; -fx-padding: %.2fpx;", Main.mainStage.widthProperty().multiply(0.02), Main.mainStage.widthProperty().multiply(0.01), Main.mainStage.widthProperty().multiply(0.04), Main.mainStage.widthProperty().multiply(0.0075))
+                );
+
+                easyHighScores_scoreContainer.getChildren().add(scoreBox);
             }
         }
 
         if (!mediumHighScores.isEmpty()) {
-            mediumHighScores_container.getChildren().clear();
+            mediumHighScores_scoreContainer.getChildren().clear();
 
             for (JSONObject score : mediumHighScores) {
                 Label scoreBox = new Label(score.getString("name") + ", " + score.getLong("score"));
                 scoreBox.getStyleClass().add("highScoreLabel");
-                mediumHighScores_container.getChildren().add(scoreBox);
+
+                scoreBox.styleProperty().bind(
+                        Bindings.format("-fx-font-size: %.2fpx; -fx-background-radius: %.2fpx; -fx-spacing: %.2fpx; -fx-padding: %.2fpx;", Main.mainStage.widthProperty().multiply(0.02), Main.mainStage.widthProperty().multiply(0.01), Main.mainStage.widthProperty().multiply(0.04), Main.mainStage.widthProperty().multiply(0.0075))
+                );
+
+                mediumHighScores_scoreContainer.getChildren().add(scoreBox);
             }
         }
 
         if (!hardHighScores.isEmpty()) {
-            hardHighScores_container.getChildren().clear();
+            hardHighScores_scoreContainer.getChildren().clear();
 
             for (JSONObject score : hardHighScores) {
                 Label scoreBox = new Label(score.getString("name") + ", " + score.getLong("score"));
                 scoreBox.getStyleClass().add("highScoreLabel");
-                hardHighScores_container.getChildren().add(scoreBox);
+
+                scoreBox.styleProperty().bind(
+                        Bindings.format("-fx-font-size: %.2fpx; -fx-background-radius: %.2fpx; -fx-spacing: %.2fpx; -fx-padding: %.2fpx;", Main.mainStage.widthProperty().multiply(0.02), Main.mainStage.widthProperty().multiply(0.01), Main.mainStage.widthProperty().multiply(0.04), Main.mainStage.widthProperty().multiply(0.0075))
+                );
+
+                hardHighScores_scoreContainer.getChildren().add(scoreBox);
             }
         }
     }

@@ -31,11 +31,11 @@ public class Main extends Application {
         fetchHighScores();
 
         Image icon = new Image(getClass().getResourceAsStream("/com/example/bombland/images/bombsmall.png"));
-        mainStage.getIcons().add(icon);
-        mainStage.setTitle("BOMBLAND");
-        mainStage.setResizable(false);
+        stage.getIcons().add(icon);
+        stage.setTitle("BOMBLAND");
+        stage.setResizable(false);
 
-        showSplashScreen();
+        showSplashScreen(stage);
     }
 
     @Override
@@ -121,11 +121,11 @@ public class Main extends Application {
         });
     }
 
-    public void showSplashScreen() {
+    public void showSplashScreen(Stage stage) {
         Text textBeforeO = new Text("B");
         textBeforeO.styleProperty().bind(
                 // Sets the font size to be 9% of the app window's width
-                Bindings.format("-fx-font-size: %.2fpx; -fx-font-weight: bold;", mainStage.widthProperty().multiply(0.09))
+                Bindings.format("-fx-font-size: %.2fpx; -fx-font-weight: bold;", stage.widthProperty().multiply(0.09))
         );
 
         Image image = new Image(getClass().getResourceAsStream("/com/example/bombland/images/bomb.png"));
@@ -134,7 +134,7 @@ public class Main extends Application {
         Text textAfterO = new Text("MBLAND");
         textAfterO.styleProperty().bind(
                 // Sets the font size to be 9% of the app window's width
-                Bindings.format("-fx-font-size: %.2fpx; -fx-font-weight: bold;", mainStage.widthProperty().multiply(0.09))
+                Bindings.format("-fx-font-size: %.2fpx; -fx-font-weight: bold;", stage.widthProperty().multiply(0.09))
         );
 
 
@@ -145,8 +145,8 @@ public class Main extends Application {
         splashScreen.setAlignment(javafx.geometry.Pos.CENTER);
 
         Scene splashScene = new Scene(splashScreen, 1024, 768);
-        mainStage.setScene(splashScene);
-        mainStage.show();
+        stage.setScene(splashScene);
+        stage.show();
 
         AnimationTimer timer = new AnimationTimer() {
             int i = 0;
@@ -160,7 +160,7 @@ public class Main extends Application {
                     stop(); // Stop the AnimationTimer
 
                     try {
-                        showMainMenu();
+                        showMainMenu(stage);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -170,12 +170,12 @@ public class Main extends Application {
 
         timer.start();
     }
-    
-    public void showMainMenu() throws IOException {
+
+    public void showMainMenu(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("FXML/main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
 
-        mainStage.setScene(scene);
-        mainStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
 }

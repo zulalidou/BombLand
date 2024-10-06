@@ -7,73 +7,65 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.ScrollPane?>
 
 <VBox fx:id="highScoresPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.HighScoresController">
     <stylesheets>
         <URL value="@../CSS/high-scores.css"/>
     </stylesheets>
 
-
-    <VBox fx:id="highScoresContainer_top">
-        <HBox>
-            <HBox fx:id="highScoresContainer_leftChild">
-                <Button onAction="#goToMainMenu">
-                    <graphic>
-                        <ImageView fitWidth="20" preserveRatio="true">
-                            <Image url="/com/example/bombland/images/back-button.png"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </HBox>
-
-            <HBox fx:id="highScoresContainer_middleChild">
-                <Label id="highScoresPage_title" text="High Scores"/>
-            </HBox>
-
-            <HBox fx:id="highScoresContainer_rightChild">
-            </HBox>
+    <HBox fx:id="highScoresContainer_top">
+        <HBox fx:id="highScoresContainer_leftChild">
+            <Button fx:id="backBtn" onAction="#goToMainMenu">
+                <graphic>
+                    <ImageView fitWidth="20" preserveRatio="true">
+                        <Image url="/com/example/bombland/images/back-button.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
-    </VBox>
+
+        <HBox fx:id="highScoresContainer_middleChild">
+            <Label fx:id="highScoresPage_title" text="High Scores"/>
+        </HBox>
+
+        <HBox fx:id="highScoresContainer_rightChild" />
+    </HBox>
 
     <HBox fx:id="highScoresContainer_bottom">
-        <VBox fx:id="easyHighScoresContainer">
-            <Label styleClass="highScores_title" text="Easy"/>
-            <ScrollPane fx:id="easyHighScores_scrollPane">
-                <VBox fx:id="easyHighScores_container">
-                    <ImageView fitWidth="90" fitHeight="60" preserveRatio="true">
-                        <Image url="/com/example/bombland/images/smiley-face.png"/>
-                    </ImageView>
+        <VBox fx:id="easyHighScores_column">
+            <Label fx:id="easyHighScore_title" text="Easy"/>
 
-                    <Label text="No activity yet!"/>
-                </VBox>
-            </ScrollPane>
+            <VBox fx:id="easyHighScores_scoreContainer">
+                <ImageView fitWidth="90" fitHeight="60" preserveRatio="true">
+                    <Image url="/com/example/bombland/images/smiley-face.png"/>
+                </ImageView>
+
+                <Label styleClass="highScores_activityLabel" text="No activity yet!"/>
+            </VBox>
         </VBox>
 
-        <VBox fx:id="mediumHighScoresContainer">
-            <Label styleClass="highScores_title" text="Medium"/>
-            <ScrollPane fx:id="mediumHighScores_scrollPane">
-                <VBox fx:id="mediumHighScores_container">
-                    <ImageView fitWidth="90" fitHeight="60" preserveRatio="true">
-                        <Image url="/com/example/bombland/images/smiley-face.png"/>
-                    </ImageView>
+        <VBox fx:id="mediumHighScores_column">
+            <Label fx:id="mediumHighScore_title" text="Medium"/>
 
-                    <Label text="No activity yet!"/>
-                </VBox>
-            </ScrollPane>
+            <VBox fx:id="mediumHighScores_scoreContainer">
+                <ImageView fitWidth="90" fitHeight="60" preserveRatio="true">
+                    <Image url="/com/example/bombland/images/smiley-face.png"/>
+                </ImageView>
+
+                <Label styleClass="highScores_activityLabel" text="No activity yet!"/>
+            </VBox>
         </VBox>
 
-        <VBox fx:id="hardHighScoresContainer">
-            <Label styleClass="highScores_title" text="Hard"/>
-            <ScrollPane fx:id="hardHighScores_scrollPane">
-                <VBox fx:id="hardHighScores_container">
-                    <ImageView fitWidth="90" fitHeight="60" preserveRatio="true">
-                        <Image url="/com/example/bombland/images/smiley-face.png"/>
-                    </ImageView>
+        <VBox fx:id="hardHighScores_column">
+            <Label fx:id="hardHighScore_title" text="Hard"/>
 
-                    <Label text="No activity yet!"/>
-                </VBox>
-            </ScrollPane>
+            <VBox fx:id="hardHighScores_scoreContainer">
+                <ImageView fitWidth="90" fitHeight="60" preserveRatio="true">
+                    <Image url="/com/example/bombland/images/smiley-face.png"/>
+                </ImageView>
+
+                <Label styleClass="highScores_activityLabel" text="No activity yet!"/>
+            </VBox>
         </VBox>
     </HBox>
 </VBox>

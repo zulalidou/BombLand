@@ -1,11 +1,5 @@
-#highScoresPage {
-    -fx-padding: 10px;
-    -fx-pref-width: 600px;
-}
-
-
 .button {
-    -fx-font-size: 15px;
+    -fx-background-color: black;
 }
 
 .button:hover {
@@ -13,61 +7,53 @@
 }
 
 
-#highScoresContainer_leftChild {
-    /*-fx-background-color: green;*/
-}
-
 #highScoresContainer_middleChild {
     -fx-alignment: center;
-    /*-fx-background-color: yellow;*/
 }
 
 #highScoresPage_title {
-    -fx-font-size: 40px;
     -fx-wrap-text: true;
     -fx-font-weight: bold;
-}
-
-#highScoresContainer_rightChild {
-    /*-fx-background-color: red;*/
+    -fx-text-fill: red;
 }
 
 
 
-
-
-
-#easyHighScoresContainer, #mediumHighScoresContainer, #hardHighScoresContainer {
-    -fx-alignment: center;
+#easyHighScores_column, #mediumHighScores_column, #hardHighScores_column {
+    -fx-border-color: black;
 }
 
 
-
-.highScores_title {
+#easyHighScore_title, #mediumHighScore_title, #hardHighScore_title {
+    -fx-background-color: black;
+    -fx-text-fill: red;
     -fx-font-weight: bold;
-    -fx-font-size: 25px;
+
+    -fx-pref-width: 100%;
+    -fx-max-width: Infinity; /* Allow the label to expand */
+    -fx-alignment: center;
+
+    -fx-border-color: transparent transparent black transparent; /* Set only bottom border color */
 }
 
-
-#easyHighScores_container, #mediumHighScores_container, #hardHighScores_container {
+#easyHighScores_scoreContainer, #mediumHighScores_scoreContainer, #hardHighScores_scoreContainer {
     -fx-alignment: center;
-    /*-fx-background-color: coral;*/
-    -fx-width: 100%;
     -fx-spacing: 6px;
 }
 
 
-.highScoreLabel {
-    -fx-font-size: 15px;
-    -fx-background-color: pink;
-    -fx-background-radius: 5px;
+.highScores_activityLabel {
+    -fx-text-fill: red;
     -fx-font-weight: bold;
-    -fx-spacing: 10px;
-
-    -fx-padding: 3px;
-    /* -fx-pref-width: 150px;  there should be a max-width, in case the player enters a really long name */
-    -fx-text-alignment: center;
+    -fx-font-size: 150%;
 }
 
 
+.highScoreLabel {
+    -fx-background-color: black;
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
 
+    /* -fx-pref-width: 150px;  there should be a max-width, in case the player enters a really long name */
+    -fx-text-alignment: center;
+}
