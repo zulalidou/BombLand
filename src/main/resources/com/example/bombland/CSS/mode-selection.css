@@ -1,33 +1,38 @@
 #modeSelectionPage {
-    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+
+#modeSelectionPageContainer {
+    -fx-background-color: red;
+}
+
+#modeSelectionPageContainer_top_middleChild {
+    -fx-alignment: center;
 }
 
 
 #backBtn {
-    -fx-font-size: 15px;
+    -fx-background-color: black;
 }
 
-
-#modeSelectionOptions_outerContainer {
-    -fx-alignment: center;
-    -fx-pref-height: 400px;
-}
-
-#modeSelectionOptions_innerContainer {
-    -fx-pref-width: 600px;
-    -fx-alignment: center;
-    -fx-background-color: coral;
-    -fx-padding: 20px;
-}
-
-.label {
-    -fx-font-size: 50px;
-}
-
-.button {
-    -fx-font-size: 25px;
-}
-
-.button:hover {
+#backBtn:hover {
     -fx-cursor: hand;
+}
+
+
+#modeSelectionPage_title {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+
+#modeSelectionPageContainer_bottom_inner .button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+#modeSelectionPageContainer_bottom_inner .button:hover {
+    -fx-cursor: hand;
+    -fx-text-fill: red;
 }
