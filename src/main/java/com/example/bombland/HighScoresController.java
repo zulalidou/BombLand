@@ -10,6 +10,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import org.json.JSONObject;
 
@@ -135,7 +136,7 @@ public class HighScoresController {
     @FXML
     private void goToMainMenu() throws IOException {
         ScreenController screenController = new ScreenController(highScoresPage.getScene());
-        screenController.addScreen("main", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/main-view.fxml")));
+        screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
         screenController.activate("main");
     }
 }

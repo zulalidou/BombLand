@@ -79,7 +79,7 @@ public class PlayController {
         ScreenController screenController = new ScreenController(pageContainer.getScene());
         screenController.removeScreen("play");
 
-        screenController.addScreen("main", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/main-view.fxml")));
+        screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
         screenController.activate("main");
     }
 
@@ -147,7 +147,7 @@ public class PlayController {
                         Tile tileObj = gridObjects.get(new Pair<>(tileRow, tileCol));
 
                         if (tileObj.isCovered) {
-                            AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/flag_flap.wav").toExternalForm());
+                            AudioClip clip = new AudioClip(Objects.requireNonNull(getClass().getResource("/com/example/bombland/Sounds/flag_flap.wav")).toExternalForm());
                             clip.play();
 
                             if (tileObj.isFlagged) {
@@ -331,7 +331,7 @@ public class PlayController {
 
     void handleTileClick(Tile tileObj) throws IOException {
         if (tileObj.isCovered) {
-            AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/tile_click.wav").toExternalForm());
+            AudioClip clip = new AudioClip(Objects.requireNonNull(getClass().getResource("/com/example/bombland/Sounds/tile_click.wav")).toExternalForm());
             clip.play();
 
             if (tileObj.value == Tile.TileValue.EMPTY) {
@@ -440,7 +440,7 @@ public class PlayController {
 
 
     void gameLost() {
-        AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/game_lost.wav").toExternalForm());
+        AudioClip clip = new AudioClip(Objects.requireNonNull(getClass().getResource("/com/example/bombland/Sounds/game_lost.wav")).toExternalForm());
         clip.play();
 
         // Uncover all bomb tiles
@@ -467,7 +467,7 @@ public class PlayController {
 
 
     void gameWon() {
-        AudioClip clip = new AudioClip(getClass().getResource("/com/example/bombland/sounds/game_won.wav").toExternalForm());
+        AudioClip clip = new AudioClip(Objects.requireNonNull(getClass().getResource("/com/example/bombland/Sounds/game_won.wav")).toExternalForm());
         clip.play();
 
         stackpane_child1.setEffect(new GaussianBlur()); // blurs gameplay page

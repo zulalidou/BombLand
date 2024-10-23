@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainController {
     @FXML
@@ -62,21 +63,21 @@ public class MainController {
     @FXML
     private void openModeSelectionPage(ActionEvent event) throws IOException {
         ScreenController screenController = new ScreenController(mainMenuPage.getScene());
-        screenController.addScreen("mode-selection", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/mode-selection-view.fxml")));
+        screenController.addScreen("mode-selection", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/mode-selection-view.fxml"))));
         screenController.activate("mode-selection");
     }
 
     @FXML
     private void openInstructionsPage(ActionEvent event) throws IOException {
         ScreenController screenController = new ScreenController(mainMenuPage.getScene());
-        screenController.addScreen("instructions", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/instructions-view.fxml")));
+        screenController.addScreen("instructions", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/instructions-view.fxml"))));
         screenController.activate("instructions");
     }
 
     @FXML
     private void openHighScoresPage(ActionEvent event) throws IOException {
         ScreenController screenController = new ScreenController(mainMenuPage.getScene());
-        screenController.addScreen("highscores", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/high-scores-view.fxml")));
+        screenController.addScreen("highscores", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/high-scores-view.fxml"))));
         screenController.activate("highscores");
     }
 

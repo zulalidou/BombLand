@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ModeSelectionController {
     @FXML
@@ -19,7 +20,7 @@ public class ModeSelectionController {
     @FXML
     private void goToMainMenu() throws IOException {
         ScreenController screenController = new ScreenController(modeSelectionPage.getScene());
-        screenController.addScreen("main", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/main-view.fxml")));
+        screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
         screenController.activate("main");
     }
 
@@ -44,7 +45,7 @@ public class ModeSelectionController {
     @FXML
     private void startGame() throws IOException {
         ScreenController screenController = new ScreenController(modeSelectionPage.getScene());
-        screenController.addScreen("play", FXMLLoader.load(getClass().getResource("/com/example/bombland/FXML/play-view.fxml")));
+        screenController.addScreen("play", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/play-view.fxml"))));
         screenController.activate("play");
     }
 }

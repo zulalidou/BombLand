@@ -14,7 +14,7 @@
     </stylesheets>
 
     <HBox fx:id="highScoresContainer_top">
-        <HBox fx:id="highScoresContainer_leftChild">
+        <HBox fx:id="highScoresContainer_leftChild" alignment="CENTER_LEFT">
             <Button fx:id="backBtn" onAction="#goToMainMenu">
                 <graphic>
                     <ImageView fitWidth="20" preserveRatio="true">

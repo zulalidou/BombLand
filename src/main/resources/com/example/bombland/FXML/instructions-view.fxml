@@ -3,150 +3,151 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.text.Text?>
 <?import java.net.URL?>
-
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.ScrollBar?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
-<VBox fx:id="instructionsPage" id="instructionsPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.InstructionsController">
+<?import javafx.scene.layout.Region?>
+
+<VBox fx:id="instructionsPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.InstructionsController">
     <stylesheets>
         <URL value="@../CSS/instructions.css"/>
     </stylesheets>
 
-
-    <VBox fx:id="instructionsContainer" spacing="20">
-        <HBox>
-            <HBox fx:id="instructionsContainer_leftChild">
-                <Button onAction="#goToMainMenu">
-                    <graphic>
-                        <ImageView fitWidth="20" preserveRatio="true">
-                            <Image url="/com/example/bombland/images/back-button.png"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </HBox>
-
-            <HBox fx:id="instructionsContainer_middleChild">
-                <Label id="instructionsPage_title" text="Instructions"/>
-            </HBox>
-
-            <HBox fx:id="instructionsContainer_rightChild">
-            </HBox>
+    <HBox fx:id="instructionsContainer_top">
+        <HBox fx:id="instructionsContainer_leftChild" alignment="CENTER_LEFT">
+            <Button fx:id="backBtn" onAction="#goToMainMenu">
+                <graphic>
+                    <ImageView fitWidth="20" preserveRatio="true">
+                        <Image url="/com/example/bombland/images/back-button.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
 
+        <HBox fx:id="instructionsContainer_middleChild">
+            <Label fx:id="instructionsPage_title" text="Instructions"/>
+        </HBox>
 
+        <HBox fx:id="instructionsContainer_rightChild" />
+    </HBox>
+
+    <HBox fx:id="instructionsContainer_bottom">
         <ScrollPane fx:id="instructionsScrollPane">
             <VBox spacing="20">
-                <Label text="BombLand is a game where mines are hidden in a grid of squares. Safe squares have numbers telling you how many mines touch the square. You can use the number clues to solve the game by opening all of the safe squares. If you click on a mine you lose the game!"/>
-                <Label text="BombLand always makes the first click safe. You open squares with the left mouse button and put flags on mines with the right mouse button. When you open a square that does not touch any mines, it will be empty and the adjacent squares will automatically open in all directions until reaching squares that contain numbers. One strategy for starting games is to randomly click until you get a big opening with lots of numbers."/>
+                <Label styleClass="text" text="BombLand is a game where bombs are hidden in a grid of squares. Safe squares have numbers telling you how many bombs touch the square. You can use the number clues to solve the game by opening all of the safe squares. If you click on a bomb you lose the game!"/>
+                <Label styleClass="text" text="BombLand always makes the first click safe. You open squares with the left mouse button and put flags on bombs with the right mouse button. When you open a square that does not touch any bombs, it will be empty and the adjacent squares will automatically open in all directions until reaching squares that contain numbers."/>
 
                 <VBox>
                     <HBox>
-                        <Label id="section1_titleLbl" text="Basic Patterns"/>
+                        <Label fx:id="section1_titleLbl" text="Basic Patterns"/>
                     </HBox>
 
                     <Separator id="separator" />
 
                     <VBox spacing="30">
-                        <Label text="When a number touches the same number of squares, those squares must be mines. Look at these examples:"/>
+                        <Label styleClass="text" text="When a number touches the same number of squares, those squares must be bombs. Look at these examples:"/>
 
                         <HBox>
-                            <VBox alignment="CENTER">
-                                <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                            <VBox fx:id="imgContainer_1" alignment="CENTER">
+                                <ImageView fx:id="imgView_1">
                                     <image>
                                         <Image url="/com/example/bombland/images/instructions-img1.png"/>
                                     </image>
                                 </ImageView>
 
-                                <Label styleClass="instructions-img-text" text="The 1 on the corner touches 1 square so it must be a mine."/>
+                                <Label styleClass="instructions-img-text" text="The 1 that's circled in red touches only one unopened square, so that square must contain a bomb."/>
                             </VBox>
 
-                            <VBox alignment="CENTER">
-                                <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                            <Region fx:id="space1"/>
+
+                            <VBox fx:id="imgContainer_2" alignment="CENTER">
+                                <ImageView fx:id="imgView_2">
                                     <image>
                                         <Image url="/com/example/bombland/images/instructions-img2.png"/>
                                     </image>
                                 </ImageView>
 
-                                <Label styleClass="instructions-img-text" text="The 2 touches 2 squares so they must both be mines."/>
+                                <Label fx:id="asdf" styleClass="instructions-img-text" text="The 2 that's circled in red touches two unopened squares, so both squares must each contain a bomb."/>
                             </VBox>
                         </HBox>
 
                         <HBox>
-                            <VBox alignment="CENTER">
-                                <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                            <VBox fx:id="imgContainer_3" alignment="CENTER">
+                                <ImageView fx:id="imgView_3">
                                     <image>
                                         <Image url="/com/example/bombland/images/instructions-img3.png"/>
                                     </image>
                                 </ImageView>
 
-                                <Label styleClass="instructions-img-text" text="The 3 touches 3 squares so they must all be mines."/>
+                                <Label styleClass="instructions-img-text" text="The 3 that's circled in red touches three unopened squares, so those three squares must each contain a bomb."/>
                             </VBox>
 
-                            <VBox alignment="CENTER">
-                                <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                            <Region fx:id="space2"/>
+
+                            <VBox fx:id="imgContainer_4" alignment="CENTER">
+                                <ImageView fx:id="imgView_4">
                                     <image>
                                         <Image url="/com/example/bombland/images/instructions-img4.png"/>
                                     </image>
                                 </ImageView>
 
-                                <Label styleClass="instructions-img-text" text="The 4 touches 4 squares so they must all be mines."/>
+                                <Label styleClass="instructions-img-text" text="The 4 that's circled in red touches four unopened squares, so those four squares must each contain a bomb."/>
                             </VBox>
                         </HBox>
 
                         <HBox>
-                            <VBox alignment="CENTER">
-                                <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                            <VBox fx:id="imgContainer_5" alignment="CENTER">
+                                <ImageView fx:id="imgView_5">
                                     <image>
                                         <Image url="/com/example/bombland/images/instructions-img5.png"/>
                                     </image>
                                 </ImageView>
 
-                                <Label styleClass="instructions-img-text" text="The 5 touches 5 squares so they must all be mines."/>
+                                <Label styleClass="instructions-img-text" text="The 5 that's circled in red touches five unopened squares, so those five squares must each contain a bomb."/>
                             </VBox>
 
-                            <VBox alignment="CENTER">
-                                <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                            <Region fx:id="space3"/>
+
+                            <VBox fx:id="imgContainer_6" alignment="CENTER">
+                                <ImageView fx:id="imgView_6">
                                     <image>
                                         <Image url="/com/example/bombland/images/instructions-img6.png"/>
                                     </image>
                                 </ImageView>
 
-                                <Label styleClass="instructions-img-text" text="The 6 touches 6 squares so they must all be mines."/>
+                                <Label styleClass="instructions-img-text" text="The 6 that's circled in red touches six unopened squares, so those six squares must each contain a bomb."/>
                             </VBox>
                         </HBox>
 
                         <HBox>
-                            <VBox alignment="CENTER">
-                                <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                            <VBox fx:id="imgContainer_7" alignment="CENTER">
+                                <ImageView fx:id="imgView_7">
                                     <image>
                                         <Image url="/com/example/bombland/images/instructions-img7.png"/>
                                     </image>
                                 </ImageView>
 
-                                <Label styleClass="instructions-img-text" text="The 7 touches 7 squares so they must all be mines."/>
+                                <Label styleClass="instructions-img-text" text="The 7 that's circled in red touches seven unopened squares, so those seven squares must each contain a bomb."/>
                             </VBox>
 
-                            <VBox alignment="CENTER">
-                                <ImageView fitWidth="300" fitHeight="200" preserveRatio="true">
+                            <Region fx:id="space4"/>
+
+                            <VBox fx:id="imgContainer_8" alignment="CENTER">
+                                <ImageView fx:id="imgView_8">
                                     <image>
                                         <Image url="/com/example/bombland/images/instructions-img8.png"/>
                                     </image>
                                 </ImageView>
 
-                                <Label styleClass="instructions-img-text" text="The 8 touches 8 squares so they must all be mines."/>
+                                <Label styleClass="instructions-img-text" text="The 8 that's circled in red touches eight unopened squares, so those eight squares must each contain a bomb."/>
                             </VBox>
                         </HBox>
                     </VBox>
                 </VBox>
             </VBox>
         </ScrollPane>
-    </VBox>
+    </HBox>
 </VBox>

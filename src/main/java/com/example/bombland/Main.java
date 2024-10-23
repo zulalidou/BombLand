@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Main extends Application {
     static Stage mainStage = null;
@@ -30,7 +31,7 @@ public class Main extends Application {
 
         fetchHighScores();
 
-        Image icon = new Image(getClass().getResourceAsStream("/com/example/bombland/images/bombsmall.png"));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/bombland/Images/bombsmall.png")));
         stage.getIcons().add(icon);
         stage.setTitle("BOMBLAND");
         stage.setResizable(false);
@@ -128,7 +129,7 @@ public class Main extends Application {
                 Bindings.format("-fx-font-size: %.2fpx; -fx-font-weight: bold;", stage.widthProperty().multiply(0.09))
         );
 
-        Image image = new Image(getClass().getResourceAsStream("/com/example/bombland/images/bomb.png"));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/bombland/Images/bomb.png")));
         ImageView imageView = new ImageView(image);
 
         Text textAfterO = new Text("MBLAND");

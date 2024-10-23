@@ -1,12 +1,5 @@
-#instructionsContainer {
-    -fx-padding: 10px;
-    -fx-pref-width: 600px;
-    -fx-pref-height: 500px;
-}
-
-
 .button {
-    -fx-font-size: 15px;
+    -fx-background-color: black;
 }
 
 .button:hover {
@@ -18,23 +11,35 @@
 }
 
 #instructionsPage_title {
-    -fx-font-size: 40px;
     -fx-wrap-text: true;
     -fx-font-weight: bold;
+    -fx-text-fill: red;
 }
 
 
-.label {
-    -fx-font-size: 20px;
-    -fx-wrap-text: true;
+#instructionsScrollPane {
+    -fx-border-color: black;
 }
+
+#instructionsScrollPane:focused {
+    /* Normally, when you click on the scrollpane, the it's border color turns blue (to show that the element is in focus).
+       This prevents the border color from turning blue */
+    -fx-background-color: transparent;
+}
+
 
 #section1_titleLbl {
-    -fx-font-size: 25px;
     -fx-font-weight: bold;
+    -fx-text-fill: red;
 }
 
 
 .instructions-img-text {
+    -fx-wrap-text: true;
     -fx-text-alignment: center;
+}
+
+.text {
+    -fx-wrap-text: true;
+    -fx-font-size: 200%;
 }
