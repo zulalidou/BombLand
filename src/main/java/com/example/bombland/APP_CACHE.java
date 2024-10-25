@@ -22,10 +22,10 @@ public class APP_CACHE {
     }
 
     static ArrayList<JSONObject> getHighScores(String gameMode) {
-        if (gameMode.equals("EASY")) {
+        if (gameMode.equals("Easy")) {
             return EASY_HIGH_SCORES;
         }
-        else if (gameMode.equals("MEDIUM")) {
+        else if (gameMode.equals("Medium")) {
             return MEDIUM_HIGH_SCORES;
         }
         else {

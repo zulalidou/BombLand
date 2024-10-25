@@ -3,6 +3,7 @@ package com.example.bombland;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,36 +39,43 @@ public class PlayController {
 
     private static ScheduledExecutorService  taskScheduler;
 
+
     @FXML
-    VBox pageContainer, stackpane_child1, gridContainer, gameLostPopup, gameWonPopup, newRecordPopup;
+    StackPane playPageContainer_inner;
+
+    @FXML
+    VBox playPageContainer, stackpane_child1, emptySpace, gridContainer, gameLostPopup, gameWonPopup, newRecordPopup;
 
     @FXML
     Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken, newRecordPopup_timeTaken, playerName_error;
 
     @FXML
-    HBox gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer, newRecordPopup_buttonsContainer;
+    Button backBtn;
+
+    @FXML
+    HBox backBtnContainer, gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer, newRecordPopup_buttonsContainer, playPageContainer_header;
 
     @FXML
     TextField playerName_textField;
 
     static void setMode(String mode) {
-        if (Objects.equals(mode, "EASY")) {
+        if (Objects.equals(mode, "Easy")) {
             rows = 8;
             cols = 8;
             bombs = 10;
-            gameMode = "EASY";
+            gameMode = "Easy";
         }
-        else if (Objects.equals(mode, "MEDIUM")) {
+        else if (Objects.equals(mode, "Medium")) {
             rows = 16;
             cols = 16;
             bombs = 40;
-            gameMode = "MEDIUM";
+            gameMode = "Medium";
         }
         else {
             rows = 16;
-            cols = 30;
-            bombs = 99;
-            gameMode = "HARD";
+            cols = 32;
+            bombs = 100;
+            gameMode = "Hard";
         }
     }
 
@@ -76,7 +84,7 @@ public class PlayController {
     private void goToMainMenu() throws IOException {
         endTimer();
 
-        ScreenController screenController = new ScreenController(pageContainer.getScene());
+        ScreenController screenController = new ScreenController(playPageContainer.getScene());
         screenController.removeScreen("play");
 
         screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
@@ -85,7 +93,49 @@ public class PlayController {
 
 
     @FXML
-    public void initialize() throws FileNotFoundException {
+    public void initialize() {
+        VBox.setVgrow(playPageContainer_inner, Priority.ALWAYS);
+        VBox.setVgrow(gridContainer, Priority.ALWAYS);
+
+
+        playPageContainer_header.styleProperty().bind(
+                Bindings.format("-fx-pref-height: %.2fpx;", Main.mainStage.widthProperty().multiply(0.1))
+        );
+
+        backBtnContainer.styleProperty().bind(
+                Bindings.format("-fx-pref-width: %.2fpx;", Main.mainStage.widthProperty().multiply(0.05))
+        );
+
+        backBtn.styleProperty().bind(
+                Bindings.format("-fx-background-radius: %.2fpx;", Main.mainStage.widthProperty().multiply(0.05))
+        );
+
+
+
+        totalBombsLbl.styleProperty().bind(
+                Bindings.format("-fx-pref-width: %.2fpx; -fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.3), Main.mainStage.widthProperty().multiply(0.035))
+        );
+
+        timeElapsedLbl.styleProperty().bind(
+                Bindings.format("-fx-pref-width: %.2fpx; -fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.3), Main.mainStage.widthProperty().multiply(0.035))
+        );
+
+        flagsLeftLbl.styleProperty().bind(
+                Bindings.format("-fx-pref-width: %.2fpx; -fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.3), Main.mainStage.widthProperty().multiply(0.035))
+        );
+
+        emptySpace.styleProperty().bind(
+                Bindings.format("-fx-pref-width: %.2fpx;", Main.mainStage.widthProperty().multiply(0.05))
+        );
+
+
+
+
+        buildGrid();
+    }
+
+
+    public void buildGrid() {
         gameStarted = gameLost = false;
         tilesUncovered = flagsSet = 0;
 
@@ -110,8 +160,17 @@ public class PlayController {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
                 tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + (evenTile ? "lightgreen.png" : "darkgreen.png") + "\");");
-                tileBtn.setPrefHeight((double) 500 /rows);
-                tileBtn.setPrefWidth((double) 800 /cols);
+//                tileBtn.setPrefHeight((double) 500 /rows);
+//                tileBtn.setPrefWidth((double) 800 /cols);
+                tileBtn.setPrefHeight(Main.mainStage.getScene().getHeight() / rows);
+                tileBtn.setPrefWidth(Main.mainStage.getScene().getWidth() / cols);
+
+//                tileBtn.styleProperty().bind(
+//                        Bindings.format("-fx-pref-height: %.2fpx; -fx-pref-width: %.2fpx;", Main.mainStage.getScene().getHeight() / rows, Main.mainStage.widthProperty().multiply(0.03333333333))//Main.mainStage.getScene().getWidth() / cols)
+//                );
+
+
+
 
                 int tileRow = row;
                 int tileCol = col;
@@ -612,11 +671,13 @@ public class PlayController {
 
         try {
             clearGrid();
-            initialize();
+            buildGrid();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
 
     public void clearGrid() throws FileNotFoundException {

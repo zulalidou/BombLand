@@ -85,19 +85,19 @@ public class ModeSelectionController {
 
     @FXML
     private void openEasyMode() throws IOException {
-        PlayController.setMode("EASY");
+        PlayController.setMode("Easy");
         startGame();
     }
 
     @FXML
     private void openMediumMode() throws IOException {
-        PlayController.setMode("MEDIUM");
+        PlayController.setMode("Medium");
         startGame();
     }
 
     @FXML
     private void openHardMode() throws IOException {
-        PlayController.setMode("HARD");
+        PlayController.setMode("Hard");
         startGame();
     }
 

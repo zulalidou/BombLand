@@ -8,27 +8,31 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-
 <?import javafx.scene.control.TextField?>
-<VBox fx:id="pageContainer" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController" alignment="CENTER">
+
+<VBox fx:id="playPageContainer" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController" alignment="CENTER">
     <stylesheets>
         <URL value="@../CSS/play.css"/>
     </stylesheets>
 
-    <StackPane>
+    <StackPane fx:id="playPageContainer_inner">
         <VBox fx:id="stackpane_child1">
-            <HBox>
-                <Button id="backBtn" onAction="#goToMainMenu">
-                    <graphic>
-                        <ImageView fitWidth="20" preserveRatio="true">
-                            <Image url="/com/example/bombland/images/back-button.png"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
+            <HBox fx:id="playPageContainer_header">
+                <HBox fx:id="backBtnContainer" alignment="CENTER">
+                    <Button fx:id="backBtn" onAction="#goToMainMenu">
+                        <graphic>
+                            <ImageView fitWidth="20" preserveRatio="true">
+                                <Image url="/com/example/bombland/images/back-button.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
 
-                <Label fx:id="totalBombsLbl" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="totalBombsLbl"/>
                 <Label fx:id="timeElapsedLbl"/>
-                <Label fx:id="flagsLeftLbl" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="flagsLeftLbl"/>
+
+                <VBox fx:id="emptySpace"/>
             </HBox>
 
             <VBox fx:id="gridContainer"/>

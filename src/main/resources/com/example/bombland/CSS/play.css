@@ -1,10 +1,16 @@
+#playPageContainer_header {
+    -fx-background-color: #92FFB7;
+}
+
+
 #backBtn {
-    -fx-font-size: 15px;
+    -fx-background-color: black;
 }
 
 #backBtn:hover {
     -fx-cursor: hand;
 }
+
 
 .button {
     -fx-background-size: 200%;
@@ -13,14 +19,14 @@
 }
 
 
+
+
+
 #totalBombsLbl,
 #flagsLeftLbl,
 #timeElapsedLbl {
-    -fx-pref-width: 260px;
     -fx-alignment: center;
-    -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-background-color: #92FFB7;
 }
 
 

@@ -69,9 +69,9 @@ public class Main extends Application {
         mongoDBConnection.connect("mongodb+srv://bomblandAdmin:iIbydSYKZ6EVn2Cy@cluster0.ilt6y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "HighScores");
 
         MongoDatabase database = mongoDBConnection.getDatabase();
-        MongoCollection<Document> easyHighScores_Table = database.getCollection("EASY");
-        MongoCollection<Document> mediumHighScores_Table = database.getCollection("MEDIUM");
-        MongoCollection<Document> hardHighScores_Table = database.getCollection("HARD");
+        MongoCollection<Document> easyHighScores_Table = database.getCollection("Easy");
+        MongoCollection<Document> mediumHighScores_Table = database.getCollection("Medium");
+        MongoCollection<Document> hardHighScores_Table = database.getCollection("Hard");
 
         if (easyHighScores_Table.countDocuments() > 0) {
             MongoCursor<Document> cursor = easyHighScores_Table.find().iterator();
