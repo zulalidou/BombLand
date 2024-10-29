@@ -19,9 +19,6 @@
 }
 
 
-
-
-
 #totalBombsLbl,
 #flagsLeftLbl,
 #timeElapsedLbl {
@@ -31,35 +28,43 @@
 
 
 #gameLostPopup, #gameWonPopup, #newRecordPopup {
-    -fx-background-color: white;
-    -fx-background-radius: 15px;
+    -fx-background-color: black;
     -fx-alignment: center;
 }
 
 
 #gameLostPopup_title, #gameWonPopup_title, #newRecordPopup_title {
     -fx-font-weight: bold;
-    -fx-font-size: 25px;
-    -fx-pref-width: 250px;
     -fx-alignment: center;
+    -fx-text-fill: red;
 }
 
-#gameLostPopup_timeTaken, #gameWonPopup_timeTaken {
-    -fx-font-size: 20px;
-    -fx-pref-width: 250px;
-    -fx-alignment: center;
+#gameLostPopup_timeTaken, #gameWonPopup_timeTaken, #newRecordPopup_timeTaken {
+    /*-fx-alignment: center;*/
     -fx-font-weight: bold;
+    -fx-text-fill: gold;
 }
 
 
 #newRecordPopup_text {
     -fx-wrap-text: true;
     -fx-font-weight: bold;
-
-    -fx-font-size: 12px;
     -fx-text-alignment: center;
+    -fx-text-fill: red;
+    -fx-background-color: white;
 }
 
+
+
+#playerName_textField {
+    -fx-border-color: black;
+}
+
+#playerName_textField:focused {
+    /* Normally, when you click on the newRecordPopup_text, the it's border color turns blue (to show that the element is in focus).
+       This prevents the border color from turning blue */
+    -fx-background-color: white;
+}
 
 
 
@@ -68,9 +73,8 @@
 }
 
 
-#newRecordPopup_timeTaken {
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
+#playerName_textField {
+    -fx-alignment: center;
 }
 
 
@@ -79,20 +83,20 @@
 #playerName_error {
     -fx-text-fill: red;
     -fx-text-alignment: center;
+    -fx-font-weight: bold;
 }
 
 
 
 .playAgainBtn {
-    -fx-background-color: #9AFE9A;
-    -fx-font-size: 15px;
-    -fx-border-color: transparent;
-    -fx-border-width: 2px;
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
 .playAgainBtn:hover {
     -fx-cursor: hand;
-    -fx-border-color: red;
+    -fx-text-fill: red;
 }
 
 .mainMenuBtn {

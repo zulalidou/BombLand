@@ -71,18 +71,18 @@
         </VBox>
 
         <VBox fx:id="newRecordPopup" managed="false" visible="false">
-            <Label id="newRecordPopup_title" text="NEW RECORD"/>
-            <VBox alignment="CENTER">
-                <ImageView fitWidth="85" fitHeight="85" preserveRatio="true">
+            <Label fx:id="newRecordPopup_title" text="NEW RECORD"/>
+            <VBox alignment="CENTER" fx:id="newRecordPopup_imgContainer">
+                <ImageView fx:id="newRecordPopup_img">
                     <Image url="/com/example/bombland/images/trophy.png"/>
                 </ImageView>
             </VBox>
 
-            <Label fx:id="newRecordPopup_text" text="Congrats! Please enter your name below:"/>
-
             <Label fx:id="newRecordPopup_timeTaken"/>
 
-            <HBox id="playerInfo_hbox">
+            <Label fx:id="newRecordPopup_text" text="Congrats! Please enter your name below:"/>
+
+            <HBox fx:id="playerInfo_hbox">
                 <TextField fx:id="playerName_textField"/>
             </HBox>
 
@@ -90,7 +90,7 @@
 
 
             <HBox fx:id="newRecordPopup_buttonsContainer" alignment="CENTER">
-                <Button styleClass="playAgainBtn" text="Save" onAction="#saveNewRecord"/>
+                <Button fx:id="newRecordPopup_playAgainBtn" styleClass="playAgainBtn" text="SAVE" onAction="#saveNewRecord"/>
             </HBox>
         </VBox>
     </StackPane>

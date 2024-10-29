@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.util.Pair;
@@ -44,19 +45,22 @@ public class PlayController {
     StackPane playPageContainer_inner;
 
     @FXML
-    VBox playPageContainer, stackpane_child1, emptySpace, gridContainer, gameLostPopup, gameWonPopup, newRecordPopup;
+    VBox playPageContainer, stackpane_child1, emptySpace, gridContainer, gameLostPopup, gameWonPopup, newRecordPopup, newRecordPopup_imgContainer;
 
     @FXML
-    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken, newRecordPopup_timeTaken, playerName_error;
+    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken, newRecordPopup_timeTaken, newRecordPopup_title, newRecordPopup_text, playerName_error;
 
     @FXML
-    Button backBtn;
+    Button backBtn, newRecordPopup_playAgainBtn;
 
     @FXML
-    HBox backBtnContainer, gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer, newRecordPopup_buttonsContainer, playPageContainer_header;
+    HBox backBtnContainer, gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer, newRecordPopup_buttonsContainer, playerInfo_hbox, playPageContainer_header;
 
     @FXML
     TextField playerName_textField;
+
+    @FXML
+    ImageView newRecordPopup_img;
 
     static void setMode(String mode) {
         if (Objects.equals(mode, "Easy")) {
@@ -95,11 +99,9 @@ public class PlayController {
     @FXML
     public void initialize() {
         VBox.setVgrow(playPageContainer_inner, Priority.ALWAYS);
-        VBox.setVgrow(gridContainer, Priority.ALWAYS);
-
 
         playPageContainer_header.styleProperty().bind(
-                Bindings.format("-fx-pref-height: %.2fpx;", Main.mainStage.widthProperty().multiply(0.1))
+                Bindings.format("-fx-pref-height: %.2fpx;", Main.mainStage.heightProperty().multiply(0.125))
         );
 
         backBtnContainer.styleProperty().bind(
@@ -109,7 +111,6 @@ public class PlayController {
         backBtn.styleProperty().bind(
                 Bindings.format("-fx-background-radius: %.2fpx;", Main.mainStage.widthProperty().multiply(0.05))
         );
-
 
 
         totalBombsLbl.styleProperty().bind(
@@ -129,6 +130,9 @@ public class PlayController {
         );
 
 
+        playPageContainer_header.styleProperty().bind(
+                Bindings.format("-fx-pref-width: %.2fpx;", Main.mainStage.widthProperty().multiply(0.875))
+        );
 
 
         buildGrid();
@@ -160,16 +164,8 @@ public class PlayController {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
                 tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + (evenTile ? "lightgreen.png" : "darkgreen.png") + "\");");
-//                tileBtn.setPrefHeight((double) 500 /rows);
-//                tileBtn.setPrefWidth((double) 800 /cols);
                 tileBtn.setPrefHeight(Main.mainStage.getScene().getHeight() / rows);
                 tileBtn.setPrefWidth(Main.mainStage.getScene().getWidth() / cols);
-
-//                tileBtn.styleProperty().bind(
-//                        Bindings.format("-fx-pref-height: %.2fpx; -fx-pref-width: %.2fpx;", Main.mainStage.getScene().getHeight() / rows, Main.mainStage.widthProperty().multiply(0.03333333333))//Main.mainStage.getScene().getWidth() / cols)
-//                );
-
-
 
 
                 int tileRow = row;
@@ -544,10 +540,49 @@ public class PlayController {
     void displayRecordSetPopup() {
         newRecordPopup.setManaged(true);
         newRecordPopup.setVisible(true);
-        newRecordPopup.setMaxWidth(250);
-        newRecordPopup.setMaxHeight(250);
+
+        newRecordPopup.setMaxWidth(Main.mainStage.widthProperty().get() * 0.5);
+        newRecordPopup.setMaxHeight(Main.mainStage.heightProperty().get() * 0.5);
+        newRecordPopup.setStyle("-fx-background-radius: " + (Main.mainStage.getWidth() * 0.04) + "px;");
+
+        newRecordPopup_title.setStyle("-fx-font-size: " + (Main.mainStage.getWidth() * 0.04) + "px;");
+
+        newRecordPopup_imgContainer.setStyle("-fx-pref-height: " + (Main.mainStage.getHeight() * 0.1) + "px;");
+        newRecordPopup_img.setFitWidth(Main.mainStage.getWidth() * 0.15);
+        newRecordPopup_img.setFitHeight(Main.mainStage.getWidth() * 0.15);
 
         newRecordPopup_timeTaken.setText(gameDuration + " seconds");
+        newRecordPopup_timeTaken.setStyle("-fx-font-size: " + (Main.mainStage.getWidth() * 0.025) + "px;");
+
+        newRecordPopup_text.setStyle("-fx-font-size: " + (Main.mainStage.getWidth() * 0.02) + "px;");
+
+        playerName_textField.setStyle("-fx-pref-width: " + (Main.mainStage.getWidth() * 0.3) + "px; -fx-pref-height: " + (Main.mainStage.getWidth() * 0.03) + "px;");
+
+        newRecordPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         VBox.setVgrow(newRecordPopup_buttonsContainer, Priority.ALWAYS);
         newRecordPopup_buttonsContainer.setSpacing(25);
@@ -558,6 +593,7 @@ public class PlayController {
     void saveNewRecord() {
         if (playerName_textField.getText().isBlank()) {
             playerName_error.setVisible(true); // display error
+            playerName_textField.setText("");
         }
         else {
             playerName_error.setVisible(false);
@@ -676,8 +712,6 @@ public class PlayController {
             throw new RuntimeException(e);
         }
     }
-
-
 
 
     public void clearGrid() throws FileNotFoundException {
