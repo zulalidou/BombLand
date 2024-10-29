@@ -55,9 +55,9 @@
         </VBox>
 
         <VBox fx:id="gameWonPopup" managed="false" visible="false">
-            <Label id="gameWonPopup_title" text="CONGRATS"/>
-            <VBox alignment="CENTER">
-                <ImageView fitWidth="85" fitHeight="85" preserveRatio="true">
+            <Label fx:id="gameWonPopup_title" text="CONGRATS"/>
+            <VBox alignment="CENTER" fx:id="gameWonPopup_imgContainer">
+                <ImageView fx:id="gameWonPopup_img">
                     <Image url="/com/example/bombland/images/timer.png"/>
                 </ImageView>
             </VBox>
@@ -65,8 +65,8 @@
             <Label fx:id="gameWonPopup_timeTaken" text="placeholder"/>
 
             <HBox fx:id="gameWonPopup_buttonsContainer" alignment="CENTER">
-                <Button styleClass="playAgainBtn" text="Play Again" onAction="#playAgain"/>
-                <Button styleClass="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
+                <Button fx:id="gameWonPopup_playAgainBtn" styleClass="playAgainBtn" text="Play Again" onAction="#playAgain"/>
+                <Button fx:id="gameWonPopup_mainMenuBtn" styleClass="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
             </HBox>
         </VBox>
 
@@ -87,7 +87,6 @@
             </HBox>
 
             <Label fx:id="playerName_error" text="Please enter your name" visible="false"/>
-
 
             <HBox fx:id="newRecordPopup_buttonsContainer" alignment="CENTER">
                 <Button fx:id="newRecordPopup_playAgainBtn" styleClass="playAgainBtn" text="SAVE" onAction="#saveNewRecord"/>

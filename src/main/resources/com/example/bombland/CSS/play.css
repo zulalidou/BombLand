@@ -58,6 +58,7 @@
 #playerName_textField {
     -fx-border-color: black;
     -fx-alignment: center;
+    -fx-font-weight: bold;
 }
 
 #playerName_textField:focused {
