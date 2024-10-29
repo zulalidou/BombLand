@@ -19,9 +19,7 @@
 }
 
 
-#totalBombsLbl,
-#flagsLeftLbl,
-#timeElapsedLbl {
+#totalBombsLbl, #flagsLeftLbl, #timeElapsedLbl {
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
@@ -32,7 +30,6 @@
     -fx-alignment: center;
 }
 
-
 #gameLostPopup_title, #gameWonPopup_title, #newRecordPopup_title {
     -fx-font-weight: bold;
     -fx-alignment: center;
@@ -40,7 +37,6 @@
 }
 
 #gameLostPopup_timeTaken, #gameWonPopup_timeTaken, #newRecordPopup_timeTaken {
-    /*-fx-alignment: center;*/
     -fx-font-weight: bold;
     -fx-text-fill: gold;
 }
@@ -51,19 +47,6 @@
     -fx-font-weight: bold;
     -fx-text-alignment: center;
     -fx-text-fill: red;
-    -fx-background-color: white;
-}
-
-
-
-#playerName_textField {
-    -fx-border-color: black;
-}
-
-#playerName_textField:focused {
-    /* Normally, when you click on the newRecordPopup_text, the it's border color turns blue (to show that the element is in focus).
-       This prevents the border color from turning blue */
-    -fx-background-color: white;
 }
 
 
@@ -72,13 +55,16 @@
     -fx-alignment: center;
 }
 
-
 #playerName_textField {
+    -fx-border-color: black;
     -fx-alignment: center;
 }
 
-
-
+#playerName_textField:focused {
+    /* Normally, when you click on the newRecordPopup_text, the it's border color turns blue (to show that the element is in focus).
+       This prevents the border color from turning blue */
+    -fx-background-color: white;
+}
 
 #playerName_error {
     -fx-text-fill: red;
@@ -99,14 +85,14 @@
     -fx-text-fill: red;
 }
 
+
 .mainMenuBtn {
     -fx-background-color: #FF7C7C;
-    -fx-font-size: 15px;
-    -fx-border-color: transparent;
-    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
 .mainMenuBtn:hover {
     -fx-cursor: hand;
-    -fx-border-color: red;
+    -fx-text-fill: red;
 }

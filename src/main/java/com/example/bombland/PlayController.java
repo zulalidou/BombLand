@@ -45,13 +45,13 @@ public class PlayController {
     StackPane playPageContainer_inner;
 
     @FXML
-    VBox playPageContainer, stackpane_child1, emptySpace, gridContainer, gameLostPopup, gameWonPopup, newRecordPopup, newRecordPopup_imgContainer;
+    VBox playPageContainer, stackpane_child1, emptySpace, gridContainer, gameLostPopup, gameWonPopup, newRecordPopup, gameLostPopup_imgContainer, newRecordPopup_imgContainer;
 
     @FXML
-    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken, newRecordPopup_timeTaken, newRecordPopup_title, newRecordPopup_text, playerName_error;
+    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken, newRecordPopup_timeTaken, gameLostPopup_title, newRecordPopup_title, newRecordPopup_text, playerName_error;
 
     @FXML
-    Button backBtn, newRecordPopup_playAgainBtn;
+    Button backBtn, gameLostPopup_playAgainBtn, gameLostPopup_mainMenuBtn, newRecordPopup_playAgainBtn;
 
     @FXML
     HBox backBtnContainer, gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer, newRecordPopup_buttonsContainer, playerInfo_hbox, playPageContainer_header;
@@ -60,7 +60,7 @@ public class PlayController {
     TextField playerName_textField;
 
     @FXML
-    ImageView newRecordPopup_img;
+    ImageView gameLostPopup_img, newRecordPopup_img;
 
     static void setMode(String mode) {
         if (Objects.equals(mode, "Easy")) {
@@ -509,15 +509,33 @@ public class PlayController {
         stackpane_child1.setEffect(new GaussianBlur()); // blurs gameplay page
         stackpane_child1.setMouseTransparent(true); // makes items in gameplay page "unclickable"
 
+        displayGameLostPopup();
+    }
+
+
+    void displayGameLostPopup() {
         gameLostPopup.setManaged(true);
         gameLostPopup.setVisible(true);
-        gameLostPopup.setMaxWidth(250);
-        gameLostPopup.setMaxHeight(250);
 
-        gameLostPopup_timeTaken.setText(gameDuration + " seconds");
+        gameLostPopup.setMaxWidth(Main.mainStage.widthProperty().get() * 0.5);
+        gameLostPopup.setMaxHeight(Main.mainStage.heightProperty().get() * 0.5);
+        gameLostPopup.setStyle("-fx-background-radius: " + (Main.mainStage.getWidth() * 0.04) + "px;");
+
+        gameLostPopup_title.setStyle("-fx-font-size: " + (Main.mainStage.getWidth() * 0.04) + "px;");
+
+        gameLostPopup_imgContainer.setStyle("-fx-pref-height: " + (Main.mainStage.getHeight() * 0.1) + "px; -fx-padding: " + (Main.mainStage.getHeight() * 0.04) + " 0 0 0;");
+        gameLostPopup_img.setFitWidth(Main.mainStage.getWidth() * 0.15);
+        gameLostPopup_img.setFitHeight(Main.mainStage.getWidth() * 0.15);
+
+        gameLostPopup_timeTaken.setText(gameDuration + " second" + ((gameDuration > 1) ? "s" : ""));
+        gameLostPopup_timeTaken.setStyle("-fx-font-size: " + (Main.mainStage.getWidth() * 0.025) + "px;");
 
         VBox.setVgrow(gameLostPopup_buttonsContainer, Priority.ALWAYS);
-        gameLostPopup_buttonsContainer.setSpacing(25);
+
+        gameLostPopup_buttonsContainer.setSpacing(Main.mainStage.getWidth() * 0.05);
+
+        gameLostPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
+        gameLostPopup_mainMenuBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
     }
 
 
@@ -558,34 +576,9 @@ public class PlayController {
 
         playerName_textField.setStyle("-fx-pref-width: " + (Main.mainStage.getWidth() * 0.3) + "px; -fx-pref-height: " + (Main.mainStage.getWidth() * 0.03) + "px;");
 
-        newRecordPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         VBox.setVgrow(newRecordPopup_buttonsContainer, Priority.ALWAYS);
-        newRecordPopup_buttonsContainer.setSpacing(25);
+
+        newRecordPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
     }
 
 

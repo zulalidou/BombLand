@@ -39,9 +39,9 @@
         </VBox>
 
         <VBox fx:id="gameLostPopup" managed="false" visible="false">
-            <Label id="gameLostPopup_title" text="GAME OVER"/>
-            <VBox alignment="CENTER">
-                <ImageView fitWidth="85" fitHeight="85" preserveRatio="true">
+            <Label fx:id="gameLostPopup_title" text="GAME OVER"/>
+            <VBox alignment="CENTER" fx:id="gameLostPopup_imgContainer">
+                <ImageView fx:id="gameLostPopup_img">
                     <Image url="/com/example/bombland/images/timer.png"/>
                 </ImageView>
             </VBox>
@@ -49,8 +49,8 @@
             <Label fx:id="gameLostPopup_timeTaken" text="placeholder"/>
 
             <HBox fx:id="gameLostPopup_buttonsContainer" alignment="CENTER">
-                <Button styleClass="playAgainBtn" text="Play Again" onAction="#playAgain"/>
-                <Button styleClass="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
+                <Button fx:id="gameLostPopup_playAgainBtn" styleClass="playAgainBtn" text="Play Again" onAction="#playAgain"/>
+                <Button fx:id="gameLostPopup_mainMenuBtn" styleClass="mainMenuBtn" text="Main Menu" onAction="#goToMainMenu"/>
             </HBox>
         </VBox>
 
