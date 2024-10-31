@@ -427,10 +427,11 @@ public class PlayController {
                     return;
                 }
 
-                traverse(row-1, col);
-                traverse(row+1, col);
-                traverse(row, col-1);
-                traverse(row, col+1);
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        traverse(row + i, col + j);
+                    }
+                }
             }
         }
     }
