@@ -585,8 +585,8 @@ public class PlayController {
 
         gameLostPopup_buttonsContainer.setSpacing(Main.mainStage.getWidth() * 0.05);
 
-        gameLostPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
-        gameLostPopup_mainMenuBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
+        gameLostPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px; -fx-pref-width: " + (Main.mainStage.getWidth() * 0.15) + "px;");
+        gameLostPopup_mainMenuBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px; -fx-pref-width: " + (Main.mainStage.getWidth() * 0.15) + "px;");
     }
 
 
@@ -629,7 +629,7 @@ public class PlayController {
 
         VBox.setVgrow(newRecordPopup_buttonsContainer, Priority.ALWAYS);
 
-        newRecordPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
+        newRecordPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px; -fx-pref-width: " + (Main.mainStage.getWidth() * 0.15) + "px;");
     }
 
 
@@ -743,8 +743,8 @@ public class PlayController {
 
         gameWonPopup_buttonsContainer.setSpacing(Main.mainStage.getWidth() * 0.05);
 
-        gameWonPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
-        gameWonPopup_mainMenuBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px;");
+        gameWonPopup_playAgainBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px; -fx-pref-width: " + (Main.mainStage.getWidth() * 0.15) + "px;");
+        gameWonPopup_mainMenuBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px; -fx-pref-width: " + (Main.mainStage.getWidth() * 0.15) + "px;");
     }
 
 
