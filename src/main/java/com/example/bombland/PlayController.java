@@ -36,31 +36,33 @@ public class PlayController {
     static HashMap<Integer, HashSet<Integer>> tilesEliminated;
     static ArrayList<Pair<Integer, Integer>> bombCoordinates;
 
-    static long startTime, gameDuration;
+    static long gameDuration;
 
     private static ScheduledExecutorService  taskScheduler;
+
+    static boolean timerPaused;
 
 
     @FXML
     StackPane playPageContainer_inner;
 
     @FXML
-    VBox playPageContainer, stackpane_child1, emptySpace, gridContainer, gameLostPopup, gameWonPopup, newRecordPopup, gameLostPopup_imgContainer, gameWonPopup_imgContainer, newRecordPopup_imgContainer;
+    VBox playPageContainer, stackpane_child1, emptySpace, gridContainer, exitPagePopup, exitPagePopup_imgContainer, gameLostPopup, gameLostPopup_imgContainer, gameWonPopup, gameWonPopup_imgContainer, newRecordPopup, newRecordPopup_imgContainer;
 
     @FXML
-    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, gameLostPopup_timeTaken, gameWonPopup_timeTaken, newRecordPopup_timeTaken, gameLostPopup_title, gameWonPopup_title, newRecordPopup_title, newRecordPopup_text, playerName_error;
+    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, exitPagePopup_title, exitPagePopup_text, gameLostPopup_title, gameLostPopup_timeTaken, gameWonPopup_title, gameWonPopup_timeTaken, newRecordPopup_title, newRecordPopup_timeTaken, newRecordPopup_text, playerName_error;
 
     @FXML
-    Button backBtn, gameLostPopup_playAgainBtn, gameLostPopup_mainMenuBtn, gameWonPopup_playAgainBtn, gameWonPopup_mainMenuBtn, newRecordPopup_playAgainBtn;
+    Button backBtn, exitPagePopup_cancelBtn, exitPagePopup_mainMenuBtn, gameLostPopup_playAgainBtn, gameLostPopup_mainMenuBtn, gameWonPopup_playAgainBtn, gameWonPopup_mainMenuBtn, newRecordPopup_playAgainBtn;
 
     @FXML
-    HBox backBtnContainer, gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer, newRecordPopup_buttonsContainer, playerInfo_hbox, playPageContainer_header;
+    HBox backBtnContainer, exitPagePopup_buttonsContainer, gameLostPopup_buttonsContainer, gameWonPopup_buttonsContainer, newRecordPopup_buttonsContainer, playerInfo_hbox, playPageContainer_header;
 
     @FXML
     TextField playerName_textField;
 
     @FXML
-    ImageView gameLostPopup_img, gameWonPopup_img, newRecordPopup_img;
+    ImageView exitPagePopup_img, gameLostPopup_img, gameWonPopup_img, newRecordPopup_img;
 
     static void setMode(String mode) {
         if (Objects.equals(mode, "Easy")) {
@@ -85,6 +87,18 @@ public class PlayController {
 
 
     @FXML
+    private void closeExitPagePopup() {
+        exitPagePopup.setManaged(false);
+        exitPagePopup.setVisible(false);
+
+        stackpane_child1.setEffect(null);
+        stackpane_child1.setMouseTransparent(false); // makes items in gameplay page "clickable"
+
+        timerPaused = false;
+    }
+
+
+    @FXML
     private void goToMainMenu() throws IOException {
         endTimer();
 
@@ -93,6 +107,41 @@ public class PlayController {
 
         screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
         screenController.activate("main");
+    }
+
+
+    @FXML
+    private void verifyExitPage() throws IOException {
+        if (!gameStarted) {
+            goToMainMenu();
+            return;
+        }
+
+        timerPaused = true;
+
+        stackpane_child1.setEffect(new GaussianBlur()); // blurs gameplay page
+        stackpane_child1.setMouseTransparent(true); // makes items in gameplay page "unclickable"
+
+        exitPagePopup.setManaged(true);
+        exitPagePopup.setVisible(true);
+
+        exitPagePopup.setMaxWidth(Main.mainStage.widthProperty().get() * 0.4);
+        exitPagePopup.setMaxHeight(Main.mainStage.heightProperty().get() * 0.4);
+        exitPagePopup.setStyle("-fx-background-radius: " + (Main.mainStage.getWidth() * 0.04) + "px;");
+
+        exitPagePopup_title.setStyle("-fx-font-size: " + (Main.mainStage.getWidth() * 0.04) + "px;");
+
+        exitPagePopup_imgContainer.setStyle("-fx-pref-height: " + (Main.mainStage.getHeight() * 0.1) + "px; -fx-padding: " + (Main.mainStage.getHeight() * 0.03) + " 0 0 0;");
+        exitPagePopup_img.setFitWidth(Main.mainStage.getWidth() * 0.1);
+        exitPagePopup_img.setFitHeight(Main.mainStage.getWidth() * 0.1);
+
+        exitPagePopup_text.setStyle("-fx-font-size: " + (Main.mainStage.getWidth() * 0.025) + "px;");
+
+        VBox.setVgrow(exitPagePopup_buttonsContainer, Priority.ALWAYS);
+
+        exitPagePopup_buttonsContainer.setSpacing(Main.mainStage.getWidth() * 0.05);
+        exitPagePopup_cancelBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px; -fx-pref-width: " + (Main.mainStage.getWidth() * 0.15) + "px;");
+        exitPagePopup_mainMenuBtn.setStyle("-fx-font-size: " + Main.mainStage.getWidth() * 0.015 + "px; -fx-background-radius: " + Main.mainStage.getWidth() * 0.05 + "px; -fx-pref-width: " + (Main.mainStage.getWidth() * 0.15) + "px;");
     }
 
 
@@ -148,9 +197,11 @@ public class PlayController {
         tilesEliminated = new HashMap<>();
         bombCoordinates = new ArrayList<>();
 
-        startTime = gameDuration = 0;
+        gameDuration = -1;
 
         taskScheduler = Executors.newScheduledThreadPool(1);
+
+        timerPaused = false;
 
         timeElapsedLbl.setText("0 seconds");
         totalBombsLbl.setText(bombs + " bombs");
@@ -177,7 +228,6 @@ public class PlayController {
 
                     if (!tileObj.isFlagged) {
                         if (!gameStarted) {
-                            startTime = System.currentTimeMillis();
                             startTimer();
 
                             gameStarted = true;
@@ -242,12 +292,14 @@ public class PlayController {
 
     void startTimer() {
         Runnable timerTask = () -> {
-            gameDuration = (System.currentTimeMillis() - startTime) / 1000;
+            if (!timerPaused) {
+                gameDuration += 1;
 
-            // Update the UI on the JavaFX Application Thread
-            Platform.runLater(() -> {
-                timeElapsedLbl.setText(gameDuration + " seconds");
-            });
+                // Update the UI on the JavaFX Application Thread
+                Platform.runLater(() -> {
+                    timeElapsedLbl.setText(gameDuration + " seconds");
+                });
+            }
         };
 
         // The timer task gets added to a new thread, and gets executed every second
@@ -256,8 +308,6 @@ public class PlayController {
 
 
     static void endTimer() {
-        gameDuration = (System.currentTimeMillis() - startTime) / 1000;
-
         if (taskScheduler != null) {
             taskScheduler.shutdownNow();
         }

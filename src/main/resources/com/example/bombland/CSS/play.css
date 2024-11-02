@@ -25,12 +25,12 @@
 }
 
 
-#gameLostPopup, #gameWonPopup, #newRecordPopup {
+#exitPagePopup, #gameLostPopup, #gameWonPopup, #newRecordPopup {
     -fx-background-color: black;
     -fx-alignment: center;
 }
 
-#gameLostPopup_title, #gameWonPopup_title, #newRecordPopup_title {
+#exitPagePopup_title, #gameLostPopup_title, #gameWonPopup_title, #newRecordPopup_title {
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-text-fill: red;
@@ -42,7 +42,7 @@
 }
 
 
-#newRecordPopup_text {
+#exitPagePopup_text, #newRecordPopup_text {
     -fx-wrap-text: true;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
