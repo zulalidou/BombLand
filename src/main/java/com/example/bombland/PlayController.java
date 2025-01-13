@@ -653,6 +653,9 @@ public class PlayController {
                     newScoreInfo.put("id", UUID.randomUUID().toString());
                     newScoreInfo.put("score", gameDuration);
                     newScoreInfo.put("name", playerName_textField.getText().strip());
+
+                    DynamoDBClientUtil.saveNewHighScore(newScoreInfo, "BOMBLAND_" + gameMode + "HighScores");
+
                     playerName_textField.setText("");
 
 
@@ -660,23 +663,7 @@ public class PlayController {
                     ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(gameMode);
                     highScores.add(newScoreInfo);
 
-
-                    // 2. Save newScoreInfo to MongoDB
-                    MongoDBConnection mongoDBConnection = new MongoDBConnection();
-                    mongoDBConnection.connect("mongodb+srv://bomblandAdmin:iIbydSYKZ6EVn2Cy@cluster0.ilt6y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", "HighScores");
-
-                    try {
-                        MongoDatabase database = mongoDBConnection.getDatabase();
-                        MongoCollection<Document> highScores_Table = database.getCollection(gameMode);
-                        Document newScoreDocument = Document.parse(newScoreInfo.toString());
-                        highScores_Table.insertOne(newScoreDocument);
-                    } catch (Exception e) {
-                        System.out.println("An error occurred while trying to save the new score to MongoDB.");
-                        e.printStackTrace();
-                    }
-
-
-                    // 3. Sort highScores list
+                    // 2. Sort highScores list
                     highScores.sort(new Comparator<JSONObject>() {
                         @Override
                         public int compare(JSONObject a, JSONObject b) {
@@ -684,34 +671,10 @@ public class PlayController {
                         }
                     });
 
-
-                    // 4. If highScores.size() > 10:
-                    //      - Delete last item in highScores
-                    //      - Also remove that last item from MongoDB
+                    // 3. If highScores.size() > 10, delete last item in highScores
                     if (highScores.size() > 10) {
-                        String id = highScores.get(highScores.size() - 1).getString("id");
                         highScores.remove(highScores.size() - 1);
-
-                        try {
-                            MongoDatabase database = mongoDBConnection.getDatabase();
-                            MongoCollection<Document> highScores_Table = database.getCollection(gameMode);
-
-                            Document filter = new Document("id", id);
-
-                            long deletedCount = highScores_Table.deleteOne(filter).getDeletedCount();
-
-                            if (deletedCount > 0) {
-                                System.out.println("The high score was deleted successfully!");
-                            } else {
-                                System.out.println("The high score was NOT deleted.");
-                            }
-                        } catch (Exception e) {
-                            System.out.println("An error occurred while trying to delete the high score from MongoDB.");
-                            e.printStackTrace();
-                        }
                     }
-
-                    mongoDBConnection.close();
 
                     return null;
                 }

@@ -26,7 +26,7 @@ public class Main extends Application {
     static Stage mainStage = null;
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException {
         mainStage = stage;
 
         fetchHighScores();
@@ -37,6 +37,8 @@ public class Main extends Application {
         stage.setResizable(false);
 
         showSplashScreen(stage);
+
+        showMainMenu(mainStage);
     }
 
     @Override
