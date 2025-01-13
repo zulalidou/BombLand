@@ -4,9 +4,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class APP_CACHE {
+    private static String identityPoolID;
     private static final ArrayList<JSONObject> EASY_HIGH_SCORES = new ArrayList<>();
     private static final ArrayList<JSONObject> MEDIUM_HIGH_SCORES = new ArrayList<>();
     private static final ArrayList<JSONObject> HARD_HIGH_SCORES = new ArrayList<>();
+
+
+    static String getIdentityPoolID() {
+        return identityPoolID;
+    }
+
+    static void setIdentityPoolID(String id) {
+        identityPoolID = id;
+    }
 
 
     static ArrayList<JSONObject> getEasyHighScores() {

@@ -18,9 +18,13 @@ import javafx.stage.Stage;
 import org.bson.Document;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
+import java.net.http.HttpClient;
 
 public class Main extends Application {
     static Stage mainStage = null;
@@ -29,6 +33,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         mainStage = stage;
 
+        getEnvironmentVariables();
         fetchHighScores();
 
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/bombland/Images/bombsmall.png")));
@@ -49,6 +54,25 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public void getEnvironmentVariables() {
+        HttpClient httpClient = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://bombland-server.onrender.com/get-environment-variables"))
+                .GET()
+                .build();
+
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            JSONObject environmentVarsObj = new JSONObject(response.body());
+
+            APP_CACHE.setIdentityPoolID(environmentVarsObj.getString("identityPoolID"));
+        } catch (Exception e) {
+            System.out.println("\n\nUH OH. AN ERROR OCCURRED!");
+            e.printStackTrace();
+        }
     }
 
     public void fetchHighScores() {
