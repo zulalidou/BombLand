@@ -5,10 +5,9 @@ import java.util.ArrayList;
 
 public class APP_CACHE {
     private static String identityPoolID;
-    private static final ArrayList<JSONObject> EASY_HIGH_SCORES = new ArrayList<>();
-    private static final ArrayList<JSONObject> MEDIUM_HIGH_SCORES = new ArrayList<>();
-    private static final ArrayList<JSONObject> HARD_HIGH_SCORES = new ArrayList<>();
-
+    private static ArrayList<JSONObject> EASY_HIGH_SCORES;
+    private static ArrayList<JSONObject> MEDIUM_HIGH_SCORES;
+    private static ArrayList<JSONObject> HARD_HIGH_SCORES;
 
     static String getIdentityPoolID() {
         return identityPoolID;
@@ -16,19 +15,6 @@ public class APP_CACHE {
 
     static void setIdentityPoolID(String id) {
         identityPoolID = id;
-    }
-
-
-    static ArrayList<JSONObject> getEasyHighScores() {
-        return EASY_HIGH_SCORES;
-    }
-
-    static ArrayList<JSONObject> getMediumHighScores() {
-        return MEDIUM_HIGH_SCORES;
-    }
-
-    static ArrayList<JSONObject> getHardHighScores() {
-        return HARD_HIGH_SCORES;
     }
 
     static ArrayList<JSONObject> getHighScores(String gameMode) {
@@ -40,6 +26,18 @@ public class APP_CACHE {
         }
         else {
             return HARD_HIGH_SCORES;
+        }
+    }
+
+    static void setHighScore(ArrayList<JSONObject> highScores, String gameMode) {
+        if (gameMode.equals("Easy")) {
+            EASY_HIGH_SCORES = highScores;
+        }
+        else if (gameMode.equals("Medium")) {
+            MEDIUM_HIGH_SCORES = highScores;
+        }
+        else {
+            HARD_HIGH_SCORES = highScores;
         }
     }
 }

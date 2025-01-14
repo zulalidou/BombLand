@@ -83,9 +83,9 @@ public class HighScoresController {
     }
 
     private void displayHighScores() {
-        ArrayList<JSONObject> easyHighScores = APP_CACHE.getEasyHighScores();
-        ArrayList<JSONObject> mediumHighScores = APP_CACHE.getMediumHighScores();
-        ArrayList<JSONObject> hardHighScores = APP_CACHE.getHardHighScores();
+        ArrayList<JSONObject> easyHighScores = APP_CACHE.getHighScores("Easy");
+        ArrayList<JSONObject> mediumHighScores = APP_CACHE.getHighScores("Medium");
+        ArrayList<JSONObject> hardHighScores = APP_CACHE.getHighScores("Hard");
 
         if (!easyHighScores.isEmpty()) {
             easyHighScores_scoreContainer.getChildren().clear();

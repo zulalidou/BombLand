@@ -3,24 +3,151 @@ package com.example.bombland;
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.cognitoidentity.model.GetIdRequest;
-import software.amazon.awssdk.services.cognitoidentity.model.GetIdResponse;
+import software.amazon.awssdk.services.cognitoidentity.model.*;
+import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
-import software.amazon.awssdk.services.cognitoidentity.model.GetCredentialsForIdentityRequest;
-import software.amazon.awssdk.services.cognitoidentity.model.GetCredentialsForIdentityResponse;
 import software.amazon.awssdk.services.dynamodb.model.*;
 
-
 public class DynamoDBClientUtil {
-    private static final String COGNITO_IDENTITY_POOL_ID = "***";
     private static CognitoIdentityClient cognitoClient;
-    private static DynamoDbClient dynamoDBClient;
+    private static DynamoDbAsyncClient dynamodbAsyncClient;
+    private static Credentials credentials;
 
-    static GetCredentialsForIdentityResponse credentialsResponse;
+
+    public static void getHighScores() {
+        getTemporaryAWSCredentials();
+        pullHighScoresFromDB();
+        sortHighScores();
+        trimHighScores();
+    }
+
+
+    // Get temporary AWS credentials for unauthenticated users
+    private static void getTemporaryAWSCredentials() {
+        cognitoClient = CognitoIdentityClient.builder()
+                .region(Region.US_WEST_2)
+                .build();
+
+        try {
+            GetIdRequest getIdRequest = GetIdRequest.builder()
+                    .identityPoolId(APP_CACHE.getIdentityPoolID())
+                    .build();
+
+            GetIdResponse getIdResponse = cognitoClient.getId(getIdRequest);
+            String identityId = getIdResponse.identityId();
+
+            GetCredentialsForIdentityRequest credentialsRequest = GetCredentialsForIdentityRequest.builder()
+                    .identityId(identityId)  // Pass the identityId retrieved from GetId
+                    .build();
+
+            credentials = cognitoClient.getCredentialsForIdentity(credentialsRequest).credentials();
+        } catch (Exception err) {
+            System.out.println("\nUH OH, SOMETHING WENT WRONG");
+            System.out.println("--------");
+            System.out.println(err);
+            System.out.println("--------");
+            System.out.println(err.getMessage());
+            System.out.println("--------");
+            System.out.println(err.getCause());
+            System.out.println("===========================");
+        }
+
+        System.out.println("\ngetTemporaryAWSCredentials() - end");
+    }
+
+
+    public static void pullHighScoresFromDB() {
+        dynamodbAsyncClient = DynamoDbAsyncClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(() -> AwsSessionCredentials.create(
+                        credentials.accessKeyId(),
+                        credentials.secretKey(),
+                        credentials.sessionToken()
+                ))
+                .build();
+
+        CompletableFuture<Void> allScans = CompletableFuture.allOf(
+                scanTable("BOMBLAND_EasyHighScores", "Easy"),
+                scanTable("BOMBLAND_MediumHighScores", "Medium"),
+                scanTable("BOMBLAND_HardHighScores", "Hard")
+        );
+
+        // waits for all scans to complete
+        allScans.join();
+
+        dynamodbAsyncClient.close();
+    }
+
+
+    // Asynchronous scan operation for a given table
+    private static CompletableFuture<Void> scanTable(String tableName, String gameMode) {
+        ScanRequest scanRequest = ScanRequest.builder()
+                .tableName(tableName)
+                .build();
+
+        CompletableFuture<ScanResponse> scanResponse = dynamodbAsyncClient.scan(scanRequest);
+
+        // Handle the scan response
+        return scanResponse.thenAccept(response -> {
+            List<Map<String, AttributeValue>> highScores = response.items();
+            final ArrayList<JSONObject> highScoresList = new ArrayList<>();
+
+            for (Map<String, AttributeValue> item : highScores) {
+                JSONObject highScoresObj = new JSONObject();
+                highScoresObj.put("id", item.get("id").s());
+                highScoresObj.put("name", item.get("name").s());
+                highScoresObj.put("score", item.get("score").n());
+                highScoresObj.put("time", item.get("time").n());
+
+                highScoresList.add(highScoresObj);
+            }
+
+            APP_CACHE.setHighScore(highScoresList, gameMode);
+        }).exceptionally(ex -> {
+            System.err.println("Scan failed for table: " + tableName);
+            ex.printStackTrace();
+            return null;
+        });
+    }
+
+
+    private static void sortHighScores() {
+        sortHighScoreList(APP_CACHE.getHighScores("Easy"));
+        sortHighScoreList(APP_CACHE.getHighScores("Medium"));
+        sortHighScoreList(APP_CACHE.getHighScores("Hard"));
+    }
+
+
+    private static void sortHighScoreList(ArrayList<JSONObject> highScoresList) {
+        highScoresList.sort(Comparator.comparingLong(a -> a.getLong("time")));
+        highScoresList.sort(Comparator.comparingLong(a -> a.getLong("score")));
+    }
+
+
+    private static void trimHighScores() {
+        if (APP_CACHE.getHighScores("Easy").size() > 10) {
+            trimHighScoreList(APP_CACHE.getHighScores("Easy"));
+        }
+
+        if (APP_CACHE.getHighScores("Medium").size() > 10) {
+            trimHighScoreList(APP_CACHE.getHighScores("Medium"));
+        }
+
+        if (APP_CACHE.getHighScores("Hard").size() > 10) {
+            trimHighScoreList(APP_CACHE.getHighScores("Hard"));
+        }
+    }
+
+    private static void trimHighScoreList(ArrayList<JSONObject> highScoresList) {
+        int startIdx = 10;
+        highScoresList.subList(startIdx, highScoresList.size()).clear();
+    }
+
+
 
 
     public static void saveNewHighScore(JSONObject info, String tableName) {
@@ -46,51 +173,6 @@ public class DynamoDBClientUtil {
     }
 
 
-    // Get temporary AWS credentials for unauthenticated users
-    private static void getTemporaryAWSCredentials() {
-        System.out.println("\ngetTemporaryAWSCredentials() - start");
-
-        cognitoClient = CognitoIdentityClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
-
-        try {
-            GetIdRequest getIdRequest = GetIdRequest.builder()
-                    .identityPoolId(COGNITO_IDENTITY_POOL_ID)
-                    .build();
-
-            GetIdResponse getIdResponse = cognitoClient.getId(getIdRequest);
-            String identityId = getIdResponse.identityId();
-            System.out.println("\n\nidentityId: " + identityId);
-
-
-            GetCredentialsForIdentityRequest credentialsRequest = GetCredentialsForIdentityRequest.builder()
-                    .identityId(identityId)  // Pass the identityId retrieved from GetId
-                    .build();
-
-            credentialsResponse = cognitoClient.getCredentialsForIdentity(credentialsRequest);
-
-
-            System.out.println("\n==================================");
-            System.out.println("credentials: " + credentialsResponse);
-            System.out.println("==================================");
-            System.out.println("Temporary Credentials: " + credentialsResponse.credentials());
-            System.out.println("==================================");
-        } catch (Exception err) {
-            System.out.println("\nUH OH, SOMETHING WENT WRONG");
-            System.out.println("--------");
-            System.out.println(err);
-            System.out.println("--------");
-            System.out.println(err.getMessage());
-            System.out.println("--------");
-            System.out.println(err.getCause());
-            System.out.println("===========================");
-        }
-
-        System.out.println("\ngetTemporaryAWSCredentials() - end");
-    }
-
-
     // Use temporary AWS credentials to interact with DynamoDB
     private static void insertScoreInDB(Map<String, AttributeValue> newHighScoreInfo, String tableName) {
         System.out.println("\ninsertScoreInDB()\n");
@@ -100,9 +182,9 @@ public class DynamoDBClientUtil {
             DynamoDbClient dynamoDbClient = DynamoDbClient.builder()
                     .region(Region.US_WEST_2)
                     .credentialsProvider(() -> AwsSessionCredentials.create(
-                            credentialsResponse.credentials().accessKeyId(),
-                            credentialsResponse.credentials().secretKey(),
-                            credentialsResponse.credentials().sessionToken()
+                            credentials.accessKeyId(),
+                            credentials.secretKey(),
+                            credentials.sessionToken()
                     ))
                     .build();
 
