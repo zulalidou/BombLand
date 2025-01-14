@@ -1,7 +1,5 @@
 package com.example.bombland;
 
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
@@ -22,7 +20,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javafx.scene.media.AudioClip;
-import org.bson.Document;
 import org.json.JSONObject;
 import java.util.UUID;
 
