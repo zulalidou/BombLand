@@ -7,28 +7,30 @@ import software.amazon.awssdk.services.cognitoidentity.model.*;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
 
 public class DynamoDBClientUtil {
-    private static CognitoIdentityClient cognitoClient;
     private static DynamoDbAsyncClient dynamodbAsyncClient;
-    private static Credentials credentials;
-
+    private static Credentials awsCredentials;
 
     public static void getHighScores() {
-        getTemporaryAWSCredentials();
+        // The AWS credentials have expired
+        if (awsCredentials == null || awsCredentials.expiration().isBefore(Instant.now())) {
+            getTemporaryAWSCredentials();
+        }
+
         pullHighScoresFromDB();
         sortHighScores();
         trimHighScores();
     }
 
-
     // Get temporary AWS credentials for unauthenticated users
     private static void getTemporaryAWSCredentials() {
-        cognitoClient = CognitoIdentityClient.builder()
+        CognitoIdentityClient cognitoClient = CognitoIdentityClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
 
@@ -44,29 +46,22 @@ public class DynamoDBClientUtil {
                     .identityId(identityId)  // Pass the identityId retrieved from GetId
                     .build();
 
-            credentials = cognitoClient.getCredentialsForIdentity(credentialsRequest).credentials();
+            awsCredentials = cognitoClient.getCredentialsForIdentity(credentialsRequest).credentials();
         } catch (Exception err) {
+            System.out.println("===========================");
             System.out.println("\nUH OH, SOMETHING WENT WRONG");
-            System.out.println("--------");
             System.out.println(err);
-            System.out.println("--------");
-            System.out.println(err.getMessage());
-            System.out.println("--------");
-            System.out.println(err.getCause());
             System.out.println("===========================");
         }
-
-        System.out.println("\ngetTemporaryAWSCredentials() - end");
     }
-
 
     public static void pullHighScoresFromDB() {
         dynamodbAsyncClient = DynamoDbAsyncClient.builder()
                 .region(Region.US_WEST_2)
                 .credentialsProvider(() -> AwsSessionCredentials.create(
-                        credentials.accessKeyId(),
-                        credentials.secretKey(),
-                        credentials.sessionToken()
+                        awsCredentials.accessKeyId(),
+                        awsCredentials.secretKey(),
+                        awsCredentials.sessionToken()
                 ))
                 .build();
 
@@ -157,7 +152,12 @@ public class DynamoDBClientUtil {
         System.out.println(info);
         System.out.println("========================saveNewRecord()========================\n");
 
-        getTemporaryAWSCredentials();
+
+        // The AWS credentials have expired
+        if (awsCredentials == null || awsCredentials.expiration().isBefore(Instant.now())) {
+            getTemporaryAWSCredentials();
+        }
+
         insertScoreInDB(newHighScoreInfo, tableName);
     }
 
@@ -175,22 +175,16 @@ public class DynamoDBClientUtil {
 
     // Use temporary AWS credentials to interact with DynamoDB
     private static void insertScoreInDB(Map<String, AttributeValue> newHighScoreInfo, String tableName) {
-        System.out.println("\ninsertScoreInDB()\n");
-
         try {
             // Use the temporary credentials to create a DynamoDB client
             DynamoDbClient dynamoDbClient = DynamoDbClient.builder()
                     .region(Region.US_WEST_2)
                     .credentialsProvider(() -> AwsSessionCredentials.create(
-                            credentials.accessKeyId(),
-                            credentials.secretKey(),
-                            credentials.sessionToken()
+                            awsCredentials.accessKeyId(),
+                            awsCredentials.secretKey(),
+                            awsCredentials.sessionToken()
                     ))
                     .build();
-
-
-            System.out.println("newHighScoreInfo: " + newHighScoreInfo);
-            System.out.println("tableName: " + tableName);
 
             PutItemRequest insertNewHighScoreRequest = PutItemRequest.builder()
                     .tableName(tableName)
@@ -198,7 +192,6 @@ public class DynamoDBClientUtil {
                     .build();
 
             dynamoDbClient.putItem(insertNewHighScoreRequest);
-            System.out.println("Item saved to DynamoDB");
         } catch (Exception e) {
             System.out.println("\n\n__ERROR OCCURRED__:");
             e.printStackTrace();
