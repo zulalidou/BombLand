@@ -4,10 +4,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class APP_CACHE {
+    private static boolean gettingData = false;
     private static String identityPoolID;
     private static ArrayList<JSONObject> EASY_HIGH_SCORES;
     private static ArrayList<JSONObject> MEDIUM_HIGH_SCORES;
     private static ArrayList<JSONObject> HARD_HIGH_SCORES;
+
+    static boolean isGettingData() {
+        return gettingData;
+    }
+
+    static void setGettingData(boolean value) {
+        gettingData = value;
+    }
 
     static String getIdentityPoolID() {
         return identityPoolID;

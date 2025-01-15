@@ -34,8 +34,7 @@ public class Main extends Application {
         stage.setTitle("BOMBLAND");
         stage.setResizable(false);
 
-        showSplashScreen(stage);
-
+//        showSplashScreen(stage);
         showMainMenu(mainStage);
     }
 
@@ -53,8 +52,10 @@ public class Main extends Application {
         Task<Void> fetchDataTask = new Task<>() {
             @Override
             protected Void call() {
+                APP_CACHE.setGettingData(true);
                 getEnvironmentVariables();
                 DynamoDBClientUtil.getHighScores();
+                APP_CACHE.setGettingData(false);
 
                 return null;
             }

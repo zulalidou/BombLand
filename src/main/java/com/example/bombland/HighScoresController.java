@@ -1,22 +1,28 @@
 package com.example.bombland;
 
 import javafx.beans.binding.Bindings;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-
 import org.json.JSONObject;
 
 public class HighScoresController {
     @FXML
-    VBox highScoresPage, easyHighScores_column, mediumHighScores_column, hardHighScores_column, easyHighScores_scoreContainer, mediumHighScores_scoreContainer, hardHighScores_scoreContainer;
+    StackPane highScores_stackpane;
+
+    @FXML
+    VBox highScoresPage, highScores_stackpane_child, easyHighScores_column, mediumHighScores_column, hardHighScores_column, easyHighScores_scoreContainer, mediumHighScores_scoreContainer, hardHighScores_scoreContainer;
 
     @FXML
     HBox highScoresContainer_bottom, highScoresContainer_leftChild, highScoresContainer_middleChild, highScoresContainer_rightChild;
@@ -26,6 +32,10 @@ public class HighScoresController {
 
     @FXML
     Button backBtn;
+
+    @FXML
+    ProgressIndicator loadingIcon;
+
 
     @FXML
     public void initialize() {
@@ -68,6 +78,8 @@ public class HighScoresController {
         );
 
 
+        VBox.setVgrow(highScores_stackpane, Priority.ALWAYS);
+
         VBox.setVgrow(highScoresContainer_bottom, Priority.ALWAYS);
 
         HBox.setHgrow(easyHighScores_column, Priority.ALWAYS);
@@ -79,8 +91,60 @@ public class HighScoresController {
         VBox.setVgrow(hardHighScores_scoreContainer, Priority.ALWAYS);
 
 
-        displayHighScores();
+        if (APP_CACHE.isGettingData()) {
+            displayLoadingIcon();
+
+            Task<Void> waitTask = new Task<>() {
+                @Override
+                protected Void call() {
+                    waitForDataRetrieval();
+                    return null;
+                }
+            };
+
+            waitTask.setOnSucceeded(event -> {
+                hideLoadingIcon();
+                displayHighScores();
+            });
+
+            new Thread(waitTask).start();
+        }
+        else {
+            displayHighScores();
+        }
     }
+
+    private void waitForDataRetrieval() {
+        while (APP_CACHE.isGettingData()) {
+            // Forcing the thread to sleep for a bit in order to let it notice the
+            // value of APP_CACHE.isGettingData() change
+            try {
+                Thread.sleep(100);  // Give some time for the state to change
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+
+    private void displayLoadingIcon() {
+        highScores_stackpane_child.setEffect(new GaussianBlur()); // blurs gameplay page
+        highScores_stackpane_child.setMouseTransparent(true); // makes items in highscores page "unclickable"
+
+        loadingIcon.setManaged(true);
+        loadingIcon.setVisible(true);
+    }
+
+    private void hideLoadingIcon() {
+        highScores_stackpane_child.setEffect(null);
+        highScores_stackpane_child.setMouseTransparent(false); // makes items in gameplay page "clickable"
+
+        loadingIcon.setManaged(false);
+        loadingIcon.setVisible(false);
+    }
+
+
+
 
     private void displayHighScores() {
         ArrayList<JSONObject> easyHighScores = APP_CACHE.getHighScores("Easy");
@@ -132,6 +196,9 @@ public class HighScoresController {
             }
         }
     }
+
+
+
 
     @FXML
     private void goToMainMenu() throws IOException {
