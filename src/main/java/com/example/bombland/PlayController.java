@@ -660,7 +660,10 @@ public class PlayController {
                     ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(gameMode);
                     highScores.add(newScoreInfo);
 
-                    // 2. Sort highScores list
+                    // 2. Send new score to WebSocket server (to be distributed to other active users)
+                    Main.socketClient.sendHighScore(String.valueOf(newScoreInfo));
+
+                    // 3. Sort highScores list
                     highScores.sort(new Comparator<JSONObject>() {
                         @Override
                         public int compare(JSONObject a, JSONObject b) {
@@ -668,7 +671,7 @@ public class PlayController {
                         }
                     });
 
-                    // 3. If highScores.size() > 10, delete last item in highScores
+                    // 4. If highScores.size() > 10, delete last item in highScores
                     if (highScores.size() > 10) {
                         highScores.remove(highScores.size() - 1);
                     }

@@ -8,6 +8,7 @@ module com.example.bombland {
     requires software.amazon.awssdk.auth;
     requires software.amazon.awssdk.services.cognitoidentity;
     requires java.net.http;
+    requires org.java_websocket;
 
     opens com.example.bombland to javafx.fxml;
     exports com.example.bombland;

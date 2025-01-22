@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Objects;
@@ -22,12 +23,14 @@ import java.net.http.HttpClient;
 
 public class Main extends Application {
     static Stage mainStage = null;
+    static BOMBLAND_WebSocketClient socketClient = null;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, URISyntaxException {
         mainStage = stage;
 
         fetchData();
+        connectToWebSocketServer();
 
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/bombland/Images/bombsmall.png")));
         stage.getIcons().add(icon);
@@ -64,11 +67,17 @@ public class Main extends Application {
         new Thread(fetchDataTask).start();
     }
 
+    public void connectToWebSocketServer() throws URISyntaxException {
+        socketClient = new BOMBLAND_WebSocketClient();
+        socketClient.connectClient();
+//        socketClient.sendHighScore("highScore");
+    }
+
     public void getEnvironmentVariables() {
         HttpClient httpClient = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://bombland-server.onrender.com/get-environment-variables"))
+                .uri(URI.create("https://bombland-server.onrender.com/webflux/get-environment-variables"))
                 .GET()
                 .build();
 
