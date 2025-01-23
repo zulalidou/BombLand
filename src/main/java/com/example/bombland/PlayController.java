@@ -211,7 +211,7 @@ public class PlayController {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
-                tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + (evenTile ? "lightgreen.png" : "darkgreen.png") + "\");");
+                tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + (evenTile ? "black.png" : "red.png") + "\");");
                 tileBtn.setPrefHeight(Main.mainStage.getScene().getHeight() / rows);
                 tileBtn.setPrefWidth(Main.mainStage.getScene().getWidth() / cols);
 
@@ -271,7 +271,7 @@ public class PlayController {
                 Tile tileObj = new Tile(tileBtn);
                 tileObj.row = row;
                 tileObj.col = col;
-                tileObj.backgroundFile = (evenTile ? "lightgreen.png" : "darkgreen.png");
+                tileObj.backgroundFile = (evenTile ? "black.png" : "red.png");
 
                 grid.add(tileBtn, col, row);
                 gridObjects.put(new Pair<>(row, col), tileObj);
@@ -491,11 +491,11 @@ public class PlayController {
         }
 
         if (tile.value == Tile.TileValue.EMPTY) {
-            tile.backgroundFile = ((tile.backgroundFile == "darkgreen.png") ? "tan.png" : "blanchedalmond.png");
+            tile.backgroundFile = ((tile.backgroundFile == "red.png") ? "burgundy.png" : "gray.png");
             tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\");");
         }
         else if (tile.value == Tile.TileValue.NUMBER) {
-            tile.backgroundFile = ((tile.backgroundFile == "darkgreen.png") ? "tan.png" : "blanchedalmond.png");
+            tile.backgroundFile = ((tile.backgroundFile == "red.png") ? "burgundy.png" : "gray.png");
             displayNumberIcon(tile);
         }
         else { // bomb tile
@@ -650,6 +650,7 @@ public class PlayController {
                     newScoreInfo.put("id", UUID.randomUUID().toString());
                     newScoreInfo.put("score", gameDuration);
                     newScoreInfo.put("name", playerName_textField.getText().strip());
+                    newScoreInfo.put("mode", gameMode);
 
                     DynamoDBClientUtil.saveNewHighScore(newScoreInfo, "BOMBLAND_" + gameMode + "HighScores");
 
@@ -658,7 +659,6 @@ public class PlayController {
 
                     playerName_textField.setText("");
 
-                    newScoreInfo.put("mode", gameMode);
                     updateAppCache(newScoreInfo);
 
                     return null;
@@ -671,9 +671,12 @@ public class PlayController {
 
 
     static void updateAppCache(JSONObject newScoreInfo) {
+        System.out.println("updateAppCache()");
+
         // 1. Add newScoreInfo to highScores list
         ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(newScoreInfo.getString("mode"));
         highScores.add(newScoreInfo);
+        System.out.println(highScores);
 
         // 2. Sort highScores list
         highScores.sort(Comparator.comparingLong(a -> a.getLong("time")));

@@ -2,6 +2,7 @@ package com.example.bombland;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URI;
@@ -30,11 +31,16 @@ public class BOMBLAND_WebSocketClient extends WebSocketClient {
 
         // Handle incoming messages from the server
         System.out.println("--> Received from server: " + message);
+        System.out.println("\nmessage: " + message);
 
-
-        // The server will send the message variable, which is a stringified JSONObject object
-        // that represents a new high score set on another client
-        PlayController.updateAppCache(new JSONObject(message));
+        try {
+            // The message variable (sent from the server) is a stringified JSONObject object
+            // that represents a new high score set on another client
+            JSONObject jsonObject = new JSONObject(message);
+            PlayController.updateAppCache(jsonObject);
+        } catch (JSONException e) {
+            System.out.println("The message from the server is a simple string\n");
+        }
     }
 
     @Override

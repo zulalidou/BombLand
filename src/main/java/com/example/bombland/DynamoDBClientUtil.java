@@ -168,6 +168,7 @@ public class DynamoDBClientUtil {
         newHighScoreInfo.put("id", AttributeValue.builder().s(info.get("id").toString()).build());
         newHighScoreInfo.put("score", AttributeValue.builder().n(info.get("score").toString()).build());
         newHighScoreInfo.put("name", AttributeValue.builder().s(info.get("name").toString()).build());
+        newHighScoreInfo.put("mode", AttributeValue.builder().s(info.get("mode").toString()).build());
 
         return newHighScoreInfo;
     }
