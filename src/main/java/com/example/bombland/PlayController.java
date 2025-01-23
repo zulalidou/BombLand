@@ -211,7 +211,7 @@ public class PlayController {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
-                tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + (evenTile ? "black.png" : "red.png") + "\");");
+                tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + (evenTile ? "lightorange.png" : "orange.png") + "\");");
                 tileBtn.setPrefHeight(Main.mainStage.getScene().getHeight() / rows);
                 tileBtn.setPrefWidth(Main.mainStage.getScene().getWidth() / cols);
 
@@ -271,7 +271,7 @@ public class PlayController {
                 Tile tileObj = new Tile(tileBtn);
                 tileObj.row = row;
                 tileObj.col = col;
-                tileObj.backgroundFile = (evenTile ? "black.png" : "red.png");
+                tileObj.backgroundFile = (evenTile ? "lightorange.png" : "orange.png");
 
                 grid.add(tileBtn, col, row);
                 gridObjects.put(new Pair<>(row, col), tileObj);
@@ -491,11 +491,11 @@ public class PlayController {
         }
 
         if (tile.value == Tile.TileValue.EMPTY) {
-            tile.backgroundFile = ((tile.backgroundFile == "red.png") ? "burgundy.png" : "gray.png");
+            tile.backgroundFile = ((tile.backgroundFile == "orange.png") ? "black.png" : "gray.png");
             tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\");");
         }
         else if (tile.value == Tile.TileValue.NUMBER) {
-            tile.backgroundFile = ((tile.backgroundFile == "red.png") ? "burgundy.png" : "gray.png");
+            tile.backgroundFile = ((tile.backgroundFile == "orange.png") ? "black.png" : "gray.png");
             displayNumberIcon(tile);
         }
         else { // bomb tile
