@@ -653,34 +653,35 @@ public class PlayController {
 
                     DynamoDBClientUtil.saveNewHighScore(newScoreInfo, "BOMBLAND_" + gameMode + "HighScores");
 
-                    playerName_textField.setText("");
-
-
-                    // 1. Add newScoreInfo to highScores list
-                    ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(gameMode);
-                    highScores.add(newScoreInfo);
-
-                    // 2. Send new score to WebSocket server (to be distributed to other active users)
+                    // Send new score to WebSocket server (to be distributed to other active users)
                     Main.socketClient.sendHighScore(String.valueOf(newScoreInfo));
 
-                    // 3. Sort highScores list
-                    highScores.sort(new Comparator<JSONObject>() {
-                        @Override
-                        public int compare(JSONObject a, JSONObject b) {
-                            return Long.compare(a.getLong("score"), b.getLong("score"));
-                        }
-                    });
+                    playerName_textField.setText("");
 
-                    // 4. If highScores.size() > 10, delete last item in highScores
-                    if (highScores.size() > 10) {
-                        highScores.remove(highScores.size() - 1);
-                    }
+                    newScoreInfo.put("mode", gameMode);
+                    updateAppCache(newScoreInfo);
 
                     return null;
                 }
             };
 
             new Thread(saveHighScoreTask).start();
+        }
+    }
+
+
+    static void updateAppCache(JSONObject newScoreInfo) {
+        // 1. Add newScoreInfo to highScores list
+        ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(newScoreInfo.getString("mode"));
+        highScores.add(newScoreInfo);
+
+        // 2. Sort highScores list
+        highScores.sort(Comparator.comparingLong(a -> a.getLong("time")));
+        highScores.sort(Comparator.comparingLong(a -> a.getLong("score")));
+
+        // 3. If highScores.size() > 10, delete last item in highScores
+        if (highScores.size() > 10) {
+            highScores.remove(highScores.size() - 1);
         }
     }
 

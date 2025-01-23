@@ -2,6 +2,8 @@ package com.example.bombland;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONObject;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -28,7 +30,11 @@ public class BOMBLAND_WebSocketClient extends WebSocketClient {
 
         // Handle incoming messages from the server
         System.out.println("--> Received from server: " + message);
-        // In a game, you might want to update the UI with the new high score or leaderboard
+
+
+        // The server will send the message variable, which is a stringified JSONObject object
+        // that represents a new high score set on another client
+        PlayController.updateAppCache(new JSONObject(message));
     }
 
     @Override
