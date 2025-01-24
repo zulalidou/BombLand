@@ -54,7 +54,7 @@
                             <VBox fx:id="imgContainer_1" alignment="CENTER">
                                 <ImageView fx:id="imgView_1">
                                     <image>
-                                        <Image url="/com/example/bombland/images/instructions-img1.png"/>
+                                        <Image url="/com/example/bombland/images/map-theme-1/img1.png"/>
                                     </image>
                                 </ImageView>
 
@@ -66,7 +66,7 @@
                             <VBox fx:id="imgContainer_2" alignment="CENTER">
                                 <ImageView fx:id="imgView_2">
                                     <image>
-                                        <Image url="/com/example/bombland/images/instructions-img2.png"/>
+                                        <Image url="/com/example/bombland/images/map-theme-1/img2.png"/>
                                     </image>
                                 </ImageView>
 
@@ -78,7 +78,7 @@
                             <VBox fx:id="imgContainer_3" alignment="CENTER">
                                 <ImageView fx:id="imgView_3">
                                     <image>
-                                        <Image url="/com/example/bombland/images/instructions-img3.png"/>
+                                        <Image url="/com/example/bombland/images/map-theme-1/img3.png"/>
                                     </image>
                                 </ImageView>
 
@@ -90,7 +90,7 @@
                             <VBox fx:id="imgContainer_4" alignment="CENTER">
                                 <ImageView fx:id="imgView_4">
                                     <image>
-                                        <Image url="/com/example/bombland/images/instructions-img4.png"/>
+                                        <Image url="/com/example/bombland/images/map-theme-1/img4.png"/>
                                     </image>
                                 </ImageView>
 
@@ -102,7 +102,7 @@
                             <VBox fx:id="imgContainer_5" alignment="CENTER">
                                 <ImageView fx:id="imgView_5">
                                     <image>
-                                        <Image url="/com/example/bombland/images/instructions-img5.png"/>
+                                        <Image url="/com/example/bombland/images/map-theme-1/img5.png"/>
                                     </image>
                                 </ImageView>
 
@@ -114,7 +114,7 @@
                             <VBox fx:id="imgContainer_6" alignment="CENTER">
                                 <ImageView fx:id="imgView_6">
                                     <image>
-                                        <Image url="/com/example/bombland/images/instructions-img6.png"/>
+                                        <Image url="/com/example/bombland/images/map-theme-1/img6.png"/>
                                     </image>
                                 </ImageView>
 
@@ -126,7 +126,7 @@
                             <VBox fx:id="imgContainer_7" alignment="CENTER">
                                 <ImageView fx:id="imgView_7">
                                     <image>
-                                        <Image url="/com/example/bombland/images/instructions-img7.png"/>
+                                        <Image url="/com/example/bombland/images/map-theme-1/img7.png"/>
                                     </image>
                                 </ImageView>
 
@@ -138,7 +138,7 @@
                             <VBox fx:id="imgContainer_8" alignment="CENTER">
                                 <ImageView fx:id="imgView_8">
                                     <image>
-                                        <Image url="/com/example/bombland/images/instructions-img8.png"/>
+                                        <Image url="/com/example/bombland/images/map-theme-1/img8.png"/>
                                     </image>
                                 </ImageView>
 
