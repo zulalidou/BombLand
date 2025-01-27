@@ -1,0 +1,27 @@
+#mapSelectionPage {
+    -fx-alignment: center;
+}
+
+
+#mapSelectionPageContainer {
+    -fx-background-color: red;
+}
+
+#mapSelectionPageContainer_top_middleChild {
+    -fx-alignment: center;
+}
+
+
+#backBtn {
+    -fx-background-color: black;
+}
+
+#backBtn:hover {
+    -fx-cursor: hand;
+}
+
+
+#mapSelectionPage_title {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}

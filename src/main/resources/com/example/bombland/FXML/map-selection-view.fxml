@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox fx:id="mapSelectionPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.MapSelectionController">
+    <stylesheets>
+        <URL value="@../CSS/map-selection.css"/>
+    </stylesheets>
+
+    <VBox fx:id="mapSelectionPageContainer">
+        <HBox fx:id="mapSelectionPageContainer_top">
+            <HBox fx:id="mapSelectionPageContainer_top_leftChild" alignment="CENTER_LEFT">
+                <Button fx:id="backBtn" onAction="#goToModeSelection">
+                    <graphic>
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <Image url="/com/example/bombland/images/back-button.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <HBox fx:id="mapSelectionPageContainer_top_middleChild">
+                <Label fx:id="mapSelectionPage_title" text="Select Map"/>
+            </HBox>
+
+            <HBox fx:id="mapSelectionPageContainer_top_rightChild" />
+        </HBox>
+
+        <VBox fx:id="mapSelectionPageContainer_bottom" alignment="CENTER">
+            <HBox>
+                <VBox>
+                    <ImageView>
+                        <image>
+                            <Image url="/com/example/bombland/images/rectangle.png"/>
+                        </image>
+                    </ImageView>
+
+                    <Label text="Rectangle"/>
+                </VBox>
+
+                <VBox>
+                    <ImageView>
+                        <image>
+                            <Image url="/com/example/bombland/images/bomb.png"/>
+                        </image>
+                    </ImageView>
+
+                    <Label text="Bomb"/>
+                </VBox>
+            </HBox>
+            
+            <HBox>
+                <VBox>
+                    <ImageView>
+                        <image>
+                            <Image url="/com/example/bombland/images/happy-face.png"/>
+                        </image>
+                    </ImageView>
+
+                    <Label text="Face"/>
+                </VBox>
+
+                <VBox>
+                    <ImageView>
+                        <image>
+                            <Image url="/com/example/bombland/images/octagon.png"/>
+                        </image>
+                    </ImageView>
+
+                    <Label text="Octagon"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox>

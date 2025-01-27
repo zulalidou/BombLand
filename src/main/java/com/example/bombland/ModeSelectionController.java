@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 import java.util.Objects;
 
@@ -84,21 +85,31 @@ public class ModeSelectionController {
     }
 
     @FXML
-    private void openEasyMode() throws IOException {
+    private void pickEasyMode() throws IOException {
         PlayController.setMode("Easy");
-        startGame();
+//        startGame();
+        openMapSelectionPage();
     }
 
     @FXML
-    private void openMediumMode() throws IOException {
+    private void pickMediumMode() throws IOException {
         PlayController.setMode("Medium");
-        startGame();
+//        startGame();
+        openMapSelectionPage();
     }
 
     @FXML
-    private void openHardMode() throws IOException {
+    private void pickHardMode() throws IOException {
         PlayController.setMode("Hard");
-        startGame();
+//        startGame();
+        openMapSelectionPage();
+    }
+
+    @FXML
+    private void openMapSelectionPage() throws IOException {
+        ScreenController screenController = new ScreenController(modeSelectionPage.getScene());
+        screenController.addScreen("map-selection", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/map-selection-view.fxml"))));
+        screenController.activate("map-selection");
     }
 
     @FXML

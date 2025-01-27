@@ -32,9 +32,9 @@
 
         <VBox fx:id="modeSelectionPageContainer_bottom" alignment="CENTER">
             <VBox fx:id="modeSelectionPageContainer_bottom_inner" alignment="CENTER">
-                <Button fx:id="easyModeBtn" text="Easy (8 x 8)" onAction="#openEasyMode"/>
-                <Button fx:id="mediumModeBtn" text="Medium (16 x 16)" onAction="#openMediumMode"/>
-                <Button fx:id="hardModeBtn" text="Hard (32 x 16)" onAction="#openHardMode"/>
+                <Button fx:id="easyModeBtn" text="Easy (8 x 8)" onAction="#pickEasyMode"/>
+                <Button fx:id="mediumModeBtn" text="Medium (16 x 16)" onAction="#pickMediumMode"/>
+                <Button fx:id="hardModeBtn" text="Hard (32 x 16)" onAction="#pickHardMode"/>
             </VBox>
         </VBox>
     </VBox>
