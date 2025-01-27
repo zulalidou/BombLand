@@ -11,7 +11,7 @@
         <URL value="@../CSS/map-selection.css"/>
     </stylesheets>
 
-    <VBox fx:id="mapSelectionPageContainer">
+    <VBox fx:id="mapSelectionPageContainer" alignment="CENTER">
         <HBox fx:id="mapSelectionPageContainer_top">
             <HBox fx:id="mapSelectionPageContainer_top_leftChild" alignment="CENTER_LEFT">
                 <Button fx:id="backBtn" onAction="#goToModeSelection">
@@ -31,47 +31,52 @@
         </HBox>
 
         <VBox fx:id="mapSelectionPageContainer_bottom" alignment="CENTER">
-            <HBox>
-                <VBox>
+            <HBox fx:id="upperMapsContainer" alignment="CENTER">
+                <VBox fx:id="rectangleMapSelectorContainer" alignment="CENTER">
                     <ImageView>
                         <image>
                             <Image url="/com/example/bombland/images/rectangle.png"/>
                         </image>
                     </ImageView>
 
-                    <Label text="Rectangle"/>
+                    <Label fx:id="rectangleMapSelectorName" styleClass="mapNameLabel" text="Rectangle"/>
                 </VBox>
 
-                <VBox>
+                <Region fx:id="space1"/>
+
+                <VBox fx:id="bombMapSelectorContainer" alignment="CENTER">
                     <ImageView>
                         <image>
                             <Image url="/com/example/bombland/images/bomb.png"/>
                         </image>
                     </ImageView>
 
-                    <Label text="Bomb"/>
+                    <Label fx:id="bombMapSelectorName" styleClass="mapNameLabel" text="Bomb"/>
                 </VBox>
             </HBox>
-            
-            <HBox>
-                <VBox>
+
+
+            <HBox fx:id="lowerMapsContainer" alignment="CENTER">
+                <VBox fx:id="faceMapSelectorContainer" alignment="CENTER">
                     <ImageView>
                         <image>
                             <Image url="/com/example/bombland/images/happy-face.png"/>
                         </image>
                     </ImageView>
 
-                    <Label text="Face"/>
+                    <Label fx:id="faceMapSelectorName" styleClass="mapNameLabel" text="Face"/>
                 </VBox>
 
-                <VBox>
+                <Region fx:id="space2"/>
+
+                <VBox fx:id="octagonMapSelectorContainer" alignment="CENTER">
                     <ImageView>
                         <image>
                             <Image url="/com/example/bombland/images/octagon.png"/>
                         </image>
                     </ImageView>
 
-                    <Label text="Octagon"/>
+                    <Label fx:id="octagonMapSelectorName" styleClass="mapNameLabel" text="Octagon"/>
                 </VBox>
             </HBox>
         </VBox>

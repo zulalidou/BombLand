@@ -25,3 +25,23 @@
     -fx-font-weight: bold;
     -fx-text-fill: black;
 }
+
+
+#rectangleMapSelectorContainer,
+#bombMapSelectorContainer,
+#faceMapSelectorContainer,
+#octagonMapSelectorContainer {
+    -fx-background-color: white;
+}
+
+#rectangleMapSelectorContainer:hover,
+#bombMapSelectorContainer:hover,
+#faceMapSelectorContainer:hover,
+#octagonMapSelectorContainer:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #CCCCCC;
+}
+
+.mapNameLabel {
+    -fx-font-weight: bold;
+}
