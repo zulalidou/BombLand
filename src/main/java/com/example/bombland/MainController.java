@@ -61,10 +61,10 @@ public class MainController {
     }
 
     @FXML
-    private void openModeSelectionPage(ActionEvent event) throws IOException {
+    private void openDifficultySelectionPage(ActionEvent event) throws IOException {
         ScreenController screenController = new ScreenController(mainMenuPage.getScene());
-        screenController.addScreen("mode-selection", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/mode-selection-view.fxml"))));
-        screenController.activate("mode-selection");
+        screenController.addScreen("difficulty-selection", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/difficulty-selection-view.fxml"))));
+        screenController.activate("difficulty-selection");
     }
 
     @FXML

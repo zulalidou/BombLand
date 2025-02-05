@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox fx:id="difficultySelectionPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.DifficultySelectionController">
+    <stylesheets>
+        <URL value="@../CSS/difficulty-selection.css"/>
+    </stylesheets>
+
+    <VBox fx:id="difficultySelectionPageContainer">
+        <HBox fx:id="difficultySelectionPageContainer_top">
+            <HBox fx:id="difficultySelectionPageContainer_top_leftChild" alignment="CENTER_LEFT">
+                <Button fx:id="backBtn" onAction="#goToMainMenu">
+                    <graphic>
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <Image url="/com/example/bombland/images/back-button.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <HBox fx:id="difficultySelectionPageContainer_top_middleChild">
+                <Label fx:id="difficultySelectionPage_title" text="Select Difficulty"/>
+            </HBox>
+
+            <HBox fx:id="difficultySelectionPageContainer_top_rightChild" />
+        </HBox>
+
+        <VBox fx:id="difficultySelectionPageContainer_bottom" alignment="CENTER">
+            <VBox fx:id="difficultySelectionPageContainer_bottom_inner" alignment="CENTER">
+                <Button fx:id="easyDifficultyBtn" text="Easy (8 x 8)" onAction="#pickEasyDifficulty"/>
+                <Button fx:id="mediumDifficultyBtn" text="Medium (16 x 16)" onAction="#pickMediumDifficulty"/>
+                <Button fx:id="hardDifficultyBtn" text="Hard (32 x 16)" onAction="#pickHardDifficulty"/>
+            </VBox>
+        </VBox>
+    </VBox>
+</VBox>

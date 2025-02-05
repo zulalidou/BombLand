@@ -1,13 +1,13 @@
-#modeSelectionPage {
+#difficultySelectionPage {
     -fx-alignment: center;
 }
 
 
-#modeSelectionPageContainer {
+#difficultySelectionPageContainer {
     -fx-background-color: red;
 }
 
-#modeSelectionPageContainer_top_middleChild {
+#difficultySelectionPageContainer_top_middleChild {
     -fx-alignment: center;
 }
 
@@ -21,18 +21,18 @@
 }
 
 
-#modeSelectionPage_title {
+#difficultySelectionPage_title {
     -fx-font-weight: bold;
     -fx-text-fill: black;
 }
 
 
-#modeSelectionPageContainer_bottom_inner .button {
+#difficultySelectionPageContainer_bottom_inner .button {
     -fx-background-color: black;
     -fx-text-fill: white;
 }
 
-#modeSelectionPageContainer_bottom_inner .button:hover {
+#difficultySelectionPageContainer_bottom_inner .button:hover {
     -fx-cursor: hand;
     -fx-text-fill: red;
 }

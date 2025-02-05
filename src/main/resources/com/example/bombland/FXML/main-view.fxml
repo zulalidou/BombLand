@@ -23,7 +23,7 @@
         </HBox>
 
 
-        <Button fx:id="playBtn" text="Play" onAction="#openModeSelectionPage"/>
+        <Button fx:id="playBtn" text="Play" onAction="#openDifficultySelectionPage"/>
         <Button fx:id="instructionsBtn" text="Instructions" onAction="#openInstructionsPage"/>
         <Button fx:id="highScoresBtn" text="High Scores" onAction="#openHighScoresPage"/>
         <Button fx:id="exitBtn" text="Exit" onAction="#closeApp"/>

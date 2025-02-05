@@ -79,7 +79,7 @@ public class DynamoDBClientUtil {
 
 
     // Asynchronous scan operation for a given table
-    private static CompletableFuture<Void> scanTable(String tableName, String gameMode) {
+    private static CompletableFuture<Void> scanTable(String tableName, String gameDifficulty) {
         ScanRequest scanRequest = ScanRequest.builder()
                 .tableName(tableName)
                 .build();
@@ -101,7 +101,7 @@ public class DynamoDBClientUtil {
                 highScoresList.add(highScoresObj);
             }
 
-            APP_CACHE.setHighScore(highScoresList, gameMode);
+            APP_CACHE.setHighScore(highScoresList, gameDifficulty);
         }).exceptionally(ex -> {
             System.err.println("Scan failed for table: " + tableName);
             ex.printStackTrace();
@@ -168,7 +168,7 @@ public class DynamoDBClientUtil {
         newHighScoreInfo.put("id", AttributeValue.builder().s(info.get("id").toString()).build());
         newHighScoreInfo.put("score", AttributeValue.builder().n(info.get("score").toString()).build());
         newHighScoreInfo.put("name", AttributeValue.builder().s(info.get("name").toString()).build());
-        newHighScoreInfo.put("mode", AttributeValue.builder().s(info.get("mode").toString()).build());
+        newHighScoreInfo.put("difficulty", AttributeValue.builder().s(info.get("difficulty").toString()).build());
 
         return newHighScoreInfo;
     }

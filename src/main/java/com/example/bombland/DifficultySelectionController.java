@@ -12,34 +12,34 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.Objects;
 
-public class ModeSelectionController {
+public class DifficultySelectionController {
     @FXML
     Button backBtn;
 
     @FXML
-    VBox modeSelectionPage, modeSelectionPageContainer, modeSelectionPageContainer_bottom, modeSelectionPageContainer_bottom_inner;
+    VBox difficultySelectionPage, difficultySelectionPageContainer, difficultySelectionPageContainer_bottom, difficultySelectionPageContainer_bottom_inner;
 
     @FXML
-    HBox modeSelectionPageContainer_top, modeSelectionPageContainer_top_leftChild, modeSelectionPageContainer_top_middleChild, modeSelectionPageContainer_top_rightChild;
+    HBox difficultySelectionPageContainer_top, difficultySelectionPageContainer_top_leftChild, difficultySelectionPageContainer_top_middleChild, difficultySelectionPageContainer_top_rightChild;
 
     @FXML
-    Label modeSelectionPage_title;
+    Label difficultySelectionPage_title;
 
     @FXML
-    Button easyModeBtn, mediumModeBtn, hardModeBtn;
+    Button easyDifficultyBtn, mediumDifficultyBtn, hardDifficultyBtn;
 
 
     @FXML
     public void initialize() {
-        // Prevents the width of the modeSelectionPageContainer VBox from having the same width as its parent container (modeSelectionPage)
-        modeSelectionPage.setFillWidth(false);
+        // Prevents the width of the difficultySelectionPageContainer VBox from having the same width as its parent container (difficultySelectionPage)
+        difficultySelectionPage.setFillWidth(false);
 
 
-        modeSelectionPageContainer.styleProperty().bind(
+        difficultySelectionPageContainer.styleProperty().bind(
                 Bindings.format("-fx-pref-width: %.2fpx; -fx-pref-height: %.2fpx; -fx-padding: %.2fpx;", Main.mainStage.widthProperty().multiply(0.75), Main.mainStage.heightProperty().multiply(0.6), Main.mainStage.widthProperty().multiply(0.02))
         );
 
-        modeSelectionPageContainer_top_leftChild.styleProperty().bind(
+        difficultySelectionPageContainer_top_leftChild.styleProperty().bind(
                 Bindings.format("-fx-pref-width: %.2fpx;", Main.mainStage.widthProperty().multiply(0.2))
         );
 
@@ -47,75 +47,65 @@ public class ModeSelectionController {
                 Bindings.format("-fx-background-radius: %.2fpx;", Main.mainStage.widthProperty().multiply(0.05))
         );
 
-        modeSelectionPageContainer_top_middleChild.styleProperty().bind(
+        difficultySelectionPageContainer_top_middleChild.styleProperty().bind(
                 Bindings.format("-fx-pref-width: %.2fpx", Main.mainStage.widthProperty().multiply(0.6))
         );
 
-        modeSelectionPage_title.styleProperty().bind(
+        difficultySelectionPage_title.styleProperty().bind(
                 Bindings.format("-fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.04))
         );
 
-        modeSelectionPageContainer_top_rightChild.styleProperty().bind(
+        difficultySelectionPageContainer_top_rightChild.styleProperty().bind(
                 Bindings.format("-fx-pref-width: %.2fpx;", Main.mainStage.widthProperty().multiply(0.2))
         );
 
 
-        VBox.setVgrow(modeSelectionPageContainer_bottom, Priority.ALWAYS);
+        VBox.setVgrow(difficultySelectionPageContainer_bottom, Priority.ALWAYS);
 
-        modeSelectionPageContainer_bottom_inner.setSpacing(Main.mainStage.heightProperty().get() * 0.04);
+        difficultySelectionPageContainer_bottom_inner.setSpacing(Main.mainStage.heightProperty().get() * 0.04);
 
-        easyModeBtn.styleProperty().bind(
+        easyDifficultyBtn.styleProperty().bind(
                 Bindings.format("-fx-pref-width: %.2fpx; -fx-font-size: %.2fpx; -fx-background-radius: %.2fpx;", Main.mainStage.widthProperty().multiply(0.4), Main.mainStage.widthProperty().multiply(0.03), Main.mainStage.widthProperty().multiply(0.1))
         );
 
-        mediumModeBtn.styleProperty().bind(
+        mediumDifficultyBtn.styleProperty().bind(
                 Bindings.format("-fx-pref-width: %.2fpx; -fx-font-size: %.2fpx; -fx-background-radius: %.2fpx;", Main.mainStage.widthProperty().multiply(0.4), Main.mainStage.widthProperty().multiply(0.03), Main.mainStage.widthProperty().multiply(0.1))
         );
 
-        hardModeBtn.styleProperty().bind(
+        hardDifficultyBtn.styleProperty().bind(
                 Bindings.format("-fx-pref-width: %.2fpx; -fx-font-size: %.2fpx; -fx-background-radius: %.2fpx;", Main.mainStage.widthProperty().multiply(0.4), Main.mainStage.widthProperty().multiply(0.03), Main.mainStage.widthProperty().multiply(0.1))
         );
     }
 
     @FXML
     private void goToMainMenu() throws IOException {
-        ScreenController screenController = new ScreenController(modeSelectionPage.getScene());
+        ScreenController screenController = new ScreenController(difficultySelectionPage.getScene());
         screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
         screenController.activate("main");
     }
 
     @FXML
-    private void pickEasyMode() throws IOException {
-        PlayController.setMode("Easy");
-//        startGame();
+    private void pickEasyDifficulty() throws IOException {
+        APP_CACHE.setGameDifficulty("Easy");
         openMapSelectionPage();
     }
 
     @FXML
-    private void pickMediumMode() throws IOException {
-        PlayController.setMode("Medium");
-//        startGame();
+    private void pickMediumDifficulty() throws IOException {
+        APP_CACHE.setGameDifficulty("Medium");
         openMapSelectionPage();
     }
 
     @FXML
-    private void pickHardMode() throws IOException {
-        PlayController.setMode("Hard");
-//        startGame();
+    private void pickHardDifficulty() throws IOException {
+        APP_CACHE.setGameDifficulty("Hard");
         openMapSelectionPage();
     }
 
     @FXML
     private void openMapSelectionPage() throws IOException {
-        ScreenController screenController = new ScreenController(modeSelectionPage.getScene());
+        ScreenController screenController = new ScreenController(difficultySelectionPage.getScene());
         screenController.addScreen("map-selection", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/map-selection-view.fxml"))));
         screenController.activate("map-selection");
-    }
-
-    @FXML
-    private void startGame() throws IOException {
-        ScreenController screenController = new ScreenController(modeSelectionPage.getScene());
-        screenController.addScreen("play", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/play-view.fxml"))));
-        screenController.activate("play");
     }
 }

@@ -14,7 +14,7 @@
     <VBox fx:id="mapSelectionPageContainer" alignment="CENTER">
         <HBox fx:id="mapSelectionPageContainer_top">
             <HBox fx:id="mapSelectionPageContainer_top_leftChild" alignment="CENTER_LEFT">
-                <Button fx:id="backBtn" onAction="#goToModeSelection">
+                <Button fx:id="backBtn" onAction="#goToDifficultySelection">
                     <graphic>
                         <ImageView fitWidth="20" preserveRatio="true">
                             <Image url="/com/example/bombland/images/back-button.png"/>
@@ -32,7 +32,7 @@
 
         <VBox fx:id="mapSelectionPageContainer_bottom" alignment="CENTER">
             <HBox fx:id="upperMapsContainer" alignment="CENTER">
-                <VBox fx:id="rectangleMapSelectorContainer" alignment="CENTER">
+                <VBox fx:id="rectangleMapSelectorContainer" alignment="CENTER" onMouseClicked="#pickRectangleMap">
                     <ImageView>
                         <image>
                             <Image url="/com/example/bombland/images/rectangle.png"/>
@@ -44,7 +44,7 @@
 
                 <Region fx:id="space1"/>
 
-                <VBox fx:id="bombMapSelectorContainer" alignment="CENTER">
+                <VBox fx:id="bombMapSelectorContainer" alignment="CENTER" onMouseClicked="#pickBombMap">
                     <ImageView>
                         <image>
                             <Image url="/com/example/bombland/images/bomb.png"/>
@@ -57,7 +57,7 @@
 
 
             <HBox fx:id="lowerMapsContainer" alignment="CENTER">
-                <VBox fx:id="faceMapSelectorContainer" alignment="CENTER">
+                <VBox fx:id="faceMapSelectorContainer" alignment="CENTER" onMouseClicked="#pickFaceMap">
                     <ImageView>
                         <image>
                             <Image url="/com/example/bombland/images/happy-face.png"/>
@@ -69,7 +69,7 @@
 
                 <Region fx:id="space2"/>
 
-                <VBox fx:id="octagonMapSelectorContainer" alignment="CENTER">
+                <VBox fx:id="octagonMapSelectorContainer" alignment="CENTER" onMouseClicked="#pickOctagonMap">
                     <ImageView>
                         <image>
                             <Image url="/com/example/bombland/images/octagon.png"/>

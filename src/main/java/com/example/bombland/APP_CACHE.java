@@ -9,6 +9,10 @@ public class APP_CACHE {
     private static ArrayList<JSONObject> EASY_HIGH_SCORES;
     private static ArrayList<JSONObject> MEDIUM_HIGH_SCORES;
     private static ArrayList<JSONObject> HARD_HIGH_SCORES;
+    private static String gameDifficulty;
+    private static String gameMap;
+
+
 
     static boolean isGettingData() {
         return gettingData;
@@ -26,11 +30,32 @@ public class APP_CACHE {
         identityPoolID = id;
     }
 
-    static ArrayList<JSONObject> getHighScores(String gameMode) {
-        if (gameMode.equals("Easy")) {
+
+
+    static String getGameDifficulty() {
+        return gameDifficulty;
+    }
+
+    static void setGameDifficulty(String gameDiff) {
+        gameDifficulty = gameDiff;
+    }
+
+    static String getGameMap() {
+        return gameMap;
+    }
+
+    static void setGameMap(String newMap) {
+        gameMap = newMap;
+    }
+
+
+
+
+    static ArrayList<JSONObject> getHighScores(String gameDifficulty) {
+        if (gameDifficulty.equals("Easy")) {
             return EASY_HIGH_SCORES;
         }
-        else if (gameMode.equals("Medium")) {
+        else if (gameDifficulty.equals("Medium")) {
             return MEDIUM_HIGH_SCORES;
         }
         else {
@@ -38,11 +63,11 @@ public class APP_CACHE {
         }
     }
 
-    static void setHighScore(ArrayList<JSONObject> highScores, String gameMode) {
-        if (gameMode.equals("Easy")) {
+    static void setHighScore(ArrayList<JSONObject> highScores, String gameDifficulty) {
+        if (gameDifficulty.equals("Easy")) {
             EASY_HIGH_SCORES = highScores;
         }
-        else if (gameMode.equals("Medium")) {
+        else if (gameDifficulty.equals("Medium")) {
             MEDIUM_HIGH_SCORES = highScores;
         }
         else {

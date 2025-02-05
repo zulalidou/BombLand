@@ -3,6 +3,7 @@ package com.example.bombland;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -32,7 +33,7 @@ public class MapSelectionController {
 
     @FXML
     public void initialize() {
-        // Prevents the width of the modeSelectionPageContainer VBox from having the same width as its parent container (modeSelectionPage)
+        // Prevents the width of the difficultySelectionPageContainer VBox from having the same width as its parent container (difficultySelectionPage)
         mapSelectionPage.setFillWidth(false);
 
         mapSelectionPageContainer.styleProperty().bind(
@@ -101,10 +102,6 @@ public class MapSelectionController {
         );
 
 
-
-
-
-
         mapSelectionPageContainer.setFillWidth(false);
         upperMapsContainer.setFillHeight(false);
         lowerMapsContainer.setFillHeight(false);
@@ -119,9 +116,49 @@ public class MapSelectionController {
 
 
     @FXML
-    private void goToModeSelection() throws IOException {
+    private void goToDifficultySelection() throws IOException {
         ScreenController screenController = new ScreenController(mapSelectionPage.getScene());
-        screenController.addScreen("mode-selection", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/mode-selection-view.fxml"))));
-        screenController.activate("mode-selection");
+        screenController.addScreen("difficulty-selection", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/difficulty-selection-view.fxml"))));
+        screenController.activate("difficulty-selection");
+    }
+
+    @FXML
+    private void pickRectangleMap() throws IOException {
+        APP_CACHE.setGameMap("Rectangle");
+        startGame();
+    }
+
+    @FXML
+    private void pickBombMap() throws IOException {
+        APP_CACHE.setGameMap("Bomb");
+        startGame();
+    }
+
+    @FXML
+    private void pickFaceMap() throws IOException {
+        APP_CACHE.setGameMap("Face");
+        startGame();
+    }
+
+    @FXML
+    private void pickOctagonMap() throws IOException {
+        APP_CACHE.setGameMap("Octagon");
+        startGame();
+    }
+
+    @FXML
+    private void startGame() throws IOException {
+//        ScreenController screenController = new ScreenController(mapSelectionPage.getScene());
+//        screenController.addScreen("play", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/play-view.fxml"))));
+//        screenController.activate("play");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/play-view.fxml"));
+
+        PlayController playController = PlayController.getInstance();
+        loader.setController(playController);
+
+        Scene scene = new Scene(loader.load(), 1024, 768);
+        Main.mainStage.setScene(scene);
+        Main.mainStage.show();
     }
 }

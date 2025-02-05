@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.TextField?>
 
-<VBox fx:id="playPageContainer" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.PlayController" alignment="CENTER">
+<VBox fx:id="playPageContainer" xmlns:fx="http://javafx.com/fxml" alignment="CENTER">
     <stylesheets>
         <URL value="@../CSS/play.css"/>
     </stylesheets>

@@ -13,7 +13,8 @@ public class Tile {
         UNKNOWN,
         EMPTY,
         NUMBER,
-        BOMB
+        BOMB,
+        DISABLED
     }
 
     Tile(Button tb) {
