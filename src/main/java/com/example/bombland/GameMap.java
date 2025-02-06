@@ -82,7 +82,7 @@ public class GameMap {
             else {
                 rows = 24;
                 cols = 64;
-                bombs = 100;
+                bombs = 200;
             }
         }
     }
@@ -306,12 +306,10 @@ public class GameMap {
             ) {
                 return true;
             }
-            else {
-                return false;
-            }
+
+            return false;
         }
-//        else if (Objects.equals(gameDifficulty, "Medium")) {
-        else {
+        else if (Objects.equals(gameDifficulty, "Medium")) {
             if (
                 (row == 0 && (col <= 9 || (col >= 12 && col <= 14) || (col >= 17 && col <= 19) || col >= 22)) ||
                 (row == 1 && (col <= 10 || (col >= 13 && col <= 14) || (col >= 17 && col <= 18) || col >= 21)) ||
@@ -340,9 +338,36 @@ public class GameMap {
             ) {
                 return true;
             }
-            else {
-                return false;
+
+            return false;
+        }
+        else { // gameDifficulty is hard
+            if (
+                (row == 0) ||
+                (row == 1 && (col <= 3 || (col >= 14 && col <= 19) || (col >= 23 && col <= 29) || (col >= 34 && col <= 40) || (col >= 44 && col <= 49) || col >= 60)) ||
+                (row == 2 && (col <= 2 || (col >= 15 && col <= 20) || (col >= 24 && col <= 29) || (col >= 34 && col <= 39) || (col >= 43 && col <= 48) || col >= 61)) ||
+                (row == 3 && (col <= 1 || (col >= 16 && col <= 21) || (col >= 25 && col <= 29) || (col >= 34 && col <= 38) || (col >= 42 && col <= 47) || col >= 62)) ||
+                (row == 4 && (col == 0 || (col >= 17 && col <= 22) || (col >= 26 && col <= 29) || (col >= 34 && col <= 37) || (col >= 41 && col <= 46) || col == 63)) ||
+                (row == 5 && ((col >= 18 && col <= 23) || (col >= 27 && col <= 29) || (col >= 34 && col <= 36) || (col >= 40 && col <= 45))) ||
+                (row == 6 && ((col >= 18 && col <= 24) || (col >= 28 && col <= 29) || (col >= 34 && col <= 35) || (col >= 39 && col <= 45))) ||
+                (row == 7 && ((col >= 20 && col <= 25) || col == 29 || col == 34 || (col >= 38 && col <= 43))) ||
+                (row == 8 && ((col >= 20 && col <= 26) || (col >= 37 && col <= 43))) ||
+                (row == 9 && ((col >= 20 && col <= 27) || (col >= 36 && col <= 43))) ||
+                (row == 14 && ((col >= 20 && col <= 27) || (col >= 36 && col <= 43))) ||
+                (row == 15 && ((col >= 20 && col <= 26) || (col >= 37 && col <= 43))) ||
+                (row == 16 && ((col >= 20 && col <= 25) || col == 29 || col == 34 || (col >= 38 && col <= 43))) ||
+                (row == 17 && ((col >= 18 && col <= 24) || (col >= 28 && col <= 29) || (col >= 34 && col <= 35) || (col >= 39 && col <= 45))) ||
+                (row == 18 && ((col >= 18 && col <= 23) || (col >= 27 && col <= 29) || (col >= 34 && col <= 36) || (col >= 40 && col <= 45))) ||
+                (row == 19 && (col == 0 || (col >= 17 && col <= 22) || (col >= 26 && col <= 29) || (col >= 34 && col <= 37) || (col >= 41 && col <= 46) || col == 63)) ||
+                (row == 20 && (col <= 1 || (col >= 16 && col <= 21) || (col >= 25 && col <= 29) || (col >= 34 && col <= 38) || (col >= 42 && col <= 47) || col >= 62)) ||
+                (row == 21 && (col <= 2 || (col >= 15 && col <= 20) || (col >= 24 && col <= 29) || (col >= 34 && col <= 39) || (col >= 43 && col <= 48) || col >= 61)) ||
+                (row == 22 && (col <= 3 || (col >= 14 && col <= 19) || (col >= 23 && col <= 29) || (col >= 34 && col <= 40) || (col >= 44 && col <= 49) || col >= 60)) ||
+                (row == 23)
+            ) {
+                return true;
             }
+
+            return false;
         }
     }
 
