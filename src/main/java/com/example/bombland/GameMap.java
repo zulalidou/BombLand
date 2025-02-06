@@ -76,12 +76,12 @@ public class GameMap {
             }
             else if (Objects.equals(gameDifficulty, "Medium")) {
                 rows = 24;
-                cols = 24;
-                bombs = 50;
+                cols = 32;
+                bombs = 45;
             }
             else {
                 rows = 24;
-                cols = 32;
+                cols = 64;
                 bombs = 100;
             }
         }
@@ -101,10 +101,6 @@ public class GameMap {
         }
         else if (Objects.equals(gameMap, "Bomb")) {
             buildBombGrid();
-        }
-        else {
-            System.out.println("no es rectangle or bomb()");
-            System.out.println("gameMap = " + gameMap + "\n");
         }
     }
 
@@ -259,24 +255,7 @@ public class GameMap {
                 tileObj.col = col;
                 tileObj.backgroundFile = "orange.png";
 
-                if (
-                        (row == 0 && (col <= 4 || col == 6 || col == 9 || col >= 11)) ||
-                        (row == 1 && (col <= 5 || col >= 10))  ||
-                        (row == 2 && (col <= 6 || col >= 9)) ||
-                        (row == 3 && (col <= 5 ||col >= 10)) ||
-                        (row == 4 && (col <= 4 || col == 6 || col == 9 || col >= 11)) ||
-                        (row == 5 && (col <= 3 || col == 5 || col == 6 || col == 9 || col == 10 || col >= 12)) ||
-                        (row == 6 && (col <= 2 || (col >= 4 && col <= 6) || (col >= 9 && col <= 11) || col >= 13)) ||
-                        (row == 7 && (col <= 4 || col >= 11)) ||
-                        (row == 8 && (col <= 3 || col >= 12)) ||
-                        (row == 9 && (col <= 2 || col >= 13)) ||
-                        (row == 10 && (col <= 1 || col >= 14)) ||
-                        (row == 11 && (col == 0 || col == 15)) ||
-                        (row == 12 && (col == 0 || col == 15)) ||
-                        (row == 13 && (col == 0 || col == 15)) ||
-                        (row == 14 && (col <= 1 || col >= 14)) ||
-                        (row == 15 && (col <= 2 || col >= 13))
-                ) {
+                if (disableBombTile(row, col)) {
                     tileBtn.setDisable(true);
                     tileBtn.setStyle("-fx-background-image: url(\"\")");
                     tileObj.value = Tile.TileValue.DISABLED;
@@ -304,6 +283,70 @@ public class GameMap {
         PlayController.getInstance().setGridContainer(grid);
         grid.setGridLinesVisible(true);
     }
+
+    boolean disableBombTile(int row, int col) {
+        if (Objects.equals(gameDifficulty, "Easy")) {
+            if (
+                (row == 0 && (col <= 4 || col == 6 || col == 9 || col >= 11)) ||
+                (row == 1 && (col <= 5 || col >= 10))  ||
+                (row == 2 && (col <= 6 || col >= 9)) ||
+                (row == 3 && (col <= 5 ||col >= 10)) ||
+                (row == 4 && (col <= 4 || col == 6 || col == 9 || col >= 11)) ||
+                (row == 5 && (col <= 3 || col == 5 || col == 6 || col == 9 || col == 10 || col >= 12)) ||
+                (row == 6 && (col <= 2 || (col >= 4 && col <= 6) || (col >= 9 && col <= 11) || col >= 13)) ||
+                (row == 7 && (col <= 4 || col >= 11)) ||
+                (row == 8 && (col <= 3 || col >= 12)) ||
+                (row == 9 && (col <= 2 || col >= 13)) ||
+                (row == 10 && (col <= 1 || col >= 14)) ||
+                (row == 11 && (col == 0 || col == 15)) ||
+                (row == 12 && (col == 0 || col == 15)) ||
+                (row == 13 && (col == 0 || col == 15)) ||
+                (row == 14 && (col <= 1 || col >= 14)) ||
+                (row == 15 && (col <= 2 || col >= 13))
+            ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+//        else if (Objects.equals(gameDifficulty, "Medium")) {
+        else {
+            if (
+                (row == 0 && (col <= 9 || (col >= 12 && col <= 14) || (col >= 17 && col <= 19) || col >= 22)) ||
+                (row == 1 && (col <= 10 || (col >= 13 && col <= 14) || (col >= 17 && col <= 18) || col >= 21)) ||
+                (row == 2 && (col <= 11 || col == 14 || col == 17 || col >= 20)) ||
+                (row == 3 && (col <= 12 || col >= 19)) ||
+                (row == 4 && (col <= 9 || col >= 22)) ||
+                (row == 5 && (col <= 9 || col >= 22)) ||
+                (row == 6 && (col <= 12 || col >= 19)) ||
+                (row == 7 && (col <= 11 || col == 14 || col == 17 || col >= 20)) ||
+                (row == 8 && (col <= 10 || (col >= 13 && col <= 14) || (col >= 17 && col <= 18) || col >= 21)) ||
+                (row == 9 && (col <= 9 || (col >= 12 && col <= 14) || (col >= 17 && col <= 19) || col >= 22)) ||
+                (row == 10 && (col <= 12 || col >= 19)) ||
+                (row == 11 && (col <= 11 || col >= 20)) ||
+                (row == 12 && (col <= 9 || col >= 22)) ||
+                (row == 13 && (col <= 8 || col >= 23)) ||
+                (row == 14 && (col <= 7 || col >= 24)) ||
+                (row == 15 && (col <= 6 || col >= 25)) ||
+                (row == 16 && (col <= 6 || col >= 25)) ||
+                (row == 17 && (col <= 6 || col >= 25)) ||
+                (row == 18 && (col <= 6 || col >= 25)) ||
+                (row == 19 && (col <= 6 || col >= 25)) ||
+                (row == 20 && (col <= 7 || col >= 24)) ||
+                (row == 21 && (col <= 8 || col >= 23)) ||
+                (row == 22 && (col <= 9 || col >= 22)) ||
+                (row == 23 && (col <= 10 || col >= 21))
+            ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+
 
     void setupGrid(Tile tileObj) {
         eliminateSurroundingTiles(tileObj);
