@@ -68,11 +68,28 @@ public class GameMap {
                 bombs = 100;
             }
         }
-        else { // Map is Bomb, or Face, or Octagon
+        else if (Objects.equals(gameMap, "Bomb")) {
             if (Objects.equals(gameDifficulty, "Easy")) {
                 rows = 16;
                 cols = 16;
                 bombs = 20;
+            }
+            else if (Objects.equals(gameDifficulty, "Medium")) {
+                rows = 24;
+                cols = 32;
+                bombs = 45;
+            }
+            else {
+                rows = 24;
+                cols = 64;
+                bombs = 200;
+            }
+        }
+        else { // Map is Face, or Octagon
+            if (Objects.equals(gameDifficulty, "Easy")) {
+                rows = 16;
+                cols = 16;
+                bombs = 25;
             }
             else if (Objects.equals(gameDifficulty, "Medium")) {
                 rows = 24;
@@ -99,8 +116,8 @@ public class GameMap {
         if (Objects.equals(gameMap, "Rectangle")) {
             buildRectangleGrid();
         }
-        else if (Objects.equals(gameMap, "Bomb")) {
-            buildBombGrid();
+        else { // gameMap == Bomb, Face, or Octagon
+            buildOtherGrids();
         }
     }
 
@@ -187,7 +204,7 @@ public class GameMap {
         grid.setGridLinesVisible(true);
     }
 
-    void buildBombGrid() {
+    void buildOtherGrids() {
         // Creates a grid of X rows and Y columns
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -255,7 +272,7 @@ public class GameMap {
                 tileObj.col = col;
                 tileObj.backgroundFile = "orange.png";
 
-                if (disableBombTile(row, col)) {
+                if (disableTile(row, col)) {
                     tileBtn.setDisable(true);
                     tileBtn.setStyle("-fx-background-image: url(\"\")");
                     tileObj.value = Tile.TileValue.DISABLED;
@@ -284,92 +301,126 @@ public class GameMap {
         grid.setGridLinesVisible(true);
     }
 
-    boolean disableBombTile(int row, int col) {
-        if (Objects.equals(gameDifficulty, "Easy")) {
-            if (
-                (row == 0 && (col <= 4 || col == 6 || col == 9 || col >= 11)) ||
-                (row == 1 && (col <= 5 || col >= 10))  ||
-                (row == 2 && (col <= 6 || col >= 9)) ||
-                (row == 3 && (col <= 5 ||col >= 10)) ||
-                (row == 4 && (col <= 4 || col == 6 || col == 9 || col >= 11)) ||
-                (row == 5 && (col <= 3 || col == 5 || col == 6 || col == 9 || col == 10 || col >= 12)) ||
-                (row == 6 && (col <= 2 || (col >= 4 && col <= 6) || (col >= 9 && col <= 11) || col >= 13)) ||
-                (row == 7 && (col <= 4 || col >= 11)) ||
-                (row == 8 && (col <= 3 || col >= 12)) ||
-                (row == 9 && (col <= 2 || col >= 13)) ||
-                (row == 10 && (col <= 1 || col >= 14)) ||
-                (row == 11 && (col == 0 || col == 15)) ||
-                (row == 12 && (col == 0 || col == 15)) ||
-                (row == 13 && (col == 0 || col == 15)) ||
-                (row == 14 && (col <= 1 || col >= 14)) ||
-                (row == 15 && (col <= 2 || col >= 13))
-            ) {
-                return true;
-            }
+    boolean disableTile(int row, int col) {
+        if (Objects.equals(gameMap, "Bomb")) {
+            if (Objects.equals(gameDifficulty, "Easy")) {
+                if (
+                    (row == 0 && (col <= 4 || col == 6 || col == 9 || col >= 11)) ||
+                    (row == 1 && (col <= 5 || col >= 10))  ||
+                    (row == 2 && (col <= 6 || col >= 9)) ||
+                    (row == 3 && (col <= 5 ||col >= 10)) ||
+                    (row == 4 && (col <= 4 || col == 6 || col == 9 || col >= 11)) ||
+                    (row == 5 && (col <= 3 || col == 5 || col == 6 || col == 9 || col == 10 || col >= 12)) ||
+                    (row == 6 && (col <= 2 || (col >= 4 && col <= 6) || (col >= 9 && col <= 11) || col >= 13)) ||
+                    (row == 7 && (col <= 4 || col >= 11)) ||
+                    (row == 8 && (col <= 3 || col >= 12)) ||
+                    (row == 9 && (col <= 2 || col >= 13)) ||
+                    (row == 10 && (col <= 1 || col >= 14)) ||
+                    (row == 11 && (col == 0 || col == 15)) ||
+                    (row == 12 && (col == 0 || col == 15)) ||
+                    (row == 13 && (col == 0 || col == 15)) ||
+                    (row == 14 && (col <= 1 || col >= 14)) ||
+                    (row == 15 && (col <= 2 || col >= 13))
+                ) {
+                    return true;
+                }
 
-            return false;
+                return false;
+            }
+            else if (Objects.equals(gameDifficulty, "Medium")) {
+                if (
+                    (row == 0 && (col <= 9 || (col >= 12 && col <= 14) || (col >= 17 && col <= 19) || col >= 22)) ||
+                    (row == 1 && (col <= 10 || (col >= 13 && col <= 14) || (col >= 17 && col <= 18) || col >= 21)) ||
+                    (row == 2 && (col <= 11 || col == 14 || col == 17 || col >= 20)) ||
+                    (row == 3 && (col <= 12 || col >= 19)) ||
+                    (row == 4 && (col <= 9 || col >= 22)) ||
+                    (row == 5 && (col <= 9 || col >= 22)) ||
+                    (row == 6 && (col <= 12 || col >= 19)) ||
+                    (row == 7 && (col <= 11 || col == 14 || col == 17 || col >= 20)) ||
+                    (row == 8 && (col <= 10 || (col >= 13 && col <= 14) || (col >= 17 && col <= 18) || col >= 21)) ||
+                    (row == 9 && (col <= 9 || (col >= 12 && col <= 14) || (col >= 17 && col <= 19) || col >= 22)) ||
+                    (row == 10 && (col <= 12 || col >= 19)) ||
+                    (row == 11 && (col <= 11 || col >= 20)) ||
+                    (row == 12 && (col <= 9 || col >= 22)) ||
+                    (row == 13 && (col <= 8 || col >= 23)) ||
+                    (row == 14 && (col <= 7 || col >= 24)) ||
+                    (row == 15 && (col <= 6 || col >= 25)) ||
+                    (row == 16 && (col <= 6 || col >= 25)) ||
+                    (row == 17 && (col <= 6 || col >= 25)) ||
+                    (row == 18 && (col <= 6 || col >= 25)) ||
+                    (row == 19 && (col <= 6 || col >= 25)) ||
+                    (row == 20 && (col <= 7 || col >= 24)) ||
+                    (row == 21 && (col <= 8 || col >= 23)) ||
+                    (row == 22 && (col <= 9 || col >= 22)) ||
+                    (row == 23 && (col <= 10 || col >= 21))
+                ) {
+                    return true;
+                }
+
+                return false;
+            }
+            else { // gameDifficulty is hard
+                if (
+                    (row == 0) ||
+                    (row == 1 && (col <= 3 || (col >= 14 && col <= 19) || (col >= 23 && col <= 29) || (col >= 34 && col <= 40) || (col >= 44 && col <= 49) || col >= 60)) ||
+                    (row == 2 && (col <= 2 || (col >= 15 && col <= 20) || (col >= 24 && col <= 29) || (col >= 34 && col <= 39) || (col >= 43 && col <= 48) || col >= 61)) ||
+                    (row == 3 && (col <= 1 || (col >= 16 && col <= 21) || (col >= 25 && col <= 29) || (col >= 34 && col <= 38) || (col >= 42 && col <= 47) || col >= 62)) ||
+                    (row == 4 && (col == 0 || (col >= 17 && col <= 22) || (col >= 26 && col <= 29) || (col >= 34 && col <= 37) || (col >= 41 && col <= 46) || col == 63)) ||
+                    (row == 5 && ((col >= 18 && col <= 23) || (col >= 27 && col <= 29) || (col >= 34 && col <= 36) || (col >= 40 && col <= 45))) ||
+                    (row == 6 && ((col >= 18 && col <= 24) || (col >= 28 && col <= 29) || (col >= 34 && col <= 35) || (col >= 39 && col <= 45))) ||
+                    (row == 7 && ((col >= 20 && col <= 25) || col == 29 || col == 34 || (col >= 38 && col <= 43))) ||
+                    (row == 8 && ((col >= 20 && col <= 26) || (col >= 37 && col <= 43))) ||
+                    (row == 9 && ((col >= 20 && col <= 27) || (col >= 36 && col <= 43))) ||
+                    (row == 14 && ((col >= 20 && col <= 27) || (col >= 36 && col <= 43))) ||
+                    (row == 15 && ((col >= 20 && col <= 26) || (col >= 37 && col <= 43))) ||
+                    (row == 16 && ((col >= 20 && col <= 25) || col == 29 || col == 34 || (col >= 38 && col <= 43))) ||
+                    (row == 17 && ((col >= 18 && col <= 24) || (col >= 28 && col <= 29) || (col >= 34 && col <= 35) || (col >= 39 && col <= 45))) ||
+                    (row == 18 && ((col >= 18 && col <= 23) || (col >= 27 && col <= 29) || (col >= 34 && col <= 36) || (col >= 40 && col <= 45))) ||
+                    (row == 19 && (col == 0 || (col >= 17 && col <= 22) || (col >= 26 && col <= 29) || (col >= 34 && col <= 37) || (col >= 41 && col <= 46) || col == 63)) ||
+                    (row == 20 && (col <= 1 || (col >= 16 && col <= 21) || (col >= 25 && col <= 29) || (col >= 34 && col <= 38) || (col >= 42 && col <= 47) || col >= 62)) ||
+                    (row == 21 && (col <= 2 || (col >= 15 && col <= 20) || (col >= 24 && col <= 29) || (col >= 34 && col <= 39) || (col >= 43 && col <= 48) || col >= 61)) ||
+                    (row == 22 && (col <= 3 || (col >= 14 && col <= 19) || (col >= 23 && col <= 29) || (col >= 34 && col <= 40) || (col >= 44 && col <= 49) || col >= 60)) ||
+                    (row == 23)
+                ) {
+                    return true;
+                }
+
+                return false;
+            }
         }
-        else if (Objects.equals(gameDifficulty, "Medium")) {
-            if (
-                (row == 0 && (col <= 9 || (col >= 12 && col <= 14) || (col >= 17 && col <= 19) || col >= 22)) ||
-                (row == 1 && (col <= 10 || (col >= 13 && col <= 14) || (col >= 17 && col <= 18) || col >= 21)) ||
-                (row == 2 && (col <= 11 || col == 14 || col == 17 || col >= 20)) ||
-                (row == 3 && (col <= 12 || col >= 19)) ||
-                (row == 4 && (col <= 9 || col >= 22)) ||
-                (row == 5 && (col <= 9 || col >= 22)) ||
-                (row == 6 && (col <= 12 || col >= 19)) ||
-                (row == 7 && (col <= 11 || col == 14 || col == 17 || col >= 20)) ||
-                (row == 8 && (col <= 10 || (col >= 13 && col <= 14) || (col >= 17 && col <= 18) || col >= 21)) ||
-                (row == 9 && (col <= 9 || (col >= 12 && col <= 14) || (col >= 17 && col <= 19) || col >= 22)) ||
-                (row == 10 && (col <= 12 || col >= 19)) ||
-                (row == 11 && (col <= 11 || col >= 20)) ||
-                (row == 12 && (col <= 9 || col >= 22)) ||
-                (row == 13 && (col <= 8 || col >= 23)) ||
-                (row == 14 && (col <= 7 || col >= 24)) ||
-                (row == 15 && (col <= 6 || col >= 25)) ||
-                (row == 16 && (col <= 6 || col >= 25)) ||
-                (row == 17 && (col <= 6 || col >= 25)) ||
-                (row == 18 && (col <= 6 || col >= 25)) ||
-                (row == 19 && (col <= 6 || col >= 25)) ||
-                (row == 20 && (col <= 7 || col >= 24)) ||
-                (row == 21 && (col <= 8 || col >= 23)) ||
-                (row == 22 && (col <= 9 || col >= 22)) ||
-                (row == 23 && (col <= 10 || col >= 21))
-            ) {
-                return true;
-            }
 
-            return false;
-        }
-        else { // gameDifficulty is hard
-            if (
-                (row == 0) ||
-                (row == 1 && (col <= 3 || (col >= 14 && col <= 19) || (col >= 23 && col <= 29) || (col >= 34 && col <= 40) || (col >= 44 && col <= 49) || col >= 60)) ||
-                (row == 2 && (col <= 2 || (col >= 15 && col <= 20) || (col >= 24 && col <= 29) || (col >= 34 && col <= 39) || (col >= 43 && col <= 48) || col >= 61)) ||
-                (row == 3 && (col <= 1 || (col >= 16 && col <= 21) || (col >= 25 && col <= 29) || (col >= 34 && col <= 38) || (col >= 42 && col <= 47) || col >= 62)) ||
-                (row == 4 && (col == 0 || (col >= 17 && col <= 22) || (col >= 26 && col <= 29) || (col >= 34 && col <= 37) || (col >= 41 && col <= 46) || col == 63)) ||
-                (row == 5 && ((col >= 18 && col <= 23) || (col >= 27 && col <= 29) || (col >= 34 && col <= 36) || (col >= 40 && col <= 45))) ||
-                (row == 6 && ((col >= 18 && col <= 24) || (col >= 28 && col <= 29) || (col >= 34 && col <= 35) || (col >= 39 && col <= 45))) ||
-                (row == 7 && ((col >= 20 && col <= 25) || col == 29 || col == 34 || (col >= 38 && col <= 43))) ||
-                (row == 8 && ((col >= 20 && col <= 26) || (col >= 37 && col <= 43))) ||
-                (row == 9 && ((col >= 20 && col <= 27) || (col >= 36 && col <= 43))) ||
-                (row == 14 && ((col >= 20 && col <= 27) || (col >= 36 && col <= 43))) ||
-                (row == 15 && ((col >= 20 && col <= 26) || (col >= 37 && col <= 43))) ||
-                (row == 16 && ((col >= 20 && col <= 25) || col == 29 || col == 34 || (col >= 38 && col <= 43))) ||
-                (row == 17 && ((col >= 18 && col <= 24) || (col >= 28 && col <= 29) || (col >= 34 && col <= 35) || (col >= 39 && col <= 45))) ||
-                (row == 18 && ((col >= 18 && col <= 23) || (col >= 27 && col <= 29) || (col >= 34 && col <= 36) || (col >= 40 && col <= 45))) ||
-                (row == 19 && (col == 0 || (col >= 17 && col <= 22) || (col >= 26 && col <= 29) || (col >= 34 && col <= 37) || (col >= 41 && col <= 46) || col == 63)) ||
-                (row == 20 && (col <= 1 || (col >= 16 && col <= 21) || (col >= 25 && col <= 29) || (col >= 34 && col <= 38) || (col >= 42 && col <= 47) || col >= 62)) ||
-                (row == 21 && (col <= 2 || (col >= 15 && col <= 20) || (col >= 24 && col <= 29) || (col >= 34 && col <= 39) || (col >= 43 && col <= 48) || col >= 61)) ||
-                (row == 22 && (col <= 3 || (col >= 14 && col <= 19) || (col >= 23 && col <= 29) || (col >= 34 && col <= 40) || (col >= 44 && col <= 49) || col >= 60)) ||
-                (row == 23)
-            ) {
-                return true;
-            }
+        else { // (Objects.equals(gameMap, "Face"))
+            if (Objects.equals(gameDifficulty, "Easy")) {
+                if (
+                    (row == 0) ||
+                    (row == 1 && (col <= 4 || col >= 11))  ||
+                    (row == 2 && (col <= 3 || col >= 12)) ||
+                    (row == 3 && (col <= 2 ||col >= 13)) ||
+                    (row == 4 && (col <= 1 || col >= 14)) ||
+                    (row == 5 && (col <= 1 || col == 5 || col == 10 || col >= 14)) ||
+                    (row == 6 && (col == 0 || col == 15)) ||
+                    (row == 7 && (col == 0 || col == 15)) ||
+                    (row == 8 && (col == 0 || col == 15)) ||
+                    (row == 9 && (col == 0 || col == 5 || col == 10 || col == 15)) ||
+                    (row == 10 && (col <= 1 || col == 5 || col == 10 || col >= 14)) ||
+                    (row == 11 && (col <= 1 || (col >= 6 && col <= 9) || col >= 14)) ||
+                    (row == 12 && (col <= 2 ||col >= 13)) ||
+                    (row == 13 && (col <= 3 ||col >= 12)) ||
+                    (row == 14 && (col <= 4 ||col >= 11)) ||
+                    (row == 15)
+                ) {
+                    return true;
+                }
 
-            return false;
+                return false;
+            }
+            else {
+                return false;
+            }
         }
     }
+
+
 
 
 
