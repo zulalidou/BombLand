@@ -401,7 +401,7 @@ public class GameMap {
                     (row == 6 && (col == 0 || col == 15)) ||
                     (row == 7 && (col == 0 || col == 15)) ||
                     (row == 8 && (col == 0 || col == 15)) ||
-                    (row == 9 && (col == 0 || col == 5 || col == 10 || col == 15)) ||
+                    (row == 9 && (col == 0 || col == 4 || col == 11 || col == 15)) ||
                     (row == 10 && (col <= 1 || col == 5 || col == 10 || col >= 14)) ||
                     (row == 11 && (col <= 1 || (col >= 6 && col <= 9) || col >= 14)) ||
                     (row == 12 && (col <= 2 ||col >= 13)) ||
@@ -447,6 +447,35 @@ public class GameMap {
                 return false;
             }
             else {
+                if (
+                    (row == 0) ||
+                    (row == 1 && (col <= 7 || (col >= 16 && col <= 27) || (col >= 36 && col <= 47) || col >= 56)) ||
+                    (row == 2 && (col <= 6 || (col >= 17 && col <= 26) || (col >= 37 && col <= 46) || col >= 57)) ||
+                    (row == 3 && (col <= 5 || (col >= 18 && col <= 25) || (col >= 38 && col <= 45) || col >= 58)) ||
+                    (row == 4 && (col <= 4 || (col >= 19 && col <= 24) || (col >= 39 && col <= 44) || col >= 59)) ||
+                    (row == 5 && (col <= 3 || (col >= 20 && col <= 23) || (col >= 40 && col <= 43) || col >= 60)) ||
+                    (row == 6 && (col <= 2 || col == 6 || col == 7 || col == 16 || col == 17 || col == 21 || col == 22 || col == 27 || col == 28 || col == 35 || col == 36 || col == 41 || col == 42 || col == 47 || col == 48 || col == 55 || col == 56 || col >= 61)) ||
+                    (row == 7 && (col <= 1 || col == 6 || col == 7 || col == 16 || col == 17 || col == 27 || col == 28 || col == 35 || col == 36 || col == 47 || col == 48 || col == 55 || col == 56 || col >= 61)) ||
+                    (row == 8 && (col <= 1 || col >= 62)) ||
+                    (row == 9 && (col <= 1 || col >= 62)) ||
+                    (row == 10 && (col <= 1 || col >= 62)) ||
+                    (row == 11 && (col <= 1 || col >= 62)) ||
+                    (row == 12 && (col <= 1 || col >= 62)) ||
+                    (row == 13 && (col <= 1 || col >= 62)) ||
+                    (row == 14 && (col <= 1 || col >= 62)) ||
+                    (row == 15 && (col <= 1 || col >= 62)) ||
+                    (row == 16 && (col <= 1 || (col >= 9 && col <= 14) || (col >= 29 && col <= 34) || (col >= 49 && col <= 54) || col >= 62)) ||
+                    (row == 17 && (col <= 2 || col == 8 || col == 15 || col == 21 || col == 22 || col == 28 || col == 35 || col == 41 || col == 42 || col == 48 || col == 55 || col >= 61)) ||
+                    (row == 18 && (col <= 3 || col == 7 || col == 16 || (col >= 20 && col <= 23) || col == 27 || col == 36 || (col >= 40 && col <= 43) || col == 47 || col == 56 || col >= 60)) ||
+                    (row == 19 && (col <= 4 || (col >= 19 && col <= 24) || (col >= 39 && col <= 44) || col >= 59)) ||
+                    (row == 20 && (col <= 5 || (col >= 18 && col <= 25) || (col >= 38 && col <= 45) || col >= 58)) ||
+                    (row == 21 && (col <= 6 || (col >= 17 && col <= 26) || (col >= 37 && col <= 46) || col >= 57)) ||
+                    (row == 22 && (col <= 7 || (col >= 16 && col <= 27) || (col >= 36 && col <= 47) || col >= 56)) ||
+                    (row == 23)
+                ) {
+                    return true;
+                }
+
                 return false;
             }
         }
