@@ -30,14 +30,14 @@
 #rectangleMapSelectorContainer,
 #bombMapSelectorContainer,
 #faceMapSelectorContainer,
-#octagonMapSelectorContainer {
+#flowerMapSelectorContainer {
     -fx-background-color: white;
 }
 
 #rectangleMapSelectorContainer:hover,
 #bombMapSelectorContainer:hover,
 #faceMapSelectorContainer:hover,
-#octagonMapSelectorContainer:hover {
+#flowerMapSelectorContainer:hover {
     -fx-cursor: hand;
     -fx-background-color: #CCCCCC;
 }

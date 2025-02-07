@@ -21,13 +21,13 @@ public class MapSelectionController {
     Button backBtn;
 
     @FXML
-    VBox mapSelectionPage, mapSelectionPageContainer, mapSelectionPageContainer_bottom, rectangleMapSelectorContainer, bombMapSelectorContainer, faceMapSelectorContainer, octagonMapSelectorContainer;
+    VBox mapSelectionPage, mapSelectionPageContainer, mapSelectionPageContainer_bottom, rectangleMapSelectorContainer, bombMapSelectorContainer, faceMapSelectorContainer, flowerMapSelectorContainer;
 
     @FXML
     HBox mapSelectionPageContainer_top, mapSelectionPageContainer_top_leftChild, mapSelectionPageContainer_top_middleChild, mapSelectionPageContainer_top_rightChild, upperMapsContainer, lowerMapsContainer;
 
     @FXML
-    Label mapSelectionPage_title, rectangleMapSelectorName, bombMapSelectorName, faceMapSelectorName, octagonMapSelectorName;
+    Label mapSelectionPage_title, rectangleMapSelectorName, bombMapSelectorName, faceMapSelectorName, flowerMapSelectorName;
 
     @FXML
     Region space1, space2;
@@ -110,11 +110,11 @@ public class MapSelectionController {
         }
 
 
-        octagonMapSelectorContainer.styleProperty().bind(
+        flowerMapSelectorContainer.styleProperty().bind(
                 Bindings.format("-fx-padding: %.2fpx; -fx-pref-width: %.2fpx; -fx-background-radius: %.2fpx;", Main.mainStage.widthProperty().multiply(0.01), Main.mainStage.widthProperty().multiply(0.25), Main.mainStage.widthProperty().multiply(0.01))
         );
 
-        octagonMapSelectorName.styleProperty().bind(
+        flowerMapSelectorName.styleProperty().bind(
                 Bindings.format("-fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.02))
         );
 
@@ -158,8 +158,8 @@ public class MapSelectionController {
     }
 
     @FXML
-    private void pickOctagonMap() throws IOException {
-        APP_CACHE.setGameMap("Octagon");
+    private void pickFlowerMap() throws IOException {
+        APP_CACHE.setGameMap("Flower");
         startGame();
     }
 

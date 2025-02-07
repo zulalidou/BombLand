@@ -69,14 +69,14 @@
 
                 <Region fx:id="space2"/>
 
-                <VBox fx:id="octagonMapSelectorContainer" alignment="CENTER" onMouseClicked="#pickOctagonMap">
+                <VBox fx:id="flowerMapSelectorContainer" alignment="CENTER" onMouseClicked="#pickFlowerMap">
                     <ImageView>
                         <image>
-                            <Image url="/com/example/bombland/images/octagon.png"/>
+                            <Image url="/com/example/bombland/images/flower.png"/>
                         </image>
                     </ImageView>
 
-                    <Label fx:id="octagonMapSelectorName" styleClass="mapNameLabel" text="Octagon"/>
+                    <Label fx:id="flowerMapSelectorName" styleClass="mapNameLabel" text="Flower"/>
                 </VBox>
             </HBox>
         </VBox>

@@ -85,7 +85,7 @@ public class GameMap {
                 bombs = 200;
             }
         }
-        else { // Map is Face, or Octagon
+        else { // Map is Face, or Flower
             if (Objects.equals(gameDifficulty, "Easy")) {
                 rows = 16;
                 cols = 16;
@@ -116,7 +116,7 @@ public class GameMap {
         if (Objects.equals(gameMap, "Rectangle")) {
             buildRectangleGrid();
         }
-        else { // gameMap == Bomb, Face, or Octagon
+        else { // gameMap == Bomb, Face, or Flower
             buildOtherGrids();
         }
     }
@@ -388,8 +388,7 @@ public class GameMap {
                 return false;
             }
         }
-
-        else { // (Objects.equals(gameMap, "Face"))
+        else if (Objects.equals(gameMap, "Face")) {
             if (Objects.equals(gameDifficulty, "Easy")) {
                 if (
                     (row == 0) ||
@@ -478,6 +477,40 @@ public class GameMap {
 
                 return false;
             }
+        }
+        else { //gameMap == Flower
+            if (Objects.equals(gameDifficulty, "Easy")) {
+                if (
+                    (row == 0) ||
+                    (row == 1 && (col <= 6 || col >= 9))  ||
+                    (row == 2 && (col <= 5 || col >= 10)) ||
+                    (row == 3 && (col <= 5 ||col >= 10)) ||
+                    (row == 4 && (col <= 3 || col >= 12)) ||
+                    (row == 5 && (col <= 3 || col >= 12)) ||
+                    (row == 6 && (col <= 1 || col >= 14)) ||
+                    (row == 7 && (col == 0 || col == 7 || col == 8 || col == 15)) ||
+                    (row == 8 && (col == 0 || col == 7 || col == 8 || col == 15)) ||
+                    (row == 9 && (col <= 1 || col >= 14)) ||
+                    (row == 10 && (col <= 3 || col >= 12)) ||
+                    (row == 11 && (col <= 3 || col >= 12)) ||
+                    (row == 12 && (col <= 5 ||col >= 10)) ||
+                    (row == 13 && (col <= 5 || col >= 10)) ||
+                    (row == 14 && (col <= 6 || col >= 9))  ||
+                    (row == 15)
+                ) {
+                    return true;
+                }
+
+                return false;
+            }
+            else if (Objects.equals(gameDifficulty, "Medium")) {
+
+            }
+            else {
+
+            }
+
+            return false;
         }
     }
 
