@@ -504,7 +504,36 @@ public class GameMap {
                 return false;
             }
             else if (Objects.equals(gameDifficulty, "Medium")) {
+                if (
+                    (row == 0) ||
+                    (row == 1 && (col <= 12 || col >= 19)) ||
+                    (row == 2 && (col <= 11 || col >= 20)) ||
+                    (row == 3 && (col <= 10 || col >= 21)) ||
+                    (row == 4 && (col <= 10 || col >= 21)) ||
+                    (row == 5 && (col <= 10 || col >= 21)) ||
+                    (row == 6 && (col <= 10 || col >= 21)) ||
+                    (row == 7 && (col <= 3 || col >= 28)) ||
+                    (row == 8 && (col <= 2 || col >= 29)) ||
+                    (row == 9 && (col <= 1 || col >= 30)) ||
+                    (row == 10 && (col <= 1 || col == 15 || col == 16 || col >= 30)) ||
+                    (row == 11 && (col == 0 || (col >= 14 && col <= 17) || col == 31)) ||
+                    (row == 12 && (col == 0 || (col >= 14 && col <= 17) || col == 31)) ||
+                    (row == 13 && (col <= 1 || col == 15 || col == 16 || col >= 30)) ||
+                    (row == 14 && (col <= 1 || col >= 30)) ||
+                    (row == 15 && (col <= 2 || col >= 29)) ||
+                    (row == 16 && (col <= 3 || col >= 28)) ||
+                    (row == 17 && (col <= 10 || col >= 21)) ||
+                    (row == 18 && (col <= 10 || col >= 21)) ||
+                    (row == 19 && (col <= 10 || col >= 21)) ||
+                    (row == 20 && (col <= 10 || col >= 21)) ||
+                    (row == 21 && (col <= 11 || col >= 20)) ||
+                    (row == 22 && (col <= 12 || col >= 19)) ||
+                    (row == 23)
+                ) {
+                    return true;
+                }
 
+                return false;
             }
             else {
 
