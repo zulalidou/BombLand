@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -29,6 +31,12 @@ public class MapSelectionController {
 
     @FXML
     Region space1, space2;
+
+    @FXML
+    Image face_map_img;
+
+    @FXML
+    ImageView face_map_imgView;
 
 
     @FXML
@@ -91,6 +99,15 @@ public class MapSelectionController {
         faceMapSelectorName.styleProperty().bind(
                 Bindings.format("-fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.02))
         );
+
+        if (APP_CACHE.getGameDifficulty().equals("Medium")) {
+            face_map_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/bombland/Images/poker-face.png")));
+            face_map_imgView.setImage(face_map_img);
+        }
+        else if (APP_CACHE.getGameDifficulty().equals("Hard")) {
+            face_map_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/bombland/images/sad-face.png")));
+            face_map_imgView.setImage(face_map_img);
+        }
 
 
         octagonMapSelectorContainer.styleProperty().bind(

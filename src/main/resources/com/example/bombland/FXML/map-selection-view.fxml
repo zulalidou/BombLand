@@ -58,9 +58,9 @@
 
             <HBox fx:id="lowerMapsContainer" alignment="CENTER">
                 <VBox fx:id="faceMapSelectorContainer" alignment="CENTER" onMouseClicked="#pickFaceMap">
-                    <ImageView>
+                    <ImageView fx:id="face_map_imgView">
                         <image>
-                            <Image url="/com/example/bombland/images/happy-face.png"/>
+                            <Image fx:id="face_map_img" url="/com/example/bombland/images/happy-face.png"/>
                         </image>
                     </ImageView>
 
