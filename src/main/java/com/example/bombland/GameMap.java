@@ -94,7 +94,7 @@ public class GameMap {
             else if (Objects.equals(gameDifficulty, "Medium")) {
                 rows = 24;
                 cols = 32;
-                bombs = 45;
+                bombs = 50;
             }
             else {
                 rows = 24;
@@ -408,6 +408,38 @@ public class GameMap {
                     (row == 13 && (col <= 3 ||col >= 12)) ||
                     (row == 14 && (col <= 4 ||col >= 11)) ||
                     (row == 15)
+                ) {
+                    return true;
+                }
+
+                return false;
+            }
+            else if (Objects.equals(gameDifficulty, "Medium")) {
+                if (
+                    (row == 0) ||
+                    (row == 1 && (col <= 11 || col >= 20)) ||
+                    (row == 2 && (col <= 10 || col >= 21)) ||
+                    (row == 3 && (col <= 9 || col >= 22)) ||
+                    (row == 4 && (col <= 8 || col >= 23)) ||
+                    (row == 5 && (col <= 7 || col >= 24)) ||
+                    (row == 6 && (col <= 6 || col == 11 || col == 12 || col == 19 || col == 20 || col >= 25)) ||
+                    (row == 7 && (col <= 5 || col == 11 || col == 12 || col == 19 || col == 20 || col >= 26)) ||
+                    (row == 8 && (col <= 5 ||  col >= 26)) ||
+                    (row == 9 && (col <= 5 || col >= 26)) ||
+                    (row == 10 && (col <= 5 || col >= 26)) ||
+                    (row == 11 && (col <= 5 || col >= 26)) ||
+                    (row == 12 && (col <= 5 || col >= 26)) ||
+                    (row == 13 && (col <= 5 || col >= 26)) ||
+                    (row == 14 && (col <= 5 || col >= 26)) ||
+                    (row == 15 && (col <= 5 || col >= 26)) ||
+                    (row == 16 && (col <= 5 || (col >= 11 && col <= 20) || col >= 26)) ||
+                    (row == 17 && (col <= 6 || (col >= 11 && col <= 20) || col >= 25)) ||
+                    (row == 18 && (col <= 7 || col >= 24)) ||
+                    (row == 19 && (col <= 8 || col >= 23)) ||
+                    (row == 20 && (col <= 9 || col >= 22)) ||
+                    (row == 21 && (col <= 10 || col >= 21)) ||
+                    (row == 22 && (col <= 11 || col >= 20)) ||
+                    (row == 23)
                 ) {
                     return true;
                 }
