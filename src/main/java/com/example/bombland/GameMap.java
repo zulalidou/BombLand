@@ -85,7 +85,7 @@ public class GameMap {
                 bombs = 200;
             }
         }
-        else { // Map is Face, or Flower
+        else if (Objects.equals(gameMap, "Face")) {
             if (Objects.equals(gameDifficulty, "Easy")) {
                 rows = 16;
                 cols = 16;
@@ -100,6 +100,23 @@ public class GameMap {
                 rows = 24;
                 cols = 64;
                 bombs = 200;
+            }
+        }
+        else { // gameMap == Flower
+            if (Objects.equals(gameDifficulty, "Easy")) {
+                rows = 16;
+                cols = 16;
+                bombs = 25;
+            }
+            else if (Objects.equals(gameDifficulty, "Medium")) {
+                rows = 24;
+                cols = 32;
+                bombs = 60;
+            }
+            else {
+                rows = 24;
+                cols = 64;
+                bombs = 150;
             }
         }
     }
@@ -536,16 +553,39 @@ public class GameMap {
                 return false;
             }
             else {
+                if (
+                    (row == 0) ||
+                    (row == 1 && (col <= 12 || (col >= 19 && col <= 44) || col >= 51)) ||
+                    (row == 2 && (col <= 11 || (col >= 20 && col <= 43) || col >= 52)) ||
+                    (row == 3 && (col <= 10 || (col >= 21 && col <= 42) || col >= 53)) ||
+                    (row == 4 && (col <= 10 || (col >= 21 && col <= 42) || col >= 53)) ||
+                    (row == 5 && (col <= 10 || (col >= 21 && col <= 42) || col >= 53)) ||
+                    (row == 6 && (col <= 10 || (col >= 21 && col <= 42) || col >= 53)) ||
+                    (row == 7 && (col <= 3 || (col >= 28 && col <= 35) || col >= 60)) ||
+                    (row == 8 && (col <= 2 || (col >= 29 && col <= 34) || col >= 61)) ||
+                    (row == 9 && (col <= 1 || (col >= 30 && col <= 33) || col >= 62)) ||
+                    (row == 10 && (col <= 1 || col == 15 || col == 16 || (col >= 30 && col <= 33) || col == 47 || col == 48 || col >= 62)) ||
+                    (row == 11 && (col == 0 || (col >= 14 && col <= 17) || (col >= 46 && col <= 49) || col == 63)) ||
+                    (row == 12 && (col == 0 || (col >= 14 && col <= 17) || (col >= 46 && col <= 49) || col == 63)) ||
+                    (row == 13 && (col <= 1 || col == 15 || col == 16 || (col >= 30 && col <= 33) || col == 47 || col == 48 || col >= 62)) ||
+                    (row == 14 && (col <= 1 || (col >= 30 && col <= 33) || col >= 62)) ||
+                    (row == 15 && (col <= 2 || (col >= 29 && col <= 34) || col >= 61)) ||
+                    (row == 16 && (col <= 3 || (col >= 28 && col <= 35) || col >= 60)) ||
+                    (row == 17 && (col <= 10 || (col >= 21 && col <= 42) || col >= 53)) ||
+                    (row == 18 && (col <= 10 || (col >= 21 && col <= 42) || col >= 53)) ||
+                    (row == 19 && (col <= 10 || (col >= 21 && col <= 42) || col >= 53)) ||
+                    (row == 20 && (col <= 10 || (col >= 21 && col <= 42) || col >= 53)) ||
+                    (row == 21 && (col <= 11 || (col >= 20 && col <= 43) || col >= 52)) ||
+                    (row == 22 && (col <= 12 || (col >= 19 && col <= 44) || col >= 51)) ||
+                    (row == 23)
+                ) {
+                    return true;
+                }
 
+                return false;
             }
-
-            return false;
         }
     }
-
-
-
-
 
     void setupGrid(Tile tileObj) {
         eliminateSurroundingTiles(tileObj);
