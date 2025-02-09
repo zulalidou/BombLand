@@ -22,7 +22,7 @@
 }
 
 #instructionsScrollPane:focused {
-    /* Normally, when you click on the scrollpane, the it's border color turns blue (to show that the element is in focus).
+    /* Normally, when you click on the scrollpane, it's border color turns blue (to show that the element is in focus).
        This prevents the border color from turning blue */
     -fx-background-color: transparent;
 }

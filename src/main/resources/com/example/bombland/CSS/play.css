@@ -26,6 +26,11 @@
 }
 
 
+.tile-btn:focused {
+    -fx-background-color: transparent;
+}
+
+
 #exitPagePopup, #gameLostPopup, #gameWonPopup, #newRecordPopup {
     -fx-background-color: black;
     -fx-alignment: center;
@@ -63,7 +68,7 @@
 }
 
 #playerName_textField:focused {
-    /* Normally, when you click on the newRecordPopup_text, the it's border color turns blue (to show that the element is in focus).
+    /* Normally, when you click on the newRecordPopup_text, it's border color turns blue (to show that the element is in focus).
        This prevents the border color from turning blue */
     -fx-background-color: white;
 }

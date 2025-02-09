@@ -146,6 +146,7 @@ public class GameMap {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
                 tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + (evenTile ? "lightorange.png" : "orange.png") + "\");");
+                tileBtn.getStyleClass().add("tile-btn");
                 tileBtn.setPrefHeight(Main.mainStage.getScene().getHeight() / rows);
                 tileBtn.setPrefWidth(Main.mainStage.getScene().getWidth() / cols);
 
@@ -227,6 +228,7 @@ public class GameMap {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
                 tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/orange.png\");");
+                tileBtn.getStyleClass().add("tile-btn");
                 tileBtn.setPrefHeight(Main.mainStage.getScene().getHeight() / rows);
                 tileBtn.setPrefWidth(Main.mainStage.getScene().getWidth() / cols);
 
