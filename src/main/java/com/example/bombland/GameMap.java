@@ -227,7 +227,7 @@ public class GameMap {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 Button tileBtn = new Button();
-                tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/orange.png\");");
+                tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/orange.png\"); -fx-background-size: auto;");
                 tileBtn.getStyleClass().add("tile-btn");
                 tileBtn.setPrefHeight(Main.mainStage.getScene().getHeight() / rows);
                 tileBtn.setPrefWidth(Main.mainStage.getScene().getWidth() / cols);
@@ -271,12 +271,12 @@ public class GameMap {
 
                             if (tileObj.isFlagged) {
                                 tileObj.isFlagged = false;
-                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\");");
+                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\"); -fx-background-size: auto;");
                                 flagsSet -= 1;
                             }
                             else {
                                 tileObj.isFlagged = true;
-                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\"), url(\"/com/example/bombland/images/red-flag.png\"); -fx-background-size: 200%, 50%;");
+                                tileObj.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tileObj.backgroundFile + "\"), url(\"/com/example/bombland/images/red-flag.png\"); -fx-background-size: auto, 60% 60%;");
                                 flagsSet += 1;
                             }
 
@@ -763,7 +763,7 @@ public class GameMap {
 
         if (tile.value == Tile.TileValue.EMPTY) {
             tile.backgroundFile = ((tile.backgroundFile == "orange.png") ? "black.png" : "gray.png");
-            tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\");");
+            tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\"); -fx-background-size: 150% 150%;");
         }
         else if (tile.value == Tile.TileValue.NUMBER) {
             tile.backgroundFile = ((tile.backgroundFile == "orange.png") ? "black.png" : "gray.png");
@@ -771,7 +771,7 @@ public class GameMap {
         }
         else { // bomb tile
             tile.backgroundFile = "red.png";
-            tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/red.png\"), url(\"/com/example/bombland/images/bomb.png\"); -fx-background-size: 200%, 60%;");
+            tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/red.png\"), url(\"/com/example/bombland/images/bomb.png\"); -fx-background-size: 150% 150%, 70% 70%;");
         }
 
         tile.isCovered = false;
@@ -808,7 +808,7 @@ public class GameMap {
                 break;
         }
 
-        tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\"), url(\"/com/example/bombland/images/" + numberFile + "\"); -fx-background-size: 200%, 60%;");
+        tile.tileBtn.setStyle("-fx-background-image: url(\"/com/example/bombland/images/" + tile.backgroundFile + "\"), url(\"/com/example/bombland/images/" + numberFile + "\"); -fx-background-size: 150% 150%, 50% 50%;");
     }
 
     public void incrementTilesUncovered() {
