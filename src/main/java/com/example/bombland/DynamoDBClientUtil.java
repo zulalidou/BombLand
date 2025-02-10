@@ -97,6 +97,7 @@ public class DynamoDBClientUtil {
                 highScoresObj.put("name", item.get("name").s());
                 highScoresObj.put("score", item.get("score").n());
                 highScoresObj.put("time", item.get("time").n());
+                highScoresObj.put("map", item.get("map").s());
 
                 highScoresList.add(highScoresObj);
             }
@@ -169,6 +170,7 @@ public class DynamoDBClientUtil {
         newHighScoreInfo.put("score", AttributeValue.builder().n(info.get("score").toString()).build());
         newHighScoreInfo.put("name", AttributeValue.builder().s(info.get("name").toString()).build());
         newHighScoreInfo.put("difficulty", AttributeValue.builder().s(info.get("difficulty").toString()).build());
+        newHighScoreInfo.put("map", AttributeValue.builder().s(info.get("map").toString()).build());
 
         return newHighScoreInfo;
     }

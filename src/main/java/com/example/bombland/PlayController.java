@@ -341,6 +341,7 @@ public class PlayController {
                     newScoreInfo.put("score", gameDuration);
                     newScoreInfo.put("name", playerName_textField.getText().strip());
                     newScoreInfo.put("difficulty", GameMap.getInstance().getGameDifficulty());
+                    newScoreInfo.put("map", APP_CACHE.getGameMap());
 
                     DynamoDBClientUtil.saveNewHighScore(newScoreInfo, "BOMBLAND_" + GameMap.getInstance().getGameDifficulty() + "HighScores");
 
