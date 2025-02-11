@@ -11,6 +11,7 @@ public class APP_CACHE {
     private static ArrayList<JSONObject> HARD_HIGH_SCORES;
     private static String gameDifficulty;
     private static String gameMap;
+    private static String mapOfHighScoresBeingShown = "";
 
 
 
@@ -30,8 +31,6 @@ public class APP_CACHE {
         identityPoolID = id;
     }
 
-
-
     static String getGameDifficulty() {
         return gameDifficulty;
     }
@@ -48,8 +47,13 @@ public class APP_CACHE {
         gameMap = newMap;
     }
 
+    static String getMapOfHighScoresBeingShown() {
+        return mapOfHighScoresBeingShown;
+    }
 
-
+    static void setMapOfHighScoresBeingShown(String newMap) {
+        mapOfHighScoresBeingShown = newMap;
+    }
 
     static ArrayList<JSONObject> getHighScores(String gameDifficulty) {
         if (gameDifficulty.equals("Easy")) {

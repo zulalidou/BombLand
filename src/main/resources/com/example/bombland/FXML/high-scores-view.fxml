@@ -35,6 +35,13 @@
                 <HBox fx:id="highScoresContainer_rightChild" />
             </HBox>
 
+            <HBox fx:id="mapSelectorContainer">
+                <Button fx:id="mapBtn_1" styleClass="mapBtn_selected" onAction="#showRectangleMapHighScores">Rectangle Map</Button>
+                <Button fx:id="mapBtn_2" styleClass="mapBtn_unselected" onAction="#showBombMapHighScores">Bomb Map</Button>
+                <Button fx:id="mapBtn_3" styleClass="mapBtn_unselected" onAction="#showFaceMapHighScores">Face Map</Button>
+                <Button fx:id="mapBtn_4" styleClass="mapBtn_unselected" onAction="#showFlowerMapHighScores">Flower Map</Button>
+            </HBox>
+
             <HBox fx:id="highScoresContainer_bottom">
                 <VBox fx:id="easyHighScores_column">
                     <Label fx:id="easyHighScore_title" text="Easy"/>
