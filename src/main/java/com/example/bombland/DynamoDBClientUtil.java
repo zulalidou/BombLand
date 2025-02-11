@@ -25,7 +25,7 @@ public class DynamoDBClientUtil {
 
         pullHighScoresFromDB();
         sortHighScores();
-        trimHighScores();
+        categorizeHighScores();
     }
 
     // Get temporary AWS credentials for unauthenticated users
@@ -124,26 +124,56 @@ public class DynamoDBClientUtil {
     }
 
 
-    private static void trimHighScores() {
-        if (APP_CACHE.getHighScores("Easy").size() > 10) {
-            trimHighScoreList(APP_CACHE.getHighScores("Easy"));
-        }
-
-        if (APP_CACHE.getHighScores("Medium").size() > 10) {
-            trimHighScoreList(APP_CACHE.getHighScores("Medium"));
-        }
-
-        if (APP_CACHE.getHighScores("Hard").size() > 10) {
-            trimHighScoreList(APP_CACHE.getHighScores("Hard"));
-        }
+    private static void categorizeHighScores() {
+        getTopHighScoresForEachMap("Easy");
+        getTopHighScoresForEachMap("Medium");
+        getTopHighScoresForEachMap("Hard");
     }
+
+
+    // Places the top 10 high scores of each map in the APP_CACHE (based on the difficulty provided)
+    private static void getTopHighScoresForEachMap(String mode) {
+        ArrayList<JSONObject> rectangleMapHighScores = new ArrayList<>();
+        ArrayList<JSONObject> bombMapHighScores = new ArrayList<>();
+        ArrayList<JSONObject> faceMapHighScores = new ArrayList<>();
+        ArrayList<JSONObject> flowerMapHighScores = new ArrayList<>();
+
+        for (JSONObject score: APP_CACHE.getHighScores(mode)) {
+            if (score.getString("map").equals("Rectangle")) {
+                rectangleMapHighScores.add(score);
+            }
+            else if (score.getString("map").equals("Bomb")) {
+                bombMapHighScores.add(score);
+            }
+            else if (score.getString("map").equals("Face")) {
+                faceMapHighScores.add(score);
+            }
+            else {
+                flowerMapHighScores.add(score);
+            }
+        }
+
+        trimHighScoreList(rectangleMapHighScores);
+        trimHighScoreList(bombMapHighScores);
+        trimHighScoreList(faceMapHighScores);
+        trimHighScoreList(flowerMapHighScores);
+
+        ArrayList<JSONObject> highScores = new ArrayList<>();
+        highScores.addAll(rectangleMapHighScores);
+        highScores.addAll(bombMapHighScores);
+        highScores.addAll(faceMapHighScores);
+        highScores.addAll(flowerMapHighScores);
+
+        APP_CACHE.setHighScore(highScores, mode);
+    }
+
 
     private static void trimHighScoreList(ArrayList<JSONObject> highScoresList) {
-        int startIdx = 10;
-        highScoresList.subList(startIdx, highScoresList.size()).clear();
+        if (highScoresList.size() > 10) {
+            int startIdx = 10;
+            highScoresList.subList(startIdx, highScoresList.size()).clear();
+        }
     }
-
-
 
 
     public static void saveNewHighScore(JSONObject info, String tableName) {
