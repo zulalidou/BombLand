@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<VBox fx:id="mainMenuPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.MainController">
+<VBox fx:id="mainMenuPage" xmlns:fx="http://javafx.com/fxml">
     <stylesheets>
         <URL value="@../CSS/main.css"/>
     </stylesheets>

@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MainController {
+    private static MainController instance;
+
     @FXML
     VBox mainMenuPage, mainMenuOptionsContainer;
 
@@ -22,6 +24,17 @@ public class MainController {
 
     @FXML
     Button playBtn, instructionsBtn, highScoresBtn, exitBtn;
+
+
+    private MainController() {}
+
+    public static MainController getInstance() {
+        if (instance == null) {
+            instance = new MainController();
+        }
+
+        return instance;
+    }
 
     @FXML
     public void initialize() {
@@ -75,9 +88,14 @@ public class MainController {
 
     @FXML
     private void openInstructionsPage(ActionEvent event) throws IOException {
-        ScreenController screenController = new ScreenController(mainMenuPage.getScene());
-        screenController.addScreen("instructions", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/instructions-view.fxml"))));
-        screenController.activate("instructions");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/instructions-view.fxml"));
+
+        InstructionsController instructionsController = InstructionsController.getInstance();
+        loader.setController(instructionsController);
+
+        Scene scene = new Scene(loader.load(), 1024, 768);
+        Main.mainStage.setScene(scene);
+        Main.mainStage.show();
     }
 
     @FXML

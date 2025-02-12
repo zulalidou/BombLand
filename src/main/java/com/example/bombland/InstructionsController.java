@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class InstructionsController {
+    private static InstructionsController instance;
+
     @FXML
     VBox instructionsPage;
 
@@ -43,6 +46,16 @@ public class InstructionsController {
     @FXML
     Region space1, space2, space3, space4;
 
+
+    private InstructionsController() {}
+
+    public static InstructionsController getInstance() {
+        if (instance == null) {
+            instance = new InstructionsController();
+        }
+
+        return instance;
+    }
 
     @FXML
     public void initialize() {
@@ -136,8 +149,17 @@ public class InstructionsController {
 
     @FXML
     private void goToMainMenu(ActionEvent event) throws IOException {
-        ScreenController screenController = new ScreenController(instructionsPage.getScene());
-        screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
-        screenController.activate("main");
+//        ScreenController screenController = new ScreenController(instructionsPage.getScene());
+//        screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
+//        screenController.activate("main");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"));
+
+        MainController mainController = MainController.getInstance();
+        loader.setController(mainController);
+
+        Scene scene = new Scene(loader.load(), 1024, 768);
+        Main.mainStage.setScene(scene);
+        Main.mainStage.show();
     }
 }

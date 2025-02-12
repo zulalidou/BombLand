@@ -11,7 +11,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.Region?>
 
-<VBox fx:id="instructionsPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.InstructionsController">
+<VBox fx:id="instructionsPage" xmlns:fx="http://javafx.com/fxml">
     <stylesheets>
         <URL value="@../CSS/instructions.css"/>
     </stylesheets>

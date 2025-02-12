@@ -143,9 +143,12 @@ public class Main extends Application {
     }
 
     public void showMainMenu(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("FXML/main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXML/main-view.fxml"));
 
+        MainController mainController = MainController.getInstance();
+        loader.setController(mainController);
+
+        Scene scene = new Scene(loader.load(), 1024, 768);
         stage.setScene(scene);
         stage.show();
     }
