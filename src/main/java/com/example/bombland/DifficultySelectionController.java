@@ -3,6 +3,7 @@ package com.example.bombland;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -104,8 +105,13 @@ public class DifficultySelectionController {
 
     @FXML
     private void openMapSelectionPage() throws IOException {
-        ScreenController screenController = new ScreenController(difficultySelectionPage.getScene());
-        screenController.addScreen("map-selection", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/map-selection-view.fxml"))));
-        screenController.activate("map-selection");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/map-selection-view.fxml"));
+
+        MapSelectionController mapController = MapSelectionController.getInstance();
+        loader.setController(mapController);
+
+        Scene scene = new Scene(loader.load(), 1024, 768);
+        Main.mainStage.setScene(scene);
+        Main.mainStage.show();
     }
 }

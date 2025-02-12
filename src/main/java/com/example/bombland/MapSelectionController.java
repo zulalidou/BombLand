@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MapSelectionController {
+    private static MapSelectionController instance;
+
     @FXML
     Button backBtn;
 
@@ -24,7 +26,7 @@ public class MapSelectionController {
     VBox mapSelectionPage, mapSelectionPageContainer, mapSelectionPageContainer_bottom, rectangleMapSelectorContainer, bombMapSelectorContainer, faceMapSelectorContainer, flowerMapSelectorContainer;
 
     @FXML
-    HBox mapSelectionPageContainer_top, mapSelectionPageContainer_top_leftChild, mapSelectionPageContainer_top_middleChild, mapSelectionPageContainer_top_rightChild, upperMapsContainer, lowerMapsContainer;
+    HBox mapSelectionPageContainer_top_leftChild, mapSelectionPageContainer_top_middleChild, mapSelectionPageContainer_top_rightChild, upperMapsContainer, lowerMapsContainer;
 
     @FXML
     Label mapSelectionPage_title, rectangleMapSelectorName, bombMapSelectorName, faceMapSelectorName, flowerMapSelectorName;
@@ -37,6 +39,16 @@ public class MapSelectionController {
 
     @FXML
     ImageView face_map_imgView;
+
+    private MapSelectionController() {}
+
+    public static MapSelectionController getInstance() {
+        if (instance == null) {
+            instance = new MapSelectionController();
+        }
+
+        return instance;
+    }
 
 
     @FXML
