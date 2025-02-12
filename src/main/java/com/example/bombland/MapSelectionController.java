@@ -100,11 +100,11 @@ public class MapSelectionController {
                 Bindings.format("-fx-font-size: %.2fpx;", Main.mainStage.widthProperty().multiply(0.02))
         );
 
-        if (APP_CACHE.getGameDifficulty().equals("Medium")) {
+        if (APP_CACHE.getInstance().getGameDifficulty().equals("Medium")) {
             face_map_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/bombland/Images/poker-face.png")));
             face_map_imgView.setImage(face_map_img);
         }
-        else if (APP_CACHE.getGameDifficulty().equals("Hard")) {
+        else if (APP_CACHE.getInstance().getGameDifficulty().equals("Hard")) {
             face_map_img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/bombland/images/sad-face.png")));
             face_map_imgView.setImage(face_map_img);
         }
@@ -141,34 +141,30 @@ public class MapSelectionController {
 
     @FXML
     private void pickRectangleMap() throws IOException {
-        APP_CACHE.setGameMap("Rectangle");
+        APP_CACHE.getInstance().setGameMap("Rectangle");
         startGame();
     }
 
     @FXML
     private void pickBombMap() throws IOException {
-        APP_CACHE.setGameMap("Bomb");
+        APP_CACHE.getInstance().setGameMap("Bomb");
         startGame();
     }
 
     @FXML
     private void pickFaceMap() throws IOException {
-        APP_CACHE.setGameMap("Face");
+        APP_CACHE.getInstance().setGameMap("Face");
         startGame();
     }
 
     @FXML
     private void pickFlowerMap() throws IOException {
-        APP_CACHE.setGameMap("Flower");
+        APP_CACHE.getInstance().setGameMap("Flower");
         startGame();
     }
 
     @FXML
     private void startGame() throws IOException {
-//        ScreenController screenController = new ScreenController(mapSelectionPage.getScene());
-//        screenController.addScreen("play", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/play-view.fxml"))));
-//        screenController.activate("play");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/play-view.fxml"));
 
         PlayController playController = PlayController.getInstance();

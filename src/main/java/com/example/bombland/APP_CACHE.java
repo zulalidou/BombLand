@@ -4,58 +4,69 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class APP_CACHE {
-    private static boolean gettingData = false;
-    private static String identityPoolID;
-    private static ArrayList<JSONObject> EASY_HIGH_SCORES;
-    private static ArrayList<JSONObject> MEDIUM_HIGH_SCORES;
-    private static ArrayList<JSONObject> HARD_HIGH_SCORES;
-    private static String gameDifficulty;
-    private static String gameMap;
-    private static String mapOfHighScoresBeingShown = "";
+    private static APP_CACHE instance;
+    private boolean gettingData = false;
+    private String identityPoolID;
+    private ArrayList<JSONObject> EASY_HIGH_SCORES;
+    private ArrayList<JSONObject> MEDIUM_HIGH_SCORES;
+    private ArrayList<JSONObject> HARD_HIGH_SCORES;
+    private String gameDifficulty;
+    private String gameMap;
+    private String mapOfHighScoresBeingShown = "";
 
 
+    private APP_CACHE() {}
 
-    static boolean isGettingData() {
+    public static APP_CACHE getInstance() {
+        if (instance == null) {
+            instance = new APP_CACHE();
+        }
+
+        return instance;
+    }
+
+
+    boolean isGettingData() {
         return gettingData;
     }
 
-    static void setGettingData(boolean value) {
+    void setGettingData(boolean value) {
         gettingData = value;
     }
 
-    static String getIdentityPoolID() {
+    String getIdentityPoolID() {
         return identityPoolID;
     }
 
-    static void setIdentityPoolID(String id) {
+    void setIdentityPoolID(String id) {
         identityPoolID = id;
     }
 
-    static String getGameDifficulty() {
+    String getGameDifficulty() {
         return gameDifficulty;
     }
 
-    static void setGameDifficulty(String gameDiff) {
+    void setGameDifficulty(String gameDiff) {
         gameDifficulty = gameDiff;
     }
 
-    static String getGameMap() {
+    String getGameMap() {
         return gameMap;
     }
 
-    static void setGameMap(String newMap) {
+    void setGameMap(String newMap) {
         gameMap = newMap;
     }
 
-    static String getMapOfHighScoresBeingShown() {
+    String getMapOfHighScoresBeingShown() {
         return mapOfHighScoresBeingShown;
     }
 
-    static void setMapOfHighScoresBeingShown(String newMap) {
+    void setMapOfHighScoresBeingShown(String newMap) {
         mapOfHighScoresBeingShown = newMap;
     }
 
-    static ArrayList<JSONObject> getHighScores(String gameDifficulty) {
+    ArrayList<JSONObject> getHighScores(String gameDifficulty) {
         if (gameDifficulty.equals("Easy")) {
             return EASY_HIGH_SCORES;
         }
@@ -67,7 +78,7 @@ public class APP_CACHE {
         }
     }
 
-    static void setHighScore(ArrayList<JSONObject> highScores, String gameDifficulty) {
+    void setHighScore(ArrayList<JSONObject> highScores, String gameDifficulty) {
         if (gameDifficulty.equals("Easy")) {
             EASY_HIGH_SCORES = highScores;
         }

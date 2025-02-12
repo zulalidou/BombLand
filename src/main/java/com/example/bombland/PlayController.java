@@ -284,7 +284,7 @@ public class PlayController {
         stackpane_child1.setEffect(new GaussianBlur()); // blurs gameplay page
         stackpane_child1.setMouseTransparent(true); // makes items in gameplay page "unclickable"
 
-        ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(GameMap.getInstance().getGameDifficulty());
+        ArrayList<JSONObject> highScores = APP_CACHE.getInstance().getHighScores(GameMap.getInstance().getGameDifficulty());
 
         if (highScores.size() < 10 || gameDuration < highScores.get(highScores.size() - 1).getLong("score"))
             displayRecordSetPopup();
@@ -341,7 +341,7 @@ public class PlayController {
                     newScoreInfo.put("score", gameDuration);
                     newScoreInfo.put("name", playerName_textField.getText().strip());
                     newScoreInfo.put("difficulty", GameMap.getInstance().getGameDifficulty());
-                    newScoreInfo.put("map", APP_CACHE.getGameMap());
+                    newScoreInfo.put("map", APP_CACHE.getInstance().getGameMap());
 
                     DynamoDBClientUtil.saveNewHighScore(newScoreInfo, "BOMBLAND_" + GameMap.getInstance().getGameDifficulty() + "HighScores");
 
@@ -365,7 +365,7 @@ public class PlayController {
         System.out.println("updateAppCache()");
 
         // 1. Add newScoreInfo to highScores list
-        ArrayList<JSONObject> highScores = APP_CACHE.getHighScores(newScoreInfo.getString("difficulty"));
+        ArrayList<JSONObject> highScores = APP_CACHE.getInstance().getHighScores(newScoreInfo.getString("difficulty"));
         highScores.add(newScoreInfo);
         System.out.println(highScores);
 

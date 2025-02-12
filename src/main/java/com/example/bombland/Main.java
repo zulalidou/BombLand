@@ -55,10 +55,10 @@ public class Main extends Application {
         Task<Void> fetchDataTask = new Task<>() {
             @Override
             protected Void call() {
-                APP_CACHE.setGettingData(true);
+                APP_CACHE.getInstance().setGettingData(true);
                 getEnvironmentVariables();
                 DynamoDBClientUtil.getHighScores();
-                APP_CACHE.setGettingData(false);
+                APP_CACHE.getInstance().setGettingData(false);
 
                 return null;
             }
@@ -85,7 +85,7 @@ public class Main extends Application {
             // Send the request and get the response
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             JSONObject environmentVarsObj = new JSONObject(response.body());
-            APP_CACHE.setIdentityPoolID(environmentVarsObj.getString("identityPoolID"));
+            APP_CACHE.getInstance().setIdentityPoolID(environmentVarsObj.getString("identityPoolID"));
         } catch (Exception e) {
             System.out.println("\n\nUH OH. AN ERROR OCCURRED!");
             e.printStackTrace();

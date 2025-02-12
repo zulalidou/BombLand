@@ -48,8 +48,8 @@ public class GameMap {
     }
 
     void setMap() {
-        gameMap = APP_CACHE.getGameMap();
-        gameDifficulty = APP_CACHE.getGameDifficulty();
+        gameMap = APP_CACHE.getInstance().getGameMap();
+        gameDifficulty = APP_CACHE.getInstance().getGameDifficulty();
 
         if (Objects.equals(gameMap, "Rectangle")) {
             if (Objects.equals(gameDifficulty, "Easy")) {

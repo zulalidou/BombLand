@@ -36,7 +36,7 @@ public class DynamoDBClientUtil {
 
         try {
             GetIdRequest getIdRequest = GetIdRequest.builder()
-                    .identityPoolId(APP_CACHE.getIdentityPoolID())
+                    .identityPoolId(APP_CACHE.getInstance().getIdentityPoolID())
                     .build();
 
             GetIdResponse getIdResponse = cognitoClient.getId(getIdRequest);
@@ -102,7 +102,7 @@ public class DynamoDBClientUtil {
                 highScoresList.add(highScoresObj);
             }
 
-            APP_CACHE.setHighScore(highScoresList, gameDifficulty);
+            APP_CACHE.getInstance().setHighScore(highScoresList, gameDifficulty);
         }).exceptionally(ex -> {
             System.err.println("Scan failed for table: " + tableName);
             ex.printStackTrace();
@@ -112,9 +112,9 @@ public class DynamoDBClientUtil {
 
 
     private static void sortHighScores() {
-        sortHighScoreList(APP_CACHE.getHighScores("Easy"));
-        sortHighScoreList(APP_CACHE.getHighScores("Medium"));
-        sortHighScoreList(APP_CACHE.getHighScores("Hard"));
+        sortHighScoreList(APP_CACHE.getInstance().getHighScores("Easy"));
+        sortHighScoreList(APP_CACHE.getInstance().getHighScores("Medium"));
+        sortHighScoreList(APP_CACHE.getInstance().getHighScores("Hard"));
     }
 
 
@@ -138,7 +138,7 @@ public class DynamoDBClientUtil {
         ArrayList<JSONObject> faceMapHighScores = new ArrayList<>();
         ArrayList<JSONObject> flowerMapHighScores = new ArrayList<>();
 
-        for (JSONObject score: APP_CACHE.getHighScores(mode)) {
+        for (JSONObject score: APP_CACHE.getInstance().getHighScores(mode)) {
             if (score.getString("map").equals("Rectangle")) {
                 rectangleMapHighScores.add(score);
             }
@@ -164,7 +164,7 @@ public class DynamoDBClientUtil {
         highScores.addAll(faceMapHighScores);
         highScores.addAll(flowerMapHighScores);
 
-        APP_CACHE.setHighScore(highScores, mode);
+        APP_CACHE.getInstance().setHighScore(highScores, mode);
     }
 
 
