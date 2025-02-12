@@ -146,9 +146,14 @@ public class MapSelectionController {
 
     @FXML
     private void goToDifficultySelection() throws IOException {
-        ScreenController screenController = new ScreenController(mapSelectionPage.getScene());
-        screenController.addScreen("difficulty-selection", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/difficulty-selection-view.fxml"))));
-        screenController.activate("difficulty-selection");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/difficulty-selection-view.fxml"));
+
+        DifficultySelectionController difficultyController = DifficultySelectionController.getInstance();
+        loader.setController(difficultyController);
+
+        Scene scene = new Scene(loader.load(), 1024, 768);
+        Main.mainStage.setScene(scene);
+        Main.mainStage.show();
     }
 
     @FXML

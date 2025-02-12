@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class DifficultySelectionController {
+    private static DifficultySelectionController instance;
+
     @FXML
     Button backBtn;
 
@@ -29,6 +31,16 @@ public class DifficultySelectionController {
     @FXML
     Button easyDifficultyBtn, mediumDifficultyBtn, hardDifficultyBtn;
 
+
+    private DifficultySelectionController() {}
+
+    public static DifficultySelectionController getInstance() {
+        if (instance == null) {
+            instance = new DifficultySelectionController();
+        }
+
+        return instance;
+    }
 
     @FXML
     public void initialize() {
