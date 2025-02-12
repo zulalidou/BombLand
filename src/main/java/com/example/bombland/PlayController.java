@@ -5,6 +5,7 @@ import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -105,11 +106,14 @@ public class PlayController {
     private void goToMainMenu() throws IOException {
         endTimer();
 
-        ScreenController screenController = new ScreenController(playPageContainer.getScene());
-        screenController.removeScreen("play");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"));
 
-        screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
-        screenController.activate("main");
+        MainController mainController = MainController.getInstance();
+        loader.setController(mainController);
+
+        Scene scene = new Scene(loader.load(), 1024, 768);
+        Main.mainStage.setScene(scene);
+        Main.mainStage.show();
     }
 
 
