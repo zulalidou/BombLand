@@ -149,10 +149,6 @@ public class InstructionsController {
 
     @FXML
     private void goToMainMenu(ActionEvent event) throws IOException {
-//        ScreenController screenController = new ScreenController(instructionsPage.getScene());
-//        screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
-//        screenController.activate("main");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"));
 
         MainController mainController = MainController.getInstance();

@@ -100,9 +100,14 @@ public class MainController {
 
     @FXML
     private void openHighScoresPage(ActionEvent event) throws IOException {
-        ScreenController screenController = new ScreenController(mainMenuPage.getScene());
-        screenController.addScreen("highscores", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/high-scores-view.fxml"))));
-        screenController.activate("highscores");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/high-scores-view.fxml"));
+
+        HighScoresController highScoresController = HighScoresController.getInstance();
+        loader.setController(highScoresController);
+
+        Scene scene = new Scene(loader.load(), 1024, 768);
+        Main.mainStage.setScene(scene);
+        Main.mainStage.show();
     }
 
     @FXML

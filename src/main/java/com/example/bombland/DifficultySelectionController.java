@@ -92,9 +92,14 @@ public class DifficultySelectionController {
 
     @FXML
     private void goToMainMenu() throws IOException {
-        ScreenController screenController = new ScreenController(difficultySelectionPage.getScene());
-        screenController.addScreen("main", FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"))));
-        screenController.activate("main");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bombland/FXML/main-view.fxml"));
+
+        MainController mainController = MainController.getInstance();
+        loader.setController(mainController);
+
+        Scene scene = new Scene(loader.load(), 1024, 768);
+        Main.mainStage.setScene(scene);
+        Main.mainStage.show();
     }
 
     @FXML

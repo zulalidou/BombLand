@@ -21,6 +21,8 @@ import java.util.Objects;
 import org.json.JSONObject;
 
 public class HighScoresController {
+    private static HighScoresController instance;
+
     @FXML
     StackPane highScores_stackpane;
 
@@ -38,6 +40,17 @@ public class HighScoresController {
 
     @FXML
     ProgressIndicator loadingIcon;
+
+
+    private HighScoresController() {}
+
+    public static HighScoresController getInstance() {
+        if (instance == null) {
+            instance = new HighScoresController();
+        }
+
+        return instance;
+    }
 
 
     @FXML

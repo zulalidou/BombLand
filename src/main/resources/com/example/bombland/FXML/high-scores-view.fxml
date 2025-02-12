@@ -10,7 +10,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.StackPane?>
 
-<VBox fx:id="highScoresPage" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.bombland.HighScoresController">
+<VBox fx:id="highScoresPage" xmlns:fx="http://javafx.com/fxml">
     <stylesheets>
         <URL value="@../CSS/high-scores.css"/>
     </stylesheets>
