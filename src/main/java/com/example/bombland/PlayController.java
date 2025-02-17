@@ -35,10 +35,10 @@ public class PlayController {
     StackPane playPageContainer_inner;
 
     @FXML
-    VBox playPageContainer, stackpane_child1, emptySpace, gridContainer, exitPagePopup, exitPagePopup_imgContainer, gameLostPopup, gameLostPopup_imgContainer, gameWonPopup, gameWonPopup_imgContainer, newRecordPopup, newRecordPopup_imgContainer;
+    VBox playPageContainer, stackpane_child1, emptySpace, gridContainer, exitPagePopup, exitPagePopup_imgContainer, gameLostPopup, gameLostPopup_imgContainer, gameWonPopup, gameWonPopup_imgContainer, newRecordPopup, newRecordPopup_imgContainer, serverCommunicationErrorPopup;
 
     @FXML
-    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, exitPagePopup_title, exitPagePopup_text, gameLostPopup_title, gameLostPopup_timeTaken, gameWonPopup_title, gameWonPopup_timeTaken, newRecordPopup_title, newRecordPopup_timeTaken, newRecordPopup_text, playerName_error;
+    Label totalBombsLbl, timeElapsedLbl, flagsLeftLbl, exitPagePopup_title, exitPagePopup_text, gameLostPopup_title, gameLostPopup_timeTaken, gameWonPopup_title, gameWonPopup_timeTaken, newRecordPopup_title, newRecordPopup_timeTaken, newRecordPopup_text, playerName_error, serverCommunicationErrorPopup_title;
 
     @FXML
     Button backBtn, exitPagePopup_cancelBtn, exitPagePopup_mainMenuBtn, gameLostPopup_playAgainBtn, gameLostPopup_mainMenuBtn, gameWonPopup_playAgainBtn, gameWonPopup_mainMenuBtn, newRecordPopup_playAgainBtn;
@@ -347,10 +347,15 @@ public class PlayController {
                     newScoreInfo.put("difficulty", GameMap.getInstance().getGameDifficulty());
                     newScoreInfo.put("map", APP_CACHE.getInstance().getGameMap());
 
-                    DynamoDBClientUtil.saveNewHighScore(newScoreInfo, "BOMBLAND_" + GameMap.getInstance().getGameDifficulty() + "HighScores");
+                    if (APP_CACHE.getInstance().serverConnectionIsGood()) {
+                        DynamoDBClientUtil.saveNewHighScore(newScoreInfo, "BOMBLAND_" + GameMap.getInstance().getGameDifficulty() + "HighScores");
 
-                    // Send new score to WebSocket server (to be distributed to other active users)
-                    Main.socketClient.sendHighScore(String.valueOf(newScoreInfo));
+                        // Send new score to WebSocket server (to be distributed to other active users)
+                        Main.socketClient.sendHighScore(String.valueOf(newScoreInfo));
+                    }
+                    else {
+                        displayServerErrorPopup();
+                    }
 
                     playerName_textField.setText("");
 
@@ -365,13 +370,34 @@ public class PlayController {
     }
 
 
-    static void updateAppCache(JSONObject newScoreInfo) {
-        System.out.println("updateAppCache()");
+    public void displayServerErrorPopup() {
+        newRecordPopup.setEffect(new GaussianBlur());
+        newRecordPopup.setMouseTransparent(true);
 
+        serverCommunicationErrorPopup.setManaged(true);
+        serverCommunicationErrorPopup.setVisible(true);
+
+        serverCommunicationErrorPopup.setMaxWidth(500);
+        serverCommunicationErrorPopup.setMaxHeight(400);
+        serverCommunicationErrorPopup.setStyle("-fx-background-radius: 10px;");
+
+        serverCommunicationErrorPopup_title.setStyle("-fx-font-size: 25px;");
+    }
+
+
+    public void closeServerErrorPopup() {
+        serverCommunicationErrorPopup.setManaged(false);
+        serverCommunicationErrorPopup.setVisible(false);
+
+        newRecordPopup.setEffect(null);
+        newRecordPopup.setMouseTransparent(false);
+    }
+
+
+    static void updateAppCache(JSONObject newScoreInfo) {
         // 1. Add newScoreInfo to highScores list
         ArrayList<JSONObject> highScores = APP_CACHE.getInstance().getHighScores(newScoreInfo.getString("difficulty"));
         highScores.add(newScoreInfo);
-        System.out.println(highScores);
 
         // 2. Sort highScores list
         highScores.sort(Comparator.comparingLong(a -> a.getLong("time")));

@@ -108,5 +108,25 @@
                 <Button fx:id="newRecordPopup_playAgainBtn" styleClass="playAgainBtn" text="SAVE" onAction="#saveNewRecord"/>
             </HBox>
         </VBox>
+
+        <VBox fx:id="serverCommunicationErrorPopup" managed="false" visible="false">
+            <Label fx:id="serverCommunicationErrorPopup_title" text="AN ERROR HAS OCCURRED"/>
+
+            <VBox alignment="CENTER">
+                <ImageView>
+                    <Image url="/com/example/bombland/images/error.png"/>
+                </ImageView>
+            </VBox>
+
+            <Label styleClass="text" text="An error occurred while communicating with the server. Please try the following to resolve the issue:"/>
+            <Label styleClass="text" text="- Check your internet connection to ensure you are connected."/>
+            <Label styleClass="text" text="- Restart the application if the problem presists."/>
+            <Label styleClass="text" text="- Try again later, as the issue may be temporary."/>
+            <Label id="serverErrorLastSentence" styleClass="text" text="If the issue continues, please contact support for further assistance."/>
+
+            <VBox>
+                <Button id="closeServerErrorPopupBtn" text="Close" onAction="#closeServerErrorPopup"/>
+            </VBox>
+        </VBox>
     </StackPane>
 </VBox>
