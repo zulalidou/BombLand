@@ -32,9 +32,9 @@
 
         <VBox fx:id="difficultySelectionPageContainer_bottom" alignment="CENTER">
             <VBox fx:id="difficultySelectionPageContainer_bottom_inner" alignment="CENTER">
-                <Button fx:id="easyDifficultyBtn" text="Easy (8 x 8)" onAction="#pickEasyDifficulty"/>
-                <Button fx:id="mediumDifficultyBtn" text="Medium (16 x 16)" onAction="#pickMediumDifficulty"/>
-                <Button fx:id="hardDifficultyBtn" text="Hard (32 x 16)" onAction="#pickHardDifficulty"/>
+                <Button fx:id="easyDifficultyBtn" text="Easy" onAction="#pickEasyDifficulty"/>
+                <Button fx:id="mediumDifficultyBtn" text="Medium" onAction="#pickMediumDifficulty"/>
+                <Button fx:id="hardDifficultyBtn" text="Hard" onAction="#pickHardDifficulty"/>
             </VBox>
         </VBox>
     </VBox>
