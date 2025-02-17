@@ -21,3 +21,44 @@
     -fx-cursor: hand;
     -fx-text-fill: red;
 }
+
+
+
+#mainMenuPage_stackpane {
+    -fx-background-color: green;
+}
+
+
+#serverCommunicationErrorPopup {
+    -fx-background-color: black;
+    -fx-padding: 10px;
+}
+
+#serverCommunicationErrorPopup_title {
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-text-fill: red;
+    -fx-pref-width: 500px;
+}
+
+.text {
+    -fx-wrap-text: true;
+    -fx-font-size: 16px;
+    -fx-text-fill: red;
+}
+
+#closeServerErrorPopupBtn {
+    -fx-pref-width: 480px;
+    -fx-pref-height: 40px;
+    -fx-background-radius: 20px;
+    -fx-background-color: red;
+    -fx-font-weight: bold;
+}
+
+#closeServerErrorPopupBtn:hover {
+    -fx-text-fill: black;
+}
+
+#serverErrorLastSentence {
+    -fx-padding: 12px 0 20px 0;
+}

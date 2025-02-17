@@ -7,23 +7,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
 import java.io.IOException;
-import java.util.Objects;
 
 public class MainController {
     private static MainController instance;
 
     @FXML
-    VBox mainMenuPage, mainMenuOptionsContainer;
+    VBox mainMenuPage, mainMenuOptionsContainer, serverCommunicationErrorPopup;
+
+    @FXML
+    StackPane mainMenuPage_stackpane;
 
     @FXML
     Text logoText_beforeO, logoText_afterO;
 
     @FXML
     Button playBtn, instructionsBtn, highScoresBtn, exitBtn;
+
+    @FXML
+    Label serverCommunicationErrorPopup_title;
 
 
     private MainController() {}
@@ -40,6 +47,11 @@ public class MainController {
     public void initialize() {
         // Prevents the width of the mainMenuOptionsContainer VBox from having the same width as its parent container (mainMenuPage)
         mainMenuPage.setFillWidth(false);
+
+        mainMenuPage_stackpane.styleProperty().bind(
+            Bindings.format("-fx-pref-width: %.2fpx; -fx-pref-height: %.2fpx;", Main.mainStage.widthProperty().multiply(0.75), Main.mainStage.heightProperty().multiply(0.6))
+        );
+
 
         mainMenuOptionsContainer.styleProperty().bind(
                 Bindings.format("-fx-pref-width: %.2fpx; -fx-pref-height: %.2fpx;", Main.mainStage.widthProperty().multiply(0.75), Main.mainStage.heightProperty().multiply(0.6))
@@ -113,5 +125,27 @@ public class MainController {
     @FXML
     private void closeApp() {
         Platform.exit();
+    }
+
+    public void displayServerErrorPopup() {
+        mainMenuOptionsContainer.setEffect(new GaussianBlur());
+        mainMenuOptionsContainer.setMouseTransparent(true);
+
+        serverCommunicationErrorPopup.setManaged(true);
+        serverCommunicationErrorPopup.setVisible(true);
+
+        serverCommunicationErrorPopup.setMaxWidth(500);
+        serverCommunicationErrorPopup.setMaxHeight(400);
+        serverCommunicationErrorPopup.setStyle("-fx-background-radius: 10px;");
+
+        serverCommunicationErrorPopup_title.setStyle("-fx-font-size: 25px;");
+    }
+
+    public void closeServerErrorPopup() {
+        serverCommunicationErrorPopup.setManaged(false);
+        serverCommunicationErrorPopup.setVisible(false);
+
+        mainMenuOptionsContainer.setEffect(null);
+        mainMenuOptionsContainer.setMouseTransparent(false);
     }
 }

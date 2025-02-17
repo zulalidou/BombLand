@@ -5,17 +5,28 @@ import java.util.ArrayList;
 
 public class APP_CACHE {
     private static APP_CACHE instance;
-    private boolean gettingData = false;
+    private boolean gettingData;
     private String identityPoolID;
     private ArrayList<JSONObject> EASY_HIGH_SCORES;
     private ArrayList<JSONObject> MEDIUM_HIGH_SCORES;
     private ArrayList<JSONObject> HARD_HIGH_SCORES;
     private String gameDifficulty;
     private String gameMap;
-    private String mapOfHighScoresBeingShown = "";
+    private String mapOfHighScoresBeingShown;
+    private boolean isServerConnectionGood;
 
 
-    private APP_CACHE() {}
+    private APP_CACHE() {
+        gettingData = false;
+        identityPoolID = "";
+        EASY_HIGH_SCORES = new ArrayList<>();
+        MEDIUM_HIGH_SCORES = new ArrayList<>();
+        HARD_HIGH_SCORES = new ArrayList<>();
+        gameDifficulty = "";
+        gameMap = "";
+        mapOfHighScoresBeingShown = "";
+        isServerConnectionGood = false;
+    }
 
     public static APP_CACHE getInstance() {
         if (instance == null) {
@@ -88,5 +99,13 @@ public class APP_CACHE {
         else {
             HARD_HIGH_SCORES = highScores;
         }
+    }
+
+    boolean serverConnectionIsGood() {
+        return isServerConnectionGood;
+    }
+
+    void setServerConnectionGood(boolean value) {
+        isServerConnectionGood = value;
     }
 }

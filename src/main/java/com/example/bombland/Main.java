@@ -18,6 +18,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Instant;
 import java.util.Objects;
 import java.net.http.HttpClient;
 
@@ -26,11 +27,10 @@ public class Main extends Application {
     static BOMBLAND_WebSocketClient socketClient = null;
 
     @Override
-    public void start(Stage stage) throws IOException, URISyntaxException {
+    public void start(Stage stage) throws IOException {
         mainStage = stage;
 
-        fetchData();
-        connectToWebSocketServer();
+        performBackgroundProcessing();
 
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/bombland/Images/bombsmall.png")));
         stage.getIcons().add(icon);
@@ -51,20 +51,31 @@ public class Main extends Application {
         launch();
     }
 
-    public void fetchData() {
-        Task<Void> fetchDataTask = new Task<>() {
+    public void performBackgroundProcessing() {
+        Task<Void> backgroundProcessingTask = new Task<>() {
             @Override
-            protected Void call() {
+            protected Void call() throws URISyntaxException {
+                connectToWebSocketServer();
+
+
                 APP_CACHE.getInstance().setGettingData(true);
+
                 getEnvironmentVariables();
-                DynamoDBClientUtil.getHighScores();
+
+                if (APP_CACHE.getInstance().serverConnectionIsGood()) {
+                    DynamoDBClientUtil.getHighScores();
+                }
+                else {
+                    MainController.getInstance().displayServerErrorPopup();
+                }
+
                 APP_CACHE.getInstance().setGettingData(false);
 
                 return null;
             }
         };
 
-        new Thread(fetchDataTask).start();
+        new Thread(backgroundProcessingTask).start();
     }
 
     public void connectToWebSocketServer() throws URISyntaxException {
@@ -87,8 +98,8 @@ public class Main extends Application {
             JSONObject environmentVarsObj = new JSONObject(response.body());
             APP_CACHE.getInstance().setIdentityPoolID(environmentVarsObj.getString("identityPoolID"));
         } catch (Exception e) {
-            System.out.println("\n\nUH OH. AN ERROR OCCURRED!");
-            e.printStackTrace();
+            System.out.println("\ngetEnvironmentVariables() -- ERROR!");
+            APP_CACHE.getInstance().setServerConnectionGood(false);
         }
     }
 
@@ -151,5 +162,9 @@ public class Main extends Application {
         Scene scene = new Scene(loader.load(), 1024, 768);
         stage.setScene(scene);
         stage.show();
+
+//        System.out.println("\n- width = " + Main.mainStage.widthProperty());
+//        System.out.println("- height = " + Main.mainStage.heightProperty());
+//        System.out.println("- stage = " + Main.mainStage);
     }
 }

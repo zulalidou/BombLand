@@ -45,8 +45,7 @@ public class BOMBLAND_WebSocketClient extends WebSocketClient {
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        System.out.println("\nonClose()\n");
-        System.out.println("WebSocket closed with code " + code + " and reason: " + reason);
+        System.out.println("\nonClose()");
 
         if (isConnected) {
             isConnected = false;
@@ -56,8 +55,8 @@ public class BOMBLAND_WebSocketClient extends WebSocketClient {
 
     @Override
     public void onError(Exception ex) {
-        System.out.println("\nonError()\n");
-        ex.printStackTrace();
+        System.out.println("\nonError()");
+        APP_CACHE.getInstance().setServerConnectionGood(false);
     }
 
     // Helper method to send a high score (or any message) to the server
@@ -76,7 +75,7 @@ public class BOMBLAND_WebSocketClient extends WebSocketClient {
 
     // Connect to the server
     public void connectClient() {
-        System.out.println("\nconnectClient()");
+        System.out.println("\nconnectClient() - start");
 
         if (!isConnected) {
             isConnected = true;

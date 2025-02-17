@@ -8,24 +8,49 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
 <VBox fx:id="mainMenuPage" xmlns:fx="http://javafx.com/fxml">
     <stylesheets>
         <URL value="@../CSS/main.css"/>
     </stylesheets>
 
-    <VBox fx:id="mainMenuOptionsContainer" spacing="20">
-        <HBox id="logoContainer">
-            <Text fx:id="logoText_beforeO" styleClass="logoText">B</Text>
-            <ImageView fitWidth="50" preserveRatio="true">
-                <Image url="/com/example/bombland/images/bomb.png"/>
-            </ImageView>
-            <Text fx:id="logoText_afterO" styleClass="logoText">MBLAND</Text>
-        </HBox>
+    <StackPane fx:id="mainMenuPage_stackpane">
+        <VBox fx:id="mainMenuOptionsContainer" spacing="20">
+            <HBox id="logoContainer">
+                <Text fx:id="logoText_beforeO" styleClass="logoText">B</Text>
+                <ImageView fitWidth="50" preserveRatio="true">
+                    <Image url="/com/example/bombland/images/bomb.png"/>
+                </ImageView>
+                <Text fx:id="logoText_afterO" styleClass="logoText">MBLAND</Text>
+            </HBox>
 
 
-        <Button fx:id="playBtn" text="Play" onAction="#openDifficultySelectionPage"/>
-        <Button fx:id="instructionsBtn" text="Instructions" onAction="#openInstructionsPage"/>
-        <Button fx:id="highScoresBtn" text="High Scores" onAction="#openHighScoresPage"/>
-        <Button fx:id="exitBtn" text="Exit" onAction="#closeApp"/>
-    </VBox>
+            <Button fx:id="playBtn" text="Play" onAction="#openDifficultySelectionPage"/>
+            <Button fx:id="instructionsBtn" text="Instructions" onAction="#openInstructionsPage"/>
+            <Button fx:id="highScoresBtn" text="High Scores" onAction="#openHighScoresPage"/>
+            <Button fx:id="exitBtn" text="Exit" onAction="#closeApp"/>
+        </VBox>
+
+
+        <VBox fx:id="serverCommunicationErrorPopup" managed="false" visible="false">
+            <Label fx:id="serverCommunicationErrorPopup_title" text="AN ERROR HAS OCCURRED"/>
+
+            <VBox alignment="CENTER">
+                <ImageView>
+                    <Image url="/com/example/bombland/images/error.png"/>
+                </ImageView>
+            </VBox>
+
+            <Label styleClass="text" text="An error occurred while communicating with the server. Please try the following to resolve the issue:"/>
+            <Label styleClass="text" text="- Check your internet connection to ensure you are connected."/>
+            <Label styleClass="text" text="- Restart the application if the problem presists."/>
+            <Label styleClass="text" text="- Try again later, as the issue may be temporary."/>
+            <Label id="serverErrorLastSentence" styleClass="text" text="If the issue continues, please contact support for further assistance."/>
+
+            <VBox>
+                <Button id="closeServerErrorPopupBtn" text="Close" onAction="#closeServerErrorPopup"/>
+            </VBox>
+        </VBox>
+    </StackPane>
 </VBox>
