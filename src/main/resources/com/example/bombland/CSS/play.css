@@ -117,7 +117,7 @@
     -fx-pref-width: 500px;
 }
 
-.text {
+.serverErrortext {
     -fx-wrap-text: true;
     -fx-font-size: 16px;
     -fx-text-fill: red;

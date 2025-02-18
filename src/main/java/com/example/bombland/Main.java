@@ -37,8 +37,7 @@ public class Main extends Application {
         stage.setTitle("BOMBLAND");
         stage.setResizable(false);
 
-//        showSplashScreen(stage);
-        showMainMenu(mainStage);
+        showSplashScreen(stage);
     }
 
     @Override

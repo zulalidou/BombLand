@@ -179,11 +179,6 @@ public class DynamoDBClientUtil {
     public static void saveNewHighScore(JSONObject info, String tableName) {
         Map<String, AttributeValue> newHighScoreInfo = getNewHighScoreInfo(info);
 
-        System.out.println("========================saveNewRecord()========================");
-        System.out.println(info);
-        System.out.println("========================saveNewRecord()========================\n");
-
-
         // The AWS credentials have expired
         if (awsCredentials == null || awsCredentials.expiration().isBefore(Instant.now())) {
             getTemporaryAWSCredentials();

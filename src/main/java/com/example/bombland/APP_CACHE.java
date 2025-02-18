@@ -25,7 +25,7 @@ public class APP_CACHE {
         gameDifficulty = "";
         gameMap = "";
         mapOfHighScoresBeingShown = "";
-        isServerConnectionGood = false;
+        isServerConnectionGood = true;
     }
 
     public static APP_CACHE getInstance() {

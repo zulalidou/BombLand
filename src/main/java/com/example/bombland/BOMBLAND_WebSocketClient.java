@@ -61,10 +61,6 @@ public class BOMBLAND_WebSocketClient extends WebSocketClient {
 
     // Helper method to send a high score (or any message) to the server
     public void sendHighScore(String score) {
-        System.out.println("\n===sendHighScore()===");
-        System.out.println("isConnected = " + isConnected);
-        System.out.println("getConnection().isOpen() = " + getConnection().isOpen() + "\n");
-
         if (isConnected && getConnection().isOpen()) {
             System.out.println("score: " + score);
             send(score); // creates a new thread
